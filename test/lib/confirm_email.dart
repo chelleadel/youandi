@@ -36,7 +36,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'an email as been sent\nto your registered\nemail! kindly verify\nbefore proceeding.',
+                    'an email has been sent\nto your registered\nemail! kindly verify\nbefore proceeding.',
                     style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
                   ),
                   SizedBox(height: 30),
@@ -69,7 +69,19 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 30),
+                  ElevatedButton(
+                      onPressed: () {
+                        print('digit: ' + _authenController.text);
+                      },
+                      child: Text('ok',
+                        style: TextStyle(fontSize: 16, color: Colors.black,),),
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(145, 50),
+                        primary: Colors.cyanAccent.shade100,
+                      )
+                  ),
+                  SizedBox(height: 20),
                   ElevatedButton(
                       onPressed: () {
                         print('digit: ' + _authenController.text);
@@ -82,7 +94,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
+                        primary: Colors.grey.shade400,
                       )
                   ),
                 ]
