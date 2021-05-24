@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:test/questionsmain.dart';
 import 'package:test/sign_up.dart';
 
 
@@ -73,6 +74,10 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                   ElevatedButton(
                       onPressed: () {
                         print('digit: ' + _authenController.text);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => QuestionsMain()),
+                        );
                       },
                       child: Text('ok',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
