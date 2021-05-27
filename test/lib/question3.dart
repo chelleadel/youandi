@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test/question2.dart';
+import 'package:test/chat.dart';
 
 class Question3 extends StatelessWidget {
 
@@ -28,10 +29,10 @@ class Question3 extends StatelessWidget {
                       SizedBox(height: 50),
                       ElevatedButton(
                           onPressed: () {
-                            /* Navigator.push(
+                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ()),
-                            );*/
+                              MaterialPageRoute(builder: (context) => Chat()),
+                            );
                           },
                           child: Text('durian',
                             style: TextStyle(
@@ -44,10 +45,10 @@ class Question3 extends StatelessWidget {
                       SizedBox(height: 30),
                       ElevatedButton(
                           onPressed: () {
-                            /*Navigator.push(
+                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ()),
-                            );*/
+                              MaterialPageRoute(builder: (context) => Chat()),
+                            );
                           },
                           child: Text('chicken rice',
                             style: TextStyle(
@@ -60,10 +61,10 @@ class Question3 extends StatelessWidget {
                       SizedBox(height: 30),
                       ElevatedButton(
                           onPressed: () {
-                            /* Navigator.push(
+                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ()),
-                            ); */
+                              MaterialPageRoute(builder: (context) => Chat()),
+                            );
                           },
                           child: Text('mala',
                             style: TextStyle(
@@ -76,10 +77,10 @@ class Question3 extends StatelessWidget {
                       SizedBox(height: 30),
                       ElevatedButton(
                           onPressed: () {
-                            /* Navigator.push(
+                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ()),
-                            ); */
+                              MaterialPageRoute(builder: (context) => Chat()),
+                            );
                           },
                           child: Text('fish soup',
                             style: TextStyle(
@@ -92,10 +93,10 @@ class Question3 extends StatelessWidget {
                       SizedBox(height: 30),
                       ElevatedButton(
                           onPressed: () {
-                            /* Navigator.push(
+                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ()),
-                            );*/
+                              MaterialPageRoute(builder: (context) => Chat()),
+                            );
                           },
                           child: Text('laksa',
                             style: TextStyle(
