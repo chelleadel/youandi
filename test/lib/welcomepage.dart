@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:test/sign_up.dart';
+import 'package:test/chat.dart';
 
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key? key}) : super(key: key);
@@ -54,6 +55,10 @@ class _WelcomePage extends State<WelcomePage> {
               ElevatedButton(
                   onPressed: () {
                     print('email: ' + _emailController.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Chat()),
+                    );
                   },
                   child: Text('log in',
                     style: TextStyle(fontSize: 16, color: Colors.black,),),
@@ -82,7 +87,6 @@ class _WelcomePage extends State<WelcomePage> {
             ]
         ),
       ),
-
     );
   }
 }

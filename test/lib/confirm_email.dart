@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:test/questionsmain.dart';
+import 'package:test/registration.dart';
 import 'package:test/sign_up.dart';
 
 
@@ -76,7 +76,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                         print('digit: ' + _authenController.text);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => QuestionsMain()),
+                          MaterialPageRoute(builder: (context) => Registration()),
                         );
                       },
                       child: Text('ok',
