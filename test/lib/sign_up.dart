@@ -31,6 +31,9 @@ class _SignUpPage extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final _formEmailKey = GlobalKey<FormState>();
+
     return Scaffold(
         body: Center(
             child: Column(
@@ -41,18 +44,31 @@ class _SignUpPage extends State<SignUpPage> {
                     style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
                   ),
                   SizedBox(height: 60),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email:',
-                        hintText: 'NUS email only (@u.nus.edu)',
-                        contentPadding: EdgeInsets.all(20.0),
-                      ),
-                    ),
+                  Form(
+                      key: _formEmailKey,
+                      child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 50.0),
+                          child: TextFormField(
+                            controller: _emailController,
+                            validator: (value) {
+                              if ((value == null) || (value.isEmpty)) {
+                                return "Email can't be empty";
+                              } else if (!(value.contains('@u.nus.edu'))) {
+                                return "NUS Email required";
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Email:',
+                              hintText: 'NUS Email Only (@u.nus.edu)',
+                              contentPadding: EdgeInsets.all(20.0),
+                            ),
+                          )
+                      )
                   ),
+                  SizedBox(height: 25),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: TextFormField(
@@ -65,6 +81,7 @@ class _SignUpPage extends State<SignUpPage> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 25),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: TextFormField(
@@ -81,10 +98,14 @@ class _SignUpPage extends State<SignUpPage> {
                   ElevatedButton(
                       onPressed: () {
                         print('email: ' + _emailController.text);
-                        Navigator.push(
+                        if ((_formEmailKey.currentState!.validate())) {
+                          Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Confirm_Email()),
-                        );},
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => ConfirmEmailPage(value: _emailController.text)),
+                          );
+                        }
+                        },
                       child: Text('next',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(

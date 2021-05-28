@@ -11,8 +11,10 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePage extends State<WelcomePage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
+
+  final _formEmailKey = GlobalKey<FormState>();
+  final _formPassKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,37 +30,56 @@ class _WelcomePage extends State<WelcomePage> {
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 130),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 50.0),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email:',
-                    contentPadding: EdgeInsets.all(20.0),
-                  ),
-                ),
+              Form(
+                key: _formEmailKey,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 50.0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if ((value == null) || (value.isEmpty)) {
+                        return "Email can't be empty";
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email:',
+                      contentPadding: EdgeInsets.all(20.0),
+                    ),
+                  )
+                )
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 50.0),
-                child: TextFormField(
-                  controller: _passController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password:',
-                    contentPadding: EdgeInsets.all(20.0),
-                  ),
-                ),
+              SizedBox(height: 25),
+              Form(
+                  key: _formPassKey,
+                  child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 50.0),
+                      child: TextFormField(
+                        validator: (value) {
+                          if ((value == null) || (value.isEmpty)) {
+                            return "Password can't be empty";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Password:',
+                          contentPadding: EdgeInsets.all(20.0),
+                        ),
+                      )
+                  )
               ),
               SizedBox(height: 30),
               ElevatedButton(
                   onPressed: () {
-                    print('email: ' + _emailController.text);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Chat()),
-                    );
+                    if ((_formPassKey.currentState!.validate()) && (_formEmailKey.currentState!.validate())) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Chat()),
+                      );
+                    }
                   },
                   child: Text('log in',
                     style: TextStyle(fontSize: 16, color: Colors.black,),),
@@ -90,3 +111,4 @@ class _WelcomePage extends State<WelcomePage> {
     );
   }
 }
+

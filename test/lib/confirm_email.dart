@@ -1,46 +1,64 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:flutter/gestures.dart';
 import 'package:test/registration.dart';
 import 'package:test/sign_up.dart';
 
 
-class Confirm_Email extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow.shade100,
-      ),
-      home: ConfirmEmailPage(),
-    );
-  }
-}
-
 class ConfirmEmailPage extends StatefulWidget {
-  ConfirmEmailPage({Key? key}) : super(key: key);
+
+  final String value;
+
+  ConfirmEmailPage({Key? key, required this.value}) : super(key: key);
 
   @override
-  State<ConfirmEmailPage> createState() => _ConfirmEmailPage();
+  State<ConfirmEmailPage> createState() => _ConfirmEmailPage(recipient: value);
 
 }
 
 class _ConfirmEmailPage extends State<ConfirmEmailPage> {
 
+  final String username = "youandi-main@outlook.com";
+
+  final smtpServer = hotmail("youandi-main@outlook.com","1605youandi1993");
+
+  final String recipient;
+  final String subject = "Please verify your account";
   final TextEditingController _authenController = TextEditingController();
+
+  // random number generator
+  int validate = 100000 + new Random().nextInt(999999 - 100000);
+
+  _ConfirmEmailPage({required this.recipient}) : super();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+    sendEmail();
+
+    return MaterialApp(
+        theme: ThemeData(
+        scaffoldBackgroundColor: Colors.yellow.shade100,
+    ),
+    home: Scaffold(
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'an email has been sent\nto your registered\nemail! kindly verify\nbefore proceeding.',
+                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 5),
+                  Text(
+                    "don't forget to check you spams!",
+                    style: TextStyle(fontSize: 28, fontFamily: 'BubblerOne'),
+                  ),
+                  SizedBox(height: 25),
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -52,7 +70,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                             style: TextStyle(color: Colors.black,
                               decoration: TextDecoration.underline,),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => print("resend"),
+                              ..onTap = () => sendEmail(),
                           )
                         ]
                     ),
@@ -74,10 +92,21 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                   ElevatedButton(
                       onPressed: () {
                         print('digit: ' + _authenController.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Registration()),
-                        );
+                        if (_authenController.text == this.validate.toString()) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Registration()),
+                          );
+                        } else {
+                          showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Incorrect Number! Try Again"),
+                            );
+                          });
+                        }
                       },
                       child: Text('ok',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
@@ -105,6 +134,29 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                 ]
             )
         )
+    )
     );
+
   }
+
+  void sendEmail() {
+    Message message = Message()
+      ..from = Address(this.username)
+      ..recipients.add(this.recipient)
+      ..subject = this.subject
+      ..text = validate.toString();
+
+    try {
+      final sendReport = send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+
+
+
 }
