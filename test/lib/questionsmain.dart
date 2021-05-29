@@ -14,13 +14,13 @@ class QuestionsMain extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        'questions',
+                        'Questions',
                         style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne', color: Colors.black,),
                     ),
                     SizedBox(height: 20),
                     RichText(
                       text: TextSpan(
-                        text: 'a series of questions will\n be asked to ',
+                        text: 'A series of questions will\n be asked to ',
                         style: TextStyle(fontSize: 30, fontFamily: 'BubblerOne', color: Colors.black,),
                           children: [
                             TextSpan(
@@ -38,7 +38,7 @@ class QuestionsMain extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => Question1()),
                           );
                         },
-                        child: Text('start',
+                        child: Text('Start',
                           style: TextStyle(fontSize: 16, color: Colors.black,),),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(145, 50),

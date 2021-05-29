@@ -35,6 +35,10 @@ class _ChatPage extends State<ChatPage> {
         backgroundColor: Colors.cyan,
         centerTitle: true,
         title: const Text("Chat"),
+        leading: GestureDetector(
+          onTap: () {},
+          child: Icon(Icons.menu),
+        ),
       ),
         body: Center(
             child: Column(
@@ -48,61 +52,7 @@ class _ChatPage extends State<ChatPage> {
                 ]
             )
         ),
-      bottomSheet: bottomSheet(),
     );
-
-  }
-
-  Widget bottomSheet() {
-    return Container(
-        //color: Colors.cyan,
-        height: 48.0,
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 20,
-        ),
-        child:
-        Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextButton.icon(
-                  onPressed: () {
-                  },
-                  icon: Icon(
-                      Icons.list,
-                      color: Colors.black,
-                  ),
-                  label: Text(
-                    "Chat",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Profile()),
-                    );
-                  },
-                  icon: Icon(
-                      Icons.account_circle,
-                      color: Colors.blue,
-                  ),
-                  label: Text(
-                      "Profile",
-                    style: TextStyle(
-                      color: Colors.blue
-                    ),
-                  ),
-                ),
-              ],
-            ),
-        );
   }
 
 }

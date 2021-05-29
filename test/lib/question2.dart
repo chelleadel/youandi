@@ -16,14 +16,14 @@ class Question2 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'question 2',
+                        'Question 2',
                         style: TextStyle(fontSize: 48,
                           fontFamily: 'BubblerOne',
                           color: Colors.black,),
                       ),
                       SizedBox(height: 20),
                       Text(
-                        'favorite singaporean food',
+                        'Favorite singaporean food',
                         style: TextStyle(fontSize: 20, color: Colors.black,),
                       ),
                       SizedBox(height: 50),
@@ -114,7 +114,7 @@ class Question2 extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Question1()),
                             );
                           },
-                          child: Text('back',
+                          child: Text('Back',
                             style: TextStyle(fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(145, 50),
