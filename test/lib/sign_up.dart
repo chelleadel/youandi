@@ -48,52 +48,65 @@ class _SignUpPage extends State<SignUpPage> {
                       key: _formEmailKey,
                       child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 50.0),
-                          child: TextFormField(
-                            controller: _emailController,
-                            validator: (value) {
-                              if ((value == null) || (value.isEmpty)) {
-                                return "Email can't be empty";
-                              } else if (!(value.contains('@u.nus.edu'))) {
-                                return "NUS Email required";
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Email:',
-                              hintText: 'NUS Email Only (@u.nus.edu)',
-                              contentPadding: EdgeInsets.all(20.0),
-                            ),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _emailController,
+                                validator: (value) {
+                                  if ((value == null) || (value.isEmpty)) {
+                                    return "Email can't be empty";
+                                  } else if (!(value.contains('@u.nus.edu'))) {
+                                    return "NUS Email required";
+                                  } else {
+                                    return null;
+                                  }
+                                  },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Email:',
+                                  hintText: 'NUS Email Only (@u.nus.edu)',
+                                  contentPadding: EdgeInsets.all(20.0),
+                                ),
+                              ),
+                              SizedBox(height: 25),
+                              TextFormField(
+                                controller: _pass1Controller,
+                                validator: (value) {
+                                  if ((value == null) || (value.isEmpty)) {
+                                    return "Password can't be empty";
+                                  }
+                                },
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Password:',
+                                  contentPadding: EdgeInsets.all(20.0),
+                                ),
+                              ),
+                              SizedBox(height: 25),
+                              TextFormField(
+                                controller: _pass2Controller,
+                                validator: (value) {
+                                  if ((value == null) || (value.isEmpty)) {
+                                    return "Confirm Password can't be empty";
+                                  } else if (value != _pass1Controller.text) {
+                                    return "Passwords are not the same";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Confirm Password:',
+                                  contentPadding: EdgeInsets.all(20.0),
+                                ),
+                              ),
+                            ]
                           )
                       )
                   ),
-                  SizedBox(height: 25),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: TextFormField(
-                      controller: _pass1Controller,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password:',
-                        contentPadding: EdgeInsets.all(20.0),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 25),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: TextFormField(
-                      controller: _pass2Controller,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Confirm Password:',
-                        contentPadding: EdgeInsets.all(20.0),
-                      ),
-                    ),
-                  ),
+
                   SizedBox(height: 30),
                   ElevatedButton(
                       onPressed: () {

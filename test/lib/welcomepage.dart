@@ -13,7 +13,6 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePage extends State<WelcomePage> {
 
   final _formEmailKey = GlobalKey<FormState>();
-  final _formPassKey = GlobalKey<FormState>();
 
 
   @override
@@ -34,47 +33,46 @@ class _WelcomePage extends State<WelcomePage> {
                 key: _formEmailKey,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 50.0),
-                  child: TextFormField(
-                    validator: (value) {
-                      if ((value == null) || (value.isEmpty)) {
-                        return "Email can't be empty";
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email:',
-                      contentPadding: EdgeInsets.all(20.0),
-                    ),
-                  )
-                )
-              ),
-              SizedBox(height: 25),
-              Form(
-                  key: _formPassKey,
-                  child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 50.0),
-                      child: TextFormField(
-                        validator: (value) {
-                          if ((value == null) || (value.isEmpty)) {
-                            return "Password can't be empty";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Password:',
-                          contentPadding: EdgeInsets.all(20.0),
+                  child: Column(
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if ((value == null) || (value.isEmpty)) {
+                              return "Email can't be empty";
+                            } else {
+                              return null;
+                            }
+                            },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email:',
+                            contentPadding: EdgeInsets.all(20.0),
+                          ),
                         ),
-                      )
-                  )
+                        SizedBox(height: 25),
+
+                        TextFormField(
+                          validator: (value) {
+                            if ((value == null) || (value.isEmpty)) {
+                              return "Password can't be empty";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Password:',
+                            contentPadding: EdgeInsets.all(20.0),
+                          ),
+                        )
+                  ]
+                )
+                )
               ),
               SizedBox(height: 30),
               ElevatedButton(
                   onPressed: () {
-                    if ((_formPassKey.currentState!.validate()) && (_formEmailKey.currentState!.validate())) {
+                    if (_formEmailKey.currentState!.validate()) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Chat()),
