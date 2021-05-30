@@ -27,13 +27,8 @@ class _ChatPage extends State<ChatPage> {
 
   List<ChatUsers> chatUsers = [
     ChatUsers("Brandon", "HAHAHAHA", "assets/Demo_Pic.jpg", "Now"),
-    ChatUsers("Daniel", "Wow u look amazing", "assets/Demo_Pic.jpg", "Yesterday"),
-    ChatUsers("Luoyi", "Take a look at team You&I! They are insanely good", "assets/Demo_Pic.jpg", "31 Mar"),
-    ChatUsers("Roy", "Busy! Call me in 20 mins", "assets/Demo_Pic.jpg", "28 Mar"),
-    ChatUsers("Rish", "Here's the meme", "assets/Demo_Pic.jpg", "23 Mar"),
-    ChatUsers("Seb", "will update you in evening", "assets/Demo_Pic.jpg", "17 Mar"),
-    ChatUsers("Kante", "Can you please share the file?", "assets/Demo_Pic.jpg", "24 Feb"),
-    ChatUsers("John Wick", "How are you?", "assets/Demo_Pic.jpg", "18 Feb"),
+    ChatUsers("Michelle", "Wow u look amazing", "assets/Demo_Pic.jpg", "Yesterday"),
+    ChatUsers("Advisor", "Take a look at team You&I! They are insanely good", "assets/Demo_Pic.jpg", "31 Mar"),
   ];
 
   final TextEditingController _emailController = TextEditingController();
@@ -49,8 +44,9 @@ class _ChatPage extends State<ChatPage> {
         title: const Text("Chat"),
       ),
         body: Center(
-            child: new SingleChildScrollView(
-                child:
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+                children: [
                 ListView.builder(
                   itemCount: chatUsers.length,
                   shrinkWrap: true,
@@ -65,7 +61,7 @@ class _ChatPage extends State<ChatPage> {
                       isMessageRead: (index == 0 || index == 3)?true:false,
                     );
                   },
-                ),
+                ),]
             )
         ),
     );
