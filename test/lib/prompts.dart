@@ -41,6 +41,7 @@ class _PromptsPage extends State<PromptsPage> {
       ),
         body: Center(
             child: new SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

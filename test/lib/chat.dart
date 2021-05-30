@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:test/profile.dart';
+import 'package:test/chatusers.dart';
+import 'package:test/chatdetail.dart';
 
 class Chat extends StatelessWidget {
 
@@ -24,6 +25,17 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPage extends State<ChatPage> {
 
+  List<ChatUsers> chatUsers = [
+    ChatUsers("Brandon", "HAHAHAHA", "assets/Demo_Pic.jpg", "Now"),
+    ChatUsers("Daniel", "Wow u look amazing", "assets/Demo_Pic.jpg", "Yesterday"),
+    ChatUsers("Luoyi", "Take a look at team You&I! They are insanely good", "assets/Demo_Pic.jpg", "31 Mar"),
+    ChatUsers("Roy", "Busy! Call me in 20 mins", "assets/Demo_Pic.jpg", "28 Mar"),
+    ChatUsers("Rish", "Here's the meme", "assets/Demo_Pic.jpg", "23 Mar"),
+    ChatUsers("Seb", "will update you in evening", "assets/Demo_Pic.jpg", "17 Mar"),
+    ChatUsers("Kante", "Can you please share the file?", "assets/Demo_Pic.jpg", "24 Feb"),
+    ChatUsers("John Wick", "How are you?", "assets/Demo_Pic.jpg", "18 Feb"),
+  ];
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pass1Controller = TextEditingController();
   final TextEditingController _pass2Controller = TextEditingController();
@@ -35,24 +47,84 @@ class _ChatPage extends State<ChatPage> {
         backgroundColor: Colors.cyan,
         centerTitle: true,
         title: const Text("Chat"),
-        leading: GestureDetector(
-          onTap: () {},
-          child: Icon(Icons.menu),
-        ),
       ),
         body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Chat here!',
-                    style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
-                  ),
-                  SizedBox(height: 60),
-                ]
+            child: new SingleChildScrollView(
+                child:
+                ListView.builder(
+                  itemCount: chatUsers.length,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(top: 16),
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index){
+                    return ConversationList(
+                      name: chatUsers[index].name,
+                      messageText: chatUsers[index].messageText,
+                      imageUrl: chatUsers[index].imageURL,
+                      time: chatUsers[index].time,
+                      isMessageRead: (index == 0 || index == 3)?true:false,
+                    );
+                  },
+                ),
             )
         ),
     );
   }
 
+}
+
+class ConversationList extends StatefulWidget{
+  String name = "en";
+  String messageText;
+  String imageUrl;
+  String time;
+  bool isMessageRead;
+  ConversationList({required this.name, required this.messageText, required this.imageUrl, required this.time, required this.isMessageRead});
+  @override
+  _ConversationListState createState() => _ConversationListState();
+}
+
+class _ConversationListState extends State<ConversationList> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return ChatDetailPage();
+        }));
+      },
+      child: Container(
+        padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(widget.imageUrl),
+                    maxRadius: 30,
+                  ),
+                  SizedBox(width: 16,),
+                  Expanded(
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(widget.name, style: TextStyle(fontSize: 16),),
+                          SizedBox(height: 6,),
+                          Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(widget.time,style: TextStyle(fontSize: 12,fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+          ],
+        ),
+      ),
+    );
+  }
 }
