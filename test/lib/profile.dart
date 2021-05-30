@@ -48,7 +48,7 @@ class _ProfilePage extends State<ProfilePage> {
       ),
         body: Center(
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 10,),
                   Container(
