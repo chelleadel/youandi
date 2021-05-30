@@ -42,7 +42,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'registration',
+                    'Registration',
                     style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
                   ),
                   SizedBox(height: 40),
@@ -57,7 +57,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       controller: _displayName,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Display Name',
+                        labelText: 'Display name',
                         contentPadding: EdgeInsets.all(20.0),
                       ),
                     ),
@@ -68,7 +68,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       controller: _displayName,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Self Description',
+                        labelText: 'Self description',
                         contentPadding: EdgeInsets.all(20.0),
                       ),
                     ),
@@ -92,7 +92,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                               });
                         };
                         },
-                      child: Text('next',
+                      child: Text('Next',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
@@ -116,7 +116,7 @@ class _RegistrationPage extends State<RegistrationPage> {
       child: Column(
         children: <Widget>[
           Text(
-              "choose Display Photo",
+              "Choose display photo",
             style: TextStyle(
               fontSize: 20.0,
             ),

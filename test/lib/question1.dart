@@ -15,14 +15,14 @@ class Question1 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'question 1',
+                        'Question 1',
                         style: TextStyle(fontSize: 48,
                           fontFamily: 'BubblerOne',
                           color: Colors.black,),
                       ),
                       SizedBox(height: 20),
                       Text(
-                        'favorite singaporean food?',
+                        'Favorite singaporean food?',
                         style: TextStyle(fontSize: 20,
                           color: Colors.black,),
                       ),

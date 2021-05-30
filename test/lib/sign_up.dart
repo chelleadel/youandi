@@ -40,7 +40,7 @@ class _SignUpPage extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'sign-up',
+                    'Sign-up',
                     style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
                   ),
                   SizedBox(height: 60),
@@ -110,7 +110,7 @@ class _SignUpPage extends State<SignUpPage> {
                   SizedBox(height: 30),
                   ElevatedButton(
                       onPressed: () {
-                        print('email: ' + _emailController.text);
+                        print('Email: ' + _emailController.text);
                         if ((_formEmailKey.currentState!.validate())) {
                           Navigator.push(
                             context,
@@ -119,7 +119,7 @@ class _SignUpPage extends State<SignUpPage> {
                           );
                         }
                         },
-                      child: Text('next',
+                      child: Text('Next',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
@@ -130,7 +130,7 @@ class _SignUpPage extends State<SignUpPage> {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                        text: "return to homepage?\n",
+                        text: "Return to homepage?\n",
                         style: TextStyle(color: Colors.black,),
                         children: [
                           TextSpan(

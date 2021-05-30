@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test/homepage.dart';
 import 'package:test/question2.dart';
-import 'package:test/chat.dart';
 
 class Question3 extends StatelessWidget {
 
@@ -16,14 +16,14 @@ class Question3 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'question 3',
+                        'Question 3',
                         style: TextStyle(fontSize: 48,
                           fontFamily: 'BubblerOne',
                           color: Colors.black,),
                       ),
                       SizedBox(height: 20),
                       Text(
-                        'favorite singaporean food',
+                        'Favorite singaporean food',
                         style: TextStyle(fontSize: 20, color: Colors.black,),
                       ),
                       SizedBox(height: 50),
@@ -31,7 +31,7 @@ class Question3 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Chat()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('durian',
@@ -47,7 +47,7 @@ class Question3 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Chat()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('chicken rice',
@@ -63,7 +63,7 @@ class Question3 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Chat()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('mala',
@@ -79,7 +79,7 @@ class Question3 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Chat()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('fish soup',
@@ -95,7 +95,7 @@ class Question3 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Chat()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('laksa',
@@ -114,7 +114,7 @@ class Question3 extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Question2()),
                             );
                           },
-                          child: Text('back',
+                          child: Text('Back',
                             style: TextStyle(fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(145, 50),

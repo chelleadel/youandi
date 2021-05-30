@@ -49,7 +49,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'an email has been sent\nto your registered\nemail! kindly verify\nbefore proceeding.',
+                    'An email has been sent\nto your registered\nemail! kindly verify\nbefore proceeding.',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
                   ),
@@ -108,7 +108,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                           });
                         }
                       },
-                      child: Text('ok',
+                      child: Text('Ok',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
@@ -124,7 +124,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                           MaterialPageRoute(builder: (context) => Sign_Up()),
                         );
                         },
-                      child: Text('back',
+                      child: Text('Back',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),

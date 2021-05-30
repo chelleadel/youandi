@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test/chat.dart';
+import 'package:test/prompts.dart';
 import 'package:test/questionsmain.dart';
 import 'package:test/welcomepage.dart';
 
@@ -49,7 +50,7 @@ class _ProfilePage extends State<ProfilePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: imageProfile(),
@@ -61,7 +62,7 @@ class _ProfilePage extends State<ProfilePage> {
                       controller: _displayName,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Change Display Name',
+                        labelText: 'Change display name',
                         contentPadding: EdgeInsets.all(20.0),
                       ),
                     ),
@@ -73,7 +74,7 @@ class _ProfilePage extends State<ProfilePage> {
                       controller: _selfDescription,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Change Self Description',
+                        labelText: 'Change self description',
                         contentPadding: EdgeInsets.all(20.0),
                       ),
                     ),
@@ -81,12 +82,9 @@ class _ProfilePage extends State<ProfilePage> {
                   SizedBox(height: 20,),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => QuestionsMain()),
-                        );
+                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
                         },
-                      child: Text('Update prompt',
+                      child: Text('View prompt',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
@@ -96,12 +94,27 @@ class _ProfilePage extends State<ProfilePage> {
                   SizedBox(height: 20,),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => WelcomePage()),
-                        );
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Details updated!"),
+                              );
+                            });
                       },
-                      child: Text('Log-out',
+                      child: Text('Update details',
+                        style: TextStyle(fontSize: 16, color: Colors.black,),),
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(145, 50),
+                        primary: Colors.cyanAccent.shade100,
+                      )
+                  ),
+                  SizedBox(height: 20,),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
+                      },
+                      child: Text('Log out',
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
@@ -111,63 +124,6 @@ class _ProfilePage extends State<ProfilePage> {
                 ]
             )
         ),
-      bottomSheet: bottomSheetForMain(),
-    );
-  }
-
-  Widget bottomSheetForMain() {
-    return Container(
-      //color: Colors.cyan,
-      height: 48.0,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
-      child:
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          TextButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Chat()),
-              );
-            },
-            icon: Icon(
-              Icons.list,
-              color: Colors.blue,
-            ),
-            label: Text(
-              "Chat",
-              style: TextStyle(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          TextButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Profile()),
-              );
-            },
-            icon: Icon(
-              Icons.account_circle,
-              color: Colors.black,
-            ),
-            label: Text(
-              "Profile",
-              style: TextStyle(
-                  color: Colors.black,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -223,7 +179,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget imageProfile() {
     return Stack(children: <Widget>[
       CircleAvatar(
-        radius: 80.0,
+        radius: 60.0,
         backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
         //AssetImage("assets/Demo_Pic.jpg") :
         //AssetImage("assets/Demo_Pic.jpg"),
@@ -242,7 +198,7 @@ class _ProfilePage extends State<ProfilePage> {
         child:
       Icon(Icons.camera_alt,
     color: Colors.cyanAccent,
-    size: 28.0,),
+    size: 20.0,),
         ),
       )
     ],);
