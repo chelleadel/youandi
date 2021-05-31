@@ -23,12 +23,12 @@ class _WelcomePage extends State<WelcomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('YOU&I',
-                    style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne')
+                    style: TextStyle(fontSize: 60, fontFamily: 'BubblerOne')
                 ),
                 Text('creating lifelong connections',
                   style: TextStyle(fontSize: 18),
                 ),
-                SizedBox(height: 130),
+                SizedBox(height: 125),
                 Form(
                     key: _formEmailKey,
                     child: Container(
@@ -69,7 +69,7 @@ class _WelcomePage extends State<WelcomePage> {
                         )
                     )
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 40),
                 ElevatedButton(
                     onPressed: () {
                       if (_formEmailKey.currentState!.validate()) {

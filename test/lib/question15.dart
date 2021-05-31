@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test/question1.dart';
-import 'package:test/question3.dart';
+import 'package:test/question2.dart';
 
-class Question2 extends StatelessWidget {
+class Question15 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,7 @@ class Question2 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'My perfect day',
-                        textAlign: TextAlign.center,
+                        'Pair me with',
                         style: TextStyle(fontSize: 48,
                           fontFamily: 'BubblerOne',
                           color: Colors.black,),
@@ -27,10 +26,10 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => Question2()),
                             );
                           },
-                          child: Text('chilling at home',
+                          child: Text('female',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -43,10 +42,10 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => Question2()),
                             );
                           },
-                          child: Text('go for a food trip',
+                          child: Text('male',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -59,42 +58,10 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => Question2()),
                             );
                           },
-                          child: Text('shopping day out',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
-                      ),
-                      SizedBox(height: 30),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Question3()),
-                            );
-                          },
-                          child: Text('visit tourist attractions',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
-                      ),
-                      SizedBox(height: 30),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Question3()),
-                            );
-                          },
-                          child: Text('do physical activities',
+                          child: Text('both',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
