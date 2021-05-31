@@ -24,12 +24,12 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: true ?
         BottomNavigationBar(
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: 'Chat'),
+            BottomNavigationBarItem(icon: Icon(Icons.message, size: 30), label: 'Chat'),
             BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: 'Profile'),
           ],
-          selectedItemColor: Colors.black,
+          selectedItemColor: Colors.cyan.shade800,
           elevation: 5.0,
-          unselectedItemColor: Colors.blueAccent,
+          unselectedItemColor: Colors.grey.shade600,
           currentIndex: selectedPage,
           backgroundColor: Colors.white,
           onTap: (index){

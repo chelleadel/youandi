@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow.shade100,
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: ProfilePage(),
     );
@@ -42,9 +42,15 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        centerTitle: true,
-        title: const Text("Profile"),
+        backgroundColor: Colors.white,
+        centerTitle: false,
+        title: Padding(
+            padding: EdgeInsets.only(left: 16, bottom: 5),
+            child: Text(
+              "Profile",
+              style: TextStyle(color: Colors.black, fontSize: 40, fontFamily: 'Arial', fontWeight: FontWeight.bold),
+            )
+        ),
       ),
         body: Center(
             child: Column(
@@ -55,7 +61,7 @@ class _ProfilePage extends State<ProfilePage> {
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: imageProfile(),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 40,),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: TextFormField(
@@ -79,7 +85,7 @@ class _ProfilePage extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 55,),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
@@ -88,7 +94,7 @@ class _ProfilePage extends State<ProfilePage> {
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
+                        primary: Colors.lightBlue.shade100,
                       )
                   ),
                   SizedBox(height: 20,),
@@ -106,7 +112,7 @@ class _ProfilePage extends State<ProfilePage> {
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
+                        primary: Colors.lightBlue.shade100,
                       )
                   ),
                   SizedBox(height: 20,),
@@ -118,7 +124,7 @@ class _ProfilePage extends State<ProfilePage> {
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
+                        primary: Colors.lightBlue.shade100,
                       )
                   ),
                 ]

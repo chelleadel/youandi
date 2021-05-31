@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/question15.dart';
 import 'package:test/question2.dart';
 
 class Question1 extends StatelessWidget {
@@ -15,15 +16,9 @@ class Question1 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Question 1',
+                        'I am looking for',
                         style: TextStyle(fontSize: 48,
                           fontFamily: 'BubblerOne',
-                          color: Colors.black,),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        'Favorite singaporean food?',
-                        style: TextStyle(fontSize: 20,
                           color: Colors.black,),
                       ),
                       SizedBox(height: 50),
@@ -31,10 +26,10 @@ class Question1 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question2()),
+                              MaterialPageRoute(builder: (context) => Question15()),
                             );
                           },
-                          child: Text('durian',
+                          child: Text('romantic relationship',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -47,10 +42,10 @@ class Question1 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question2()),
+                              MaterialPageRoute(builder: (context) => Question15()),
                             );
                           },
-                          child: Text('chicken rice',
+                          child: Text('friendship',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -63,42 +58,10 @@ class Question1 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question2()),
+                              MaterialPageRoute(builder: (context) => Question15()),
                             );
                           },
-                          child: Text('mala',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
-                      ),
-                      SizedBox(height: 30),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Question2()),
-                            );
-                          },
-                          child: Text('fish soup',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
-                      ),
-                      SizedBox(height: 30),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Question2()),
-                            );
-                          },
-                          child: Text('laksa',
+                          child: Text('both',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'dart:async';
 
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -32,12 +34,24 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
   // random number generator
   int validate = 100000 + new Random().nextInt(999999 - 100000);
 
+  // timer
+  int _start = 60;
+  Timer _timer = new Timer(Duration(seconds: 60), () {
+    print("done");
+  });
+
+
   _ConfirmEmailPage({required this.recipient}) : super();
 
   @override
   Widget build(BuildContext context) {
 
-    sendEmail();
+    if (_start == 60) {
+      sendEmail();
+      startTimer();
+    }
+
+
 
     return MaterialApp(
         theme: ThemeData(
@@ -58,7 +72,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                     "don't forget to check you spams!",
                     style: TextStyle(fontSize: 28, fontFamily: 'BubblerOne'),
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(height: 30),
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -70,7 +84,10 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                             style: TextStyle(color: Colors.black,
                               decoration: TextDecoration.underline,),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => sendEmail(),
+                              ..onTap = () => setState(() {
+                                _timer.cancel();
+                                _start = 60;
+                              })
                           )
                         ]
                     ),
@@ -88,7 +105,9 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 5),
+                  Text(_start.toString()),
+                  SizedBox(height: 25),
                   ElevatedButton(
                       onPressed: () {
                         print('digit: ' + _authenController.text);
@@ -139,6 +158,32 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
 
   }
 
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            print("repeat");
+            timer.cancel();
+            returnMainPage();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   void sendEmail() {
     Message message = Message()
       ..from = Address(this.username)
@@ -157,6 +202,29 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
     }
   }
 
+  void returnMainPage() {
 
+    AlertDialog alert = AlertDialog(
+      title: Text("Exceeded Time Limit"),
+      content: Text("Press the screen to return to Sign Up Page"),
+      actions: [
+      ],
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+    }).then((exit) {
+        _timer.cancel();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => Sign_Up()),
+        );
+      }
+    );
+  }
 
 }
+

@@ -12,7 +12,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Chat Detail"),
-          centerTitle: true,
+          backgroundColor: Colors.cyan.shade600,
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.report),
