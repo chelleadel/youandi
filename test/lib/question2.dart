@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test/question1.dart';
+import 'package:test/homepage.dart';
+import 'package:test/question15.dart';
 import 'package:test/question3.dart';
 
 class Question2 extends StatelessWidget {
@@ -27,7 +28,7 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('chilling at home',
@@ -43,7 +44,7 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('go for a food trip',
@@ -59,7 +60,7 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('shopping day out',
@@ -75,7 +76,7 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('visit tourist attractions',
@@ -91,7 +92,7 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question3()),
+                              MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           },
                           child: Text('do physical activities',
@@ -107,7 +108,7 @@ class Question2 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question1()),
+                              MaterialPageRoute(builder: (context) => Question3()),
                             );
                           },
                           child: Text('back',

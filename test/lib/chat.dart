@@ -31,10 +31,6 @@ class _ChatPage extends State<ChatPage> {
     ChatUsers("Advisor", "Take a look at team You&I! They are insanely good", "assets/Demo_Pic.jpg", "31 Mar"),
   ];
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pass1Controller = TextEditingController();
-  final TextEditingController _pass2Controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +41,12 @@ class _ChatPage extends State<ChatPage> {
           padding: EdgeInsets.only(left: 16, bottom: 5),
           child: Text(
             "Chats",
-            style: TextStyle(color: Colors.black, fontSize: 40, fontFamily: 'Arial', fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 40,
+                fontFamily: 'Arial',
+                fontWeight: FontWeight.bold
+            ),
           )
         ),
       ),
@@ -91,11 +92,21 @@ class _ConversationListState extends State<ConversationList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context){
-          return ChatDetailPage();
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return ChatDetailPage();
         }));
       },
       child: Container(
+        decoration: BoxDecoration(
+          color: widget.isMessageRead ? Colors.yellow.shade100 : Colors.transparent,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20.0),
+            bottomRight: Radius.circular(20.0),
+            topLeft: Radius.circular(20.0),
+            bottomLeft: Radius.circular(20.0),
+          )
+        ),
         padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
         child: Row(
           children: <Widget>[
@@ -113,9 +124,18 @@ class _ConversationListState extends State<ConversationList> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.name, style: TextStyle(fontSize: 16),),
+                          Text(
+                            widget.name,
+                            style: TextStyle(fontSize: 16),),
                           SizedBox(height: 6,),
-                          Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+                          Text(
+                            widget.messageText,
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey.shade600,
+                                fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -123,7 +143,24 @@ class _ConversationListState extends State<ConversationList> {
                 ],
               ),
             ),
-            Text(widget.time,style: TextStyle(fontSize: 12,fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+            Column(
+              children: [
+                Text(
+                  widget.time,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal
+                  ),
+                ),
+                SizedBox(height: 3),
+                widget.isMessageRead
+                    ? Icon(
+                  Icons.auto_awesome_rounded,
+                  color: Colors.yellow.shade800,
+                )
+                    : Text(''),
+              ]
+            ),
           ],
         ),
       ),

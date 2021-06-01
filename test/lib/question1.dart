@@ -29,7 +29,7 @@ class Question1 extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Question15()),
                             );
                           },
-                          child: Text('romantic relationship',
+                          child: Text('Romantic Relationship',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -45,7 +45,7 @@ class Question1 extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Question15()),
                             );
                           },
-                          child: Text('friendship',
+                          child: Text('Friendship',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -61,7 +61,7 @@ class Question1 extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => Question15()),
                             );
                           },
-                          child: Text('both',
+                          child: Text('Both',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(

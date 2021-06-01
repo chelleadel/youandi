@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.yellow.shade100,
       ),
       home: ProfilePage(),
     );
@@ -94,7 +94,7 @@ class _ProfilePage extends State<ProfilePage> {
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
-                        primary: Colors.lightBlue.shade100,
+                        primary: Colors.cyanAccent.shade100,
                       )
                   ),
                   SizedBox(height: 20,),
@@ -112,7 +112,7 @@ class _ProfilePage extends State<ProfilePage> {
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
-                        primary: Colors.lightBlue.shade100,
+                        primary: Colors.cyanAccent.shade100,
                       )
                   ),
                   SizedBox(height: 20,),
@@ -124,7 +124,7 @@ class _ProfilePage extends State<ProfilePage> {
                         style: TextStyle(fontSize: 16, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
-                        primary: Colors.lightBlue.shade100,
+                        primary: Colors.cyanAccent.shade100,
                       )
                   ),
                 ]

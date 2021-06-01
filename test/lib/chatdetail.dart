@@ -11,11 +11,23 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Chat Detail"),
-          backgroundColor: Colors.cyan.shade600,
+          iconTheme: IconThemeData(
+            color: Colors.cyan.shade800,
+          ),
+          centerTitle: false,
+          title: Text(
+              "Chat Details",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontFamily: 'Arial',
+                  fontWeight: FontWeight.bold
+              ),
+          ),
+          backgroundColor: Colors.white,
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.report),
+              icon: const Icon(Icons.report_problem_rounded),
               tooltip: 'Report user',
                 onPressed: () {
                   showDialog(
@@ -30,7 +42,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             ),
           ],
         ),
-        body: Container()
+      body: Container(),
     );
   }
 }

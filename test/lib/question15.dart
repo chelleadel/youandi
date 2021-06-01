@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/question1.dart';
 import 'package:test/question2.dart';
+import 'package:test/question3.dart';
 
 class Question15 extends StatelessWidget {
 
@@ -26,10 +27,10 @@ class Question15 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question2()),
+                              MaterialPageRoute(builder: (context) => Question3()),
                             );
                           },
-                          child: Text('female',
+                          child: Text('Female',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -42,10 +43,10 @@ class Question15 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question2()),
+                              MaterialPageRoute(builder: (context) => Question3()),
                             );
                           },
-                          child: Text('male',
+                          child: Text('Male',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
@@ -58,10 +59,10 @@ class Question15 extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Question2()),
+                              MaterialPageRoute(builder: (context) => Question3()),
                             );
                           },
-                          child: Text('both',
+                          child: Text('Both',
                             style: TextStyle(
                               fontSize: 16, color: Colors.black,),),
                           style: ElevatedButton.styleFrom(
