@@ -34,18 +34,37 @@ class _PromptsPage extends State<PromptsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        centerTitle: true,
-        title: const Text("Prompts Page"),
-      ),
+      /*appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: false,
+        title: Padding(
+            padding: EdgeInsets.only(left: 16, bottom: 5),
+            child: Text(
+              "Prompts Page",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontFamily: 'Arial',
+              ),
+            )
+        ),
+      ),*/
         body: Center(
             child: new SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 10,),
+                  SizedBox(height: 70),
+                  Text(
+                    "Prompt Page",
+                    style: TextStyle(
+                        fontSize: 60,
+                        fontFamily: 'BubblerOne',
+                        fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 50,),
                   Text(
                     'Question 1',
                     style: TextStyle(fontSize: 48,
@@ -116,14 +135,14 @@ class _PromptsPage extends State<PromptsPage> {
                           MaterialPageRoute(builder: (context) => QuestionsMain()),
                         );
                       },
-                      child: Text('Update prompt',
-                        style: TextStyle(fontSize: 16, color: Colors.black,),),
+                      child: Text('Update Prompt',
+                        style: TextStyle(fontSize: 14, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
                         primary: Colors.cyanAccent.shade100,
                       )
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(height: 30,),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -132,7 +151,7 @@ class _PromptsPage extends State<PromptsPage> {
                         );
                       },
                       child: Text('Back',
-                        style: TextStyle(fontSize: 16, color: Colors.black,),),
+                        style: TextStyle(fontSize: 14, color: Colors.black,),),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(145, 50),
                         primary: Colors.cyanAccent.shade100,
