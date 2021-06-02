@@ -34,37 +34,28 @@ class _PromptsPage extends State<PromptsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: false,
         title: Padding(
             padding: EdgeInsets.only(left: 16, bottom: 5),
             child: Text(
-              "Prompts Page",
+              "Prompts",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontFamily: 'Arial',
+                color: Colors.black,
+                fontSize: 30,
+                fontFamily: 'Arial',
+                fontWeight: FontWeight.bold,
               ),
             )
         ),
-      ),*/
+      ),
         body: Center(
             child: new SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 70),
-                  Text(
-                    "Prompt Page",
-                    style: TextStyle(
-                        fontSize: 60,
-                        fontFamily: 'BubblerOne',
-                        fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 50,),
                   Text(
                     'Question 1',
                     style: TextStyle(fontSize: 48,
