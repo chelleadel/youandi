@@ -30,10 +30,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePage extends State<ProfilePage> {
-  PickedFile _displayPicture = PickedFile('');
+  File _displayPicture = File("asset/Demo_Pic.jpg");
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
+  final _picker = ImagePicker();
 
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
@@ -174,11 +174,15 @@ class _ProfilePage extends State<ProfilePage> {
       );
   }
 
-  void takePhoto(ImageSource source) async {
+  Future takePhoto(ImageSource source) async {
     final pickedFile = await _picker.getImage(source: source);
+
     setState(() {
-      _displayPicture = pickedFile;
-      _displayPictureUpdated = true;
+      if (pickedFile != null) {
+        _displayPicture = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
     });
   }
 
@@ -189,7 +193,10 @@ class _ProfilePage extends State<ProfilePage> {
         backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
         //AssetImage("assets/Demo_Pic.jpg") :
         //AssetImage("assets/Demo_Pic.jpg"),
-        FileImage(File(_displayPicture.path)),
+        ///FileImage(File(_displayPicture.path)),
+        _displayPicture == null ?
+        FileImage(File("assets/Demo_Pic.jpg")) :
+        FileImage(File(_displayPicture.path))
       ),
       Positioned(
         bottom: 20.0,
