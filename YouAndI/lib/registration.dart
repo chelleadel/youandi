@@ -11,7 +11,7 @@ class Registration extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow.shade100,
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: RegistrationPage(),
     );
@@ -26,7 +26,11 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPage extends State<RegistrationPage> {
-  File _displayPicture = File("asset/Demo_Pic.jpg");
+  final _formNameKey = GlobalKey<FormState>();
+  final _formSelfDescriptionKey = GlobalKey<FormState>();
+
+  File _displayPicture = File("assets/Demo_Pic.jpg");
+  
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
   final _picker = ImagePicker();
@@ -51,25 +55,46 @@ class _RegistrationPage extends State<RegistrationPage> {
                     child: imageProfile(),
                   ),
                   SizedBox(height: 10),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: TextFormField(
-                      controller: _displayName,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Display name',
-                        contentPadding: EdgeInsets.all(20.0),
+                  Form(
+                    key: _formNameKey,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 50.0),
+                      child: TextFormField(
+                        validator: (value) {
+                          if ((value == null) || (value.isEmpty)) {
+                            return "Name can't be empty";
+                          } else {
+                            return null;
+                          }
+                        },
+                        controller: _displayName,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Display name',
+                          contentPadding: EdgeInsets.all(20.0),
+                        ),
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: TextFormField(
-                      controller: _selfDescription,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Self description',
-                        contentPadding: EdgeInsets.all(20.0),
+                  SizedBox(height: 10),
+                  Form(
+                    key: _formSelfDescriptionKey,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 50.0),
+                      child: TextFormField(
+                        validator: (value) {
+                          if ((value == null) || (value.isEmpty)) {
+                            return "Self description can't be empty";
+                          } else {
+                            return null;
+                          }
+                        },
+                        controller: _selfDescription,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Self description',
+                          contentPadding: EdgeInsets.all(20.0),
+                        ),
                       ),
                     ),
                   ),
@@ -77,11 +102,12 @@ class _RegistrationPage extends State<RegistrationPage> {
                   ElevatedButton(
                       onPressed: () {
                         if (_displayPictureUpdated == true) {
-                          print('Blank for now');
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => QuestionsMain()),
-                          );
+                          if (_formNameKey.currentState!.validate() && _formSelfDescriptionKey.currentState!.validate()) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => QuestionsMain()),
+                            );
+                          }
                         } else {
                           showDialog(
                               context: context,
@@ -147,11 +173,11 @@ class _RegistrationPage extends State<RegistrationPage> {
   }
 
   Future takePhoto(ImageSource source) async {
-    _displayPictureUpdated = true;
     final pickedFile = await _picker.getImage(source: source);
 
     setState(() {
       if (pickedFile != null) {
+        _displayPictureUpdated = true;
         _displayPicture = File(pickedFile.path);
       } else {
         print('No image selected.');
@@ -163,9 +189,8 @@ class _RegistrationPage extends State<RegistrationPage> {
     return Stack(children: <Widget>[
       CircleAvatar(
         radius: 80.0,
-        backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
-        //AssetImage("assets/Demo_Pic.jpg") :
-        //AssetImage("assets/Demo_Pic.jpg"),
+        backgroundImage: _displayPictureUpdated == false ?
+        FileImage(File("assets/Demo_Pic.jpg")) :
         FileImage(File(_displayPicture.path)),
       ),
       Positioned(
@@ -186,6 +211,5 @@ class _RegistrationPage extends State<RegistrationPage> {
       )
     ],);
   }
-
 
 }

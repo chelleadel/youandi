@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/homepage.dart';
 
 class ChatDetailPage extends StatefulWidget{
   @override
@@ -15,6 +16,13 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             color: Colors.cyan.shade800,
           ),
           centerTitle: false,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Chat Page',
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+            },
+          ),
           title: Text(
               "Chat Details",
               style: TextStyle(
@@ -42,7 +50,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             ),
           ],
         ),
-      body: Container(),
+        body: Container(),
+        bottomNavigationBar: null
     );
   }
 }
