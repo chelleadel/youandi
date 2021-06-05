@@ -43,7 +43,7 @@ class _ChatPage extends State<ChatPage> {
             "Chats",
             style: TextStyle(
                 color: Colors.black,
-                fontSize: 40,
+                fontSize: 35,
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold
             ),
@@ -91,12 +91,9 @@ class _ConversationListState extends State<ConversationList> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) {
-              return ChatDetailPage();
-        }));
-      },
+      onTap: () {
+        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => ChatDetailPage()));
+        },
       child: Container(
         decoration: BoxDecoration(
           color: widget.isMessageRead ? Colors.yellow.shade100 : Colors.transparent,

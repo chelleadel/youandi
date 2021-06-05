@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow.shade100,
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: ProfilePage(),
     );
@@ -30,10 +30,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePage extends State<ProfilePage> {
-  PickedFile _displayPicture = PickedFile('');
+  File _displayPicture = File("assets/Demo_Pic.jpg");
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
+  final _picker = ImagePicker();
 
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
@@ -48,7 +48,7 @@ class _ProfilePage extends State<ProfilePage> {
             padding: EdgeInsets.only(left: 16, bottom: 5),
             child: Text(
               "Profile",
-              style: TextStyle(color: Colors.black, fontSize: 40, fontFamily: 'Arial', fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black, fontSize: 35, fontFamily: 'Arial', fontWeight: FontWeight.bold),
             )
         ),
       ),
@@ -174,11 +174,15 @@ class _ProfilePage extends State<ProfilePage> {
       );
   }
 
-  void takePhoto(ImageSource source) async {
+  Future takePhoto(ImageSource source) async {
     final pickedFile = await _picker.getImage(source: source);
+
     setState(() {
-      _displayPicture = pickedFile;
-      _displayPictureUpdated = true;
+      if (pickedFile != null) {
+        _displayPicture = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
     });
   }
 
