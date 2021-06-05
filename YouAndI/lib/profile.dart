@@ -30,6 +30,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePage extends State<ProfilePage> {
+
   File _displayPicture = File("assets/Demo_Pic.jpg");
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
@@ -193,7 +194,10 @@ class _ProfilePage extends State<ProfilePage> {
         backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
         //AssetImage("assets/Demo_Pic.jpg") :
         //AssetImage("assets/Demo_Pic.jpg"),
-        FileImage(File(_displayPicture.path)),
+        ///FileImage(File(_displayPicture.path)),
+        _displayPicture == null ?
+        FileImage(File("assets/Demo_Pic.jpg")) :
+        FileImage(File(_displayPicture.path))
       ),
       Positioned(
         bottom: 20.0,
