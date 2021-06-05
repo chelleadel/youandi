@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "40353726683",
+    "project_id": "youandi-59e2d",
+    "storage_bucket": "youandi-59e2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40353726683:android:008f44fc2e4eba122d4cfe",
+        "android_client_info": {
+          "package_name": "com.example.YouAndI"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40353726683-g3hbmj1q7l4ddj796mq6lkmu6hos1o4o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHSAg4DAScNyEQvdqIXkggcR89a2dTiVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40353726683-g3hbmj1q7l4ddj796mq6lkmu6hos1o4o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
