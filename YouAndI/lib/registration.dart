@@ -26,10 +26,10 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPage extends State<RegistrationPage> {
-  PickedFile _displayPicture = PickedFile('');
+  File _displayPicture = File("asset/Demo_Pic.jpg");
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
+  final _picker = ImagePicker();
 
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
@@ -65,7 +65,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: TextFormField(
-                      controller: _displayName,
+                      controller: _selfDescription,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Self description',
@@ -146,11 +146,16 @@ class _RegistrationPage extends State<RegistrationPage> {
       );
   }
 
-  void takePhoto(ImageSource source) async {
+  Future takePhoto(ImageSource source) async {
+    _displayPictureUpdated = true;
     final pickedFile = await _picker.getImage(source: source);
+
     setState(() {
-      _displayPicture = pickedFile;
-      _displayPictureUpdated = true;
+      if (pickedFile != null) {
+        _displayPicture = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
     });
   }
 
