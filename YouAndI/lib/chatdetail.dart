@@ -13,10 +13,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(
-            color: Colors.cyan.shade800,
+            color: Colors.yellow[50],
           ),
           centerTitle: false,
           leading: IconButton(
+            color: Colors.black,
             icon: const Icon(Icons.arrow_back_rounded),
             tooltip: 'Chat Page',
             onPressed: () {
@@ -27,14 +28,15 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               "Chat Details",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 30,
+                  fontSize: 25,
                   fontFamily: 'Arial',
                   fontWeight: FontWeight.bold
               ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.yellow[50],
           actions: <Widget>[
             IconButton(
+              color: Colors.black,
               icon: const Icon(Icons.report_problem_rounded),
               tooltip: 'Report user',
                 onPressed: () {

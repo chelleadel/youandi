@@ -31,7 +31,7 @@ class _Question3 extends State<Question3> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow.shade100,
+        scaffoldBackgroundColor: Colors.yellow[50],
         ),
     home: Scaffold(
       body: Center(
@@ -72,34 +72,45 @@ class _Question3 extends State<Question3> {
             ),
             SizedBox(height: 30),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Question2()),
-                  );
-                },
-                child: Text('Ok',
-                  style: TextStyle(
-                    fontSize: 16, color: Colors.black,),),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(145, 50),
-                  primary: Colors.cyanAccent.shade100,
-                )
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Question2()),
+                );
+              },
+              child: Text('Next',
+                style: TextStyle(fontSize: 16, color: Colors.white,),),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                  fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        //side: BorderSide(color: Colors.black)
+                      )
+                  )
+              ),
             ),
-            SizedBox(height: 35),
+            SizedBox(height: 10),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Question15()),
-                  );
-                },
-                child: Text('Back',
-                  style: TextStyle(fontSize: 16, color: Colors.black,),),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(145, 50),
-                  primary: Colors.cyanAccent.shade100,
-                )
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Question15()),
+                );
+              },
+              child: Text('Back',
+                style: TextStyle(fontSize: 16, color: Colors.black,),),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                  fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        //side: BorderSide(color: Colors.black)
+                      )
+                  )
+              ),
             ),
 
           ],

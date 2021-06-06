@@ -6,7 +6,7 @@ class QuestionsMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.yellow.shade100,
+          scaffoldBackgroundColor: Colors.yellow[50],
         ),
         home: Scaffold(
             body: Center(
@@ -14,36 +14,35 @@ class QuestionsMain extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        'Questions',
-                        style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne', color: Colors.black,),
-                    ),
-                    SizedBox(height: 20),
-                    RichText(
-                      text: TextSpan(
-                        text: 'A series of questions will\n be asked to ',
-                        style: TextStyle(fontSize: 30, fontFamily: 'BubblerOne', color: Colors.black,),
-                          children: [
-                            TextSpan(
-                              text: 'find your\nperfect partner',
-                              style: TextStyle(fontSize: 30, fontFamily: 'BubblerOne', color: Colors.black, decoration: TextDecoration.underline,),
-                            )
-                          ]
-                      )
+                        'A series of questions will be asked to help find your perfect partner!',
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontFamily: 'BubblerOne',
+                          color: Colors.black,
+
+                        ),
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 60),
                     ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Question1()),
-                          );
-                        },
-                        child: Text('Start',
-                          style: TextStyle(fontSize: 16, color: Colors.black,),),
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(145, 50),
-                          primary: Colors.cyanAccent.shade100,
-                        )
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Question1()),
+                        );
+                      },
+                      child: Text('Next',
+                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                //side: BorderSide(color: Colors.black)
+                              )
+                          )
+                      ),
                     ),
                   ]
               )

@@ -11,7 +11,7 @@ class Registration extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.yellow[50],
       ),
       home: RegistrationPage(),
     );
@@ -36,10 +36,13 @@ class _RegistrationPage extends State<RegistrationPage> {
 
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
+  String dropdownValueGender = 'Choose';
+  String dropdownValueAge = 'Choose';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +56,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: imageProfile(),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Form(
                     key: _formNameKey,
                     child: Container(
@@ -97,15 +100,123 @@ class _RegistrationPage extends State<RegistrationPage> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 10,),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                    padding: const EdgeInsets.all(1.0),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black54)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 16,),
+                        Text(
+                          "Gender:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black54
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        DropdownButton<String>(
+                          value: dropdownValueGender,
+                          icon: const Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.black),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValueGender = newValue!;
+                            });
+                          },
+                          items: <String>['Choose', 'Male', 'Female']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                    padding: const EdgeInsets.all(1.0),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black54)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 16,),
+                        Text(
+                          "Age:",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black54
+                          ),
+                        ),
+                        SizedBox(width: 34,),
+                        DropdownButton<String>(
+                          value: dropdownValueAge,
+                          icon: const Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.black),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValueAge = newValue!;
+                            });
+                          },
+                          items: <String>['Choose', '15', '16', '17', '18', '19', '20', '21'
+                            , '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
+                            ,'32', '33', '34', '35']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 30),
                   ElevatedButton(
                       onPressed: () {
                         if (_displayPictureUpdated == true) {
-                          if (_formNameKey.currentState!.validate() && _formSelfDescriptionKey.currentState!.validate()) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => QuestionsMain()),
-                            );
+                          if (dropdownValueGender != "Choose") {
+                            if (dropdownValueAge != "Choose") {
+                              if (_formNameKey.currentState!.validate() &&
+                                  _formSelfDescriptionKey.currentState!
+                                      .validate()) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => QuestionsMain()),
+                                );
+                              }
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text("Please select your age"),
+                                    );
+                                  });
+                            }
+                          }
+                          else {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Please choose your gender"),
+                                  );
+                                });
                           }
                         } else {
                           showDialog(
@@ -118,11 +229,17 @@ class _RegistrationPage extends State<RegistrationPage> {
                         };
                         },
                       child: Text('Next',
-                        style: TextStyle(fontSize: 16, color: Colors.black,),),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
-                      )
+                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                //side: BorderSide(color: Colors.black)
+                              )
+                          )
+                      ),
                   )
                 ]
             )

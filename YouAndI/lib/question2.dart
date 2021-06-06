@@ -9,7 +9,7 @@ class Question2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.yellow.shade100,
+          scaffoldBackgroundColor: Colors.yellow[50],
         ),
         home: Scaffold(
             body: Center(
@@ -25,98 +25,129 @@ class Question2 extends StatelessWidget {
                       ),
                       SizedBox(height: 50),
                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                            );
-                          },
-                          child: Text('chilling at home',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
+                        child: Text('Chilling at home',
+                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                            );
-                          },
-                          child: Text('go for a food trip',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
+                        child: Text('Going for a food trip',
+                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                            );
-                          },
-                          child: Text('shopping day out',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
+                        child: Text('Going for shopping',
+                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                            );
-                          },
-                          child: Text('visit tourist attractions',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
+                        child: Text('Visiting tourist attractions',
+                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                            );
-                          },
-                          child: Text('do physical activities',
-                            style: TextStyle(
-                              fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(299, 48),
-                            primary: Colors.cyanAccent.shade100,
-                          )
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
+                        child: Text('Doing physical activities',
+                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
                       ),
-                      SizedBox(height: 35),
+                      SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Question3()),
-                            );
-                          },
-                          child: Text('back',
-                            style: TextStyle(fontSize: 16, color: Colors.black,),),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(145, 50),
-                            primary: Colors.cyanAccent.shade100,
-                          )
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Question3()),
+                          );
+                        },
+                        child: Text('Back',
+                          style: TextStyle(fontSize: 16, color: Colors.black,),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
                       ),
                     ]
                 )
