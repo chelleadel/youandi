@@ -55,7 +55,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
 
     return MaterialApp(
         theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow.shade100,
+        scaffoldBackgroundColor: Colors.yellow[50],
     ),
     home: Scaffold(
       resizeToAvoidBottomInset: false,
@@ -64,7 +64,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'An email has been sent\nto your registered\nemail! kindly verify\nbefore proceeding.',
+              'Enter the verification code which was sent to your registered email address',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 35, fontFamily: 'BubblerOne'),
             ),
@@ -72,26 +72,6 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
             Text(
               "don't forget to check you spams!",
               style: TextStyle(fontSize: 25, fontFamily: 'BubblerOne'),
-            ),
-            SizedBox(height: 30),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                  text: "Did not receive the email? Click\nhere to ",
-                  style: TextStyle(color: Colors.black,),
-                  children: [
-                    TextSpan(
-                        text: 'resend',
-                        style: TextStyle(color: Colors.black,
-                          decoration: TextDecoration.underline,),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => setState(() {
-                            _timer.cancel();
-                            _start = 60;
-                          })
-                    )
-                  ]
-              ),
             ),
             SizedBox(height: 60),
             Container(
@@ -108,7 +88,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
             ),
             SizedBox(height: 5),
             Text(_start.toString()),
-            SizedBox(height: 25),
+            SizedBox(height: 60),
             ElevatedButton(
                 onPressed: () {
                   print('digit: ' + _authenController.text);
@@ -129,27 +109,56 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                   }
                 },
                 child: Text('Ok',
-                  style: TextStyle(fontSize: 16, color: Colors.black,),),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(145, 50),
-                  primary: Colors.cyanAccent.shade100,
-                )
+                  style: TextStyle(fontSize: 16, color: Colors.white,),),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                    fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          //side: BorderSide(color: Colors.black)
+                        )
+                    )
+                ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 5),
             ElevatedButton(
-                onPressed: () {
-                  print('digit: ' + _authenController.text);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Sign_Up()),
-                  );
-                },
-                child: Text('Back',
-                  style: TextStyle(fontSize: 16, color: Colors.black,),),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(145, 50),
-                  primary: Colors.grey.shade400,
-                )
+              onPressed: () {
+                setState(() {
+                  _timer.cancel();
+                  _start = 60;
+                });
+              },
+              child: Text('Resend code',
+                style: TextStyle(fontSize: 16, color: Colors.black,),),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                  fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        //side: BorderSide(color: Colors.black)
+                      )
+                  )
+              ),
+            ),
+            SizedBox(height: 5),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Sign_Up()));
+              },
+              child: Text('Back',
+                style: TextStyle(fontSize: 16, color: Colors.black,),),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                  fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        //side: BorderSide(color: Colors.black)
+                      )
+                  )
+              ),
             ),
           ]
       ),
@@ -221,7 +230,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => Sign_Up()),
+              builder: (BuildContext context) => Registration()),
         );
       }
     );

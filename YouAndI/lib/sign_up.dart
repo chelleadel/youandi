@@ -9,7 +9,7 @@ class Sign_Up extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow.shade100,
+        scaffoldBackgroundColor: Colors.yellow[50],
       ),
       home: SignUpPage(),
     );
@@ -35,6 +35,7 @@ class _SignUpPage extends State<SignUpPage> {
     final _formEmailKey = GlobalKey<FormState>();
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -120,29 +121,39 @@ class _SignUpPage extends State<SignUpPage> {
                         }
                         },
                       child: Text('Next',
-                        style: TextStyle(fontSize: 16, color: Colors.black,),),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
-                      )
+                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                //side: BorderSide(color: Colors.black)
+                              )
+                          )
+                      ),
                   ),
                   SizedBox(height: 10),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        text: "Return to homepage?\n",
-                        style: TextStyle(color: Colors.black,),
-                        children: [
-                          TextSpan(
-                            text: 'back',
-                            style: TextStyle(color: Colors.black,
-                              decoration: TextDecoration.underline,),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => WelcomePage())),
-                          )
-                        ]
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => WelcomePage()),
+                      );
+                    },
+                    child: Text('Back',
+                      style: TextStyle(fontSize: 16, color: Colors.black,),),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                        fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              //side: BorderSide(color: Colors.black)
+                            )
+                        )
                     ),
-                  )
+                  ),
 
                 ]
             )

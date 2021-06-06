@@ -9,7 +9,7 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.yellow[50],
       ),
       home: ChatPage(),
     );
@@ -35,7 +35,7 @@ class _ChatPage extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.yellow[50],
         centerTitle: false,
         title: Padding(
           padding: EdgeInsets.only(left: 16, bottom: 5),
@@ -43,7 +43,7 @@ class _ChatPage extends State<ChatPage> {
             "Chats",
             style: TextStyle(
                 color: Colors.black,
-                fontSize: 35,
+                fontSize: 25,
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold
             ),

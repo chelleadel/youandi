@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.yellow[50],
       ),
       home: ProfilePage(),
     );
@@ -43,13 +43,13 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.yellow[50],
         centerTitle: false,
         title: Padding(
             padding: EdgeInsets.only(left: 16, bottom: 5),
             child: Text(
               "Profile",
-              style: TextStyle(color: Colors.black, fontSize: 35, fontFamily: 'Arial', fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black, fontSize: 25, fontFamily: 'Arial', fontWeight: FontWeight.bold),
             )
         ),
       ),
@@ -92,13 +92,19 @@ class _ProfilePage extends State<ProfilePage> {
                         Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
                         },
                       child: Text('View prompt',
-                        style: TextStyle(fontSize: 16, color: Colors.black,),),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
-                      )
+                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                //side: BorderSide(color: Colors.black)
+                              )
+                          )
+                      ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 5,),
                   ElevatedButton(
                       onPressed: () {
                         showDialog(
@@ -110,23 +116,35 @@ class _ProfilePage extends State<ProfilePage> {
                             });
                       },
                       child: Text('Update details',
-                        style: TextStyle(fontSize: 16, color: Colors.black,),),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
-                      )
+                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                //side: BorderSide(color: Colors.black)
+                              )
+                          )
+                      ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 5,),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
                       },
                       child: Text('Log out',
-                        style: TextStyle(fontSize: 16, color: Colors.black,),),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(145, 50),
-                        primary: Colors.cyanAccent.shade100,
-                      )
+                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              //side: BorderSide(color: Colors.black)
+                            )
+                          )
+                      ),
                   ),
                 ]
             )

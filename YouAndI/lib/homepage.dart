@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.yellow[50],
         body: _pageOptions[selectedPage],
         bottomNavigationBar: true ?
         BottomNavigationBar(
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 5.0,
           unselectedItemColor: Colors.grey.shade600,
           currentIndex: selectedPage,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.yellow[50],
           onTap: (index){
             setState(() {
               selectedPage = index;

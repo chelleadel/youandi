@@ -1,7 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:test/homepage.dart';
 import 'package:test/sign_up.dart';
+import 'package:test/test.dart';
 
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class _WelcomePage extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -80,29 +81,60 @@ class _WelcomePage extends State<WelcomePage> {
                       }
                     },
                     child: Text('Log in',
-                      style: TextStyle(fontSize: 16, color: Colors.black,),),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(145, 50),
-                      primary: Colors.cyanAccent.shade100,
-                    )
+                      style: TextStyle(fontSize: 16, color: Colors.white,),),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                        fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              //side: BorderSide(color: Colors.black)
+                            )
+                        )
+                    ),
                 ),
                 SizedBox(height: 10),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: "Don't have an\naccount? Sign in ",
-                      style: TextStyle(color: Colors.black,),
-                      children: [
-                        TextSpan(
-                          text: 'here',
-                          style: TextStyle(color: Colors.black,
-                            decoration: TextDecoration.underline,),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Sign_Up())),
-                        )
-                      ]
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Sign_Up()),
+                    );
+                  },
+                  child: Text('Sign up',
+                    style: TextStyle(fontSize: 16, color: Colors.black,),),
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                      fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            //side: BorderSide(color: Colors.black)
+                          )
+                      )
                   ),
-                )
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Test()),
+                    );
+                  },
+                  child: Text('Test site',
+                    style: TextStyle(fontSize: 16, color: Colors.black,),),
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                      fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            //side: BorderSide(color: Colors.black)
+                          )
+                      )
+                  ),
+                ),
               ]
           ),
       ),
