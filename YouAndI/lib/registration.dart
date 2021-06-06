@@ -30,6 +30,7 @@ class _RegistrationPage extends State<RegistrationPage> {
   final _formSelfDescriptionKey = GlobalKey<FormState>();
 
   File _displayPicture = File("assets/Demo_Pic.jpg");
+  
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
   final _picker = ImagePicker();
