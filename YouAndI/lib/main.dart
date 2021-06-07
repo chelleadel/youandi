@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/constants.dart';
 import 'package:test/welcomepage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow[50],
+        scaffoldBackgroundColor: Constants.BG_BASE,
       ),
       home: FutureBuilder(
         future: _fpApp,

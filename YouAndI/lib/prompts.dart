@@ -7,6 +7,7 @@ import 'package:test/question1.dart';
 import 'package:test/question2.dart';
 import 'package:test/question3.dart';
 import 'package:test/questionsmain.dart';
+import 'package:test/constants.dart';
 
 
 class Prompts extends StatelessWidget {
@@ -15,7 +16,7 @@ class Prompts extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow[50],
+        scaffoldBackgroundColor: Constants.BG_BASE,
       ),
       home: PromptsPage(),
     );
@@ -129,11 +130,11 @@ class _PromptsPage extends State<PromptsPage> {
                     child: Text('Update prompts',
                       style: TextStyle(fontSize: 16, color: Colors.white,),),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                        fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                        backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                        fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                              borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                               //side: BorderSide(color: Colors.black)
                             )
                         )
@@ -148,14 +149,18 @@ class _PromptsPage extends State<PromptsPage> {
                       );
                     },
                     child: Text('Back',
-                      style: TextStyle(fontSize: 16, color: Colors.black,),),
+                      style: TextStyle(
+                          fontSize: Constants.BUTTON_FONT_SIZE,
+                          color: Colors.black,
+                          fontFamily: Constants.BUTTON_FONT,
+                      ),),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
-                        fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                        backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                        fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              //side: BorderSide(color: Colors.black)
+                              borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                              side: BorderSide(color: Colors.black)
                             )
                         )
                     ),

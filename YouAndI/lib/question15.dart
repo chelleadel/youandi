@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/question1.dart';
 import 'package:test/question2.dart';
+import 'package:test/constants.dart';
 import 'package:test/question3.dart';
 
 class Question15 extends StatelessWidget {
@@ -9,7 +10,7 @@ class Question15 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.yellow[50],
+          scaffoldBackgroundColor: Constants.BG_BASE,
         ),
         home: Scaffold(
             body: Center(
@@ -18,9 +19,12 @@ class Question15 extends StatelessWidget {
                     children: [
                       Text(
                         'Pair me with',
-                        style: TextStyle(fontSize: 48,
-                          fontFamily: 'BubblerOne',
-                          color: Colors.black,),
+                        style: TextStyle(
+                          fontSize: Constants.TITLE_SIZE,
+                          fontFamily: Constants.FONT_BASE,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(height: 50),
                       ElevatedButton(
@@ -31,13 +35,18 @@ class Question15 extends StatelessWidget {
                           );
                         },
                         child: Text('Female',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.white,
+                              fontFamily: Constants.BUTTON_FONT
+                          ),
+                        ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -52,13 +61,17 @@ class Question15 extends StatelessWidget {
                           );
                         },
                         child: Text('Male',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.white,
+                              fontFamily: Constants.BUTTON_FONT)
+                          ,),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -73,13 +86,18 @@ class Question15 extends StatelessWidget {
                           );
                         },
                         child: Text('Both',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.white,
+                              fontFamily: Constants.BUTTON_FONT
+                          ),
+                        ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -93,15 +111,20 @@ class Question15 extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => Question1()),
                           );
                         },
-                        child: Text('Next',
-                          style: TextStyle(fontSize: 16, color: Colors.black,),),
+                        child: Text('Back',
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.black,
+                              fontFamily: Constants.BUTTON_FONT
+                          ),
+                        ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  //side: BorderSide(color: Colors.black)
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),

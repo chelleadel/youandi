@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test/confirm_email.dart';
+import 'package:test/constants.dart';
 import 'package:test/welcomepage.dart';
 import 'package:flutter/gestures.dart';
 
@@ -9,7 +10,7 @@ class Sign_Up extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow[50],
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: SignUpPage(),
     );
@@ -41,10 +42,14 @@ class _SignUpPage extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Sign-up',
-                    style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
+                    'Sign Up',
+                    style: TextStyle(
+                        fontSize: Constants.TITLE_SIZE,
+                        fontFamily: Constants.FONT_BASE,
+                        fontWeight: FontWeight.bold
+                    ),
                   ),
-                  SizedBox(height: 60),
+                  SizedBox(height: 40),
                   Form(
                       key: _formEmailKey,
                       child: Container(
@@ -63,13 +68,14 @@ class _SignUpPage extends State<SignUpPage> {
                                   }
                                   },
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Email:',
+                                  border: UnderlineInputBorder(),
+                                  labelText: 'Email',
+                                  labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
                                   hintText: 'NUS Email Only (@u.nus.edu)',
                                   contentPadding: EdgeInsets.all(20.0),
                                 ),
                               ),
-                              SizedBox(height: 25),
+                              SizedBox(height: 10),
                               TextFormField(
                                 controller: _pass1Controller,
                                 validator: (value) {
@@ -79,12 +85,13 @@ class _SignUpPage extends State<SignUpPage> {
                                 },
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Password:',
+                                  border: UnderlineInputBorder(),
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
                                   contentPadding: EdgeInsets.all(20.0),
                                 ),
                               ),
-                              SizedBox(height: 25),
+                              SizedBox(height: 10),
                               TextFormField(
                                 controller: _pass2Controller,
                                 validator: (value) {
@@ -98,8 +105,9 @@ class _SignUpPage extends State<SignUpPage> {
                                 },
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Confirm Password:',
+                                  border: UnderlineInputBorder(),
+                                  labelText: 'Confirm Password',
+                                  labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
                                   contentPadding: EdgeInsets.all(20.0),
                                 ),
                               ),
@@ -108,7 +116,7 @@ class _SignUpPage extends State<SignUpPage> {
                       )
                   ),
 
-                  SizedBox(height: 30),
+                  SizedBox(height: 45),
                   ElevatedButton(
                       onPressed: () {
                         print('Email: ' + _emailController.text);
@@ -120,14 +128,18 @@ class _SignUpPage extends State<SignUpPage> {
                           );
                         }
                         },
-                      child: Text('Next',
-                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      child: Text('Continue',
+                        style: TextStyle(
+                          fontSize: Constants.BUTTON_FONT_SIZE,
+                          color: Colors.white,
+                          fontFamily: Constants.BUTTON_FONT,
+                        ),),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
+                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                 //side: BorderSide(color: Colors.black)
                               )
                           )
@@ -142,14 +154,19 @@ class _SignUpPage extends State<SignUpPage> {
                       );
                     },
                     child: Text('Back',
-                      style: TextStyle(fontSize: 16, color: Colors.black,),),
+                      style: TextStyle(
+                        fontSize: Constants.BUTTON_FONT_SIZE,
+                        color: Colors.black,
+                        fontFamily: Constants.BUTTON_FONT,
+                      ),
+                    ),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
-                        fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                        backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                        fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              //side: BorderSide(color: Colors.black)
+                              borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                              side: BorderSide(color: Colors.black)
                             )
                         )
                     ),

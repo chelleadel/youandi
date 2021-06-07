@@ -1,0 +1,4 @@
+#Wed Jun 02 16:11:14 SGT 2021
+base.0=/Users/mich/youandi/test/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

@@ -7,6 +7,7 @@ import 'package:test/chat.dart';
 import 'package:test/prompts.dart';
 import 'package:test/questionsmain.dart';
 import 'package:test/welcomepage.dart';
+import 'package:test/constants.dart';
 
 
 class Profile extends StatelessWidget {
@@ -15,7 +16,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow[50],
+        scaffoldBackgroundColor: Constants.BG_BASE,
       ),
       home: ProfilePage(),
     );
@@ -43,7 +44,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow[50],
+        backgroundColor: Colors.yellow.shade50,
         centerTitle: false,
         title: Padding(
             padding: EdgeInsets.only(left: 16, bottom: 5),
@@ -92,13 +93,17 @@ class _ProfilePage extends State<ProfilePage> {
                         Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
                         },
                       child: Text('View prompt',
-                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.white,
+                            fontFamily: Constants.BUTTON_FONT
+                        ),),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
+                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                 //side: BorderSide(color: Colors.black)
                               )
                           )
@@ -116,13 +121,15 @@ class _ProfilePage extends State<ProfilePage> {
                             });
                       },
                       child: Text('Update details',
-                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: TextStyle(fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.white,
+                            fontFamily: Constants.BUTTON_FONT),),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
+                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                 //side: BorderSide(color: Colors.black)
                               )
                           )
@@ -134,14 +141,18 @@ class _ProfilePage extends State<ProfilePage> {
                         Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
                       },
                       child: Text('Log out',
-                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.black,
+                            fontFamily: Constants.BUTTON_FONT
+                        ),),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              //side: BorderSide(color: Colors.black)
+                              borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                              side: BorderSide(color: Colors.black)
                             )
                           )
                       ),
@@ -209,13 +220,13 @@ class _ProfilePage extends State<ProfilePage> {
     return Stack(children: <Widget>[
       CircleAvatar(
         radius: 60.0,
-        backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
+        // backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
         //AssetImage("assets/Demo_Pic.jpg") :
         //AssetImage("assets/Demo_Pic.jpg"),
         ///FileImage(File(_displayPicture.path)),
-        _displayPicture == null ?
-        FileImage(File("assets/Demo_Pic.jpg")) :
-        FileImage(File(_displayPicture.path))
+        // _displayPicture == null ?
+        // FileImage(File("assets/Demo_Pic.jpg")) :
+        // FileImage(File(_displayPicture.path))
       ),
       Positioned(
         bottom: 20.0,

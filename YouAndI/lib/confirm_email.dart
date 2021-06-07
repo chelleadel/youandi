@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:flutter/gestures.dart';
+import 'package:test/constants.dart';
 import 'package:test/registration.dart';
 import 'package:test/sign_up.dart';
 
@@ -55,7 +56,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
 
     return MaterialApp(
         theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow[50],
+        scaffoldBackgroundColor: Colors.white,
     ),
     home: Scaffold(
       resizeToAvoidBottomInset: false,
@@ -66,12 +67,16 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
             Text(
               'Enter the verification code which was sent to your registered email address',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 35, fontFamily: 'BubblerOne'),
+              style: TextStyle(
+                  fontSize: Constants.TITLE_SIZE,
+                  fontFamily: Constants.FONT_BASE),
             ),
             SizedBox(height: 5),
             Text(
               "don't forget to check you spams!",
-              style: TextStyle(fontSize: 25, fontFamily: 'BubblerOne'),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontFamily: Constants.FONT_BASE),
             ),
             SizedBox(height: 60),
             Container(
@@ -80,19 +85,21 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                 controller: _authenController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: '6 Digit Verification:',
+                  border: UnderlineInputBorder(),
+                  labelText: '6 Digit Verification',
+                  labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
                   contentPadding: EdgeInsets.all(20.0),
                 ),
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             Text(_start.toString()),
             SizedBox(height: 60),
             ElevatedButton(
                 onPressed: () {
                   print('digit: ' + _authenController.text);
                   if (_authenController.text == this.validate.toString()) {
+                    _timer.cancel();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -108,20 +115,24 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                         });
                   }
                 },
-                child: Text('Ok',
-                  style: TextStyle(fontSize: 16, color: Colors.white,),),
+                child: Text('Continue',
+                  style: TextStyle(
+                    fontSize: Constants.BUTTON_FONT_SIZE,
+                    color: Colors.white,
+                    fontFamily: Constants.BUTTON_FONT
+                  ),),
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                    fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                    backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                    fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
+                          borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                           //side: BorderSide(color: Colors.black)
                         )
                     )
                 ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -129,32 +140,42 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                   _start = 60;
                 });
               },
-              child: Text('Resend code',
-                style: TextStyle(fontSize: 16, color: Colors.black,),),
+              child: Text('Resend',
+                style: TextStyle(
+                  fontSize: Constants.BUTTON_FONT_SIZE,
+                  color: Colors.black,
+                  fontFamily: Constants.BUTTON_FONT
+                ),),
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
-                  fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                  backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                  fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        //side: BorderSide(color: Colors.black)
+                        borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                        side: BorderSide(color: Colors.black)
                       )
                   )
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Sign_Up()));
               },
               child: Text('Back',
-                style: TextStyle(fontSize: 16, color: Colors.black,),),
+                style: TextStyle(
+                  fontSize: Constants.BUTTON_FONT_SIZE,
+                  color: Colors.black,
+                  fontFamily: Constants.BUTTON_FONT,
+                ),
+              ),
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
-                  fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                  backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                  fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
+                        borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                        side: BorderSide(color: Colors.black)
                         //side: BorderSide(color: Colors.black)
                       )
                   )
@@ -230,7 +251,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => Registration()),
+              builder: (BuildContext context) => SignUpPage()),
         );
       }
     );

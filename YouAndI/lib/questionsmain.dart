@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/constants.dart';
 import 'package:test/question1.dart';
 
 class QuestionsMain extends StatelessWidget {
@@ -6,7 +7,7 @@ class QuestionsMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.yellow[50],
+          scaffoldBackgroundColor: Colors.white,
         ),
         home: Scaffold(
             body: Center(
@@ -14,11 +15,12 @@ class QuestionsMain extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        'A series of questions will be asked to help find your perfect partner!',
+                        'Tell me about\nyourself',
                         style: TextStyle(
-                          fontSize: 40,
-                          fontFamily: 'BubblerOne',
+                          fontSize: Constants.TITLE_SIZE,
+                          fontFamily: Constants.FONT_BASE,
                           color: Colors.black,
+                          fontWeight: FontWeight.bold
 
                         ),
                       textAlign: TextAlign.center,
@@ -31,15 +33,19 @@ class QuestionsMain extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Question1()),
                         );
                       },
-                      child: Text('Next',
-                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                      child: Text('Begin',
+                        style: TextStyle(
+                          fontSize:Constants.BUTTON_FONT_SIZE,
+                          color: Colors.white,
+                          fontFamily: Constants.BUTTON_FONT,
+                        ),),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                //side: BorderSide(color: Colors.black)
+                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                // side: BorderSide(color: Colors.black)
                               )
                           )
                       ),
