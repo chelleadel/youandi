@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:test/chatusers.dart';
 import 'package:test/chatdetail.dart';
+import 'package:test/constants.dart';
 
 class Chat extends StatelessWidget {
 
@@ -9,7 +10,7 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow[50],
+        scaffoldBackgroundColor: Constants.BG_BASE,
       ),
       home: ChatPage(),
     );

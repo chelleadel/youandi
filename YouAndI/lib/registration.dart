@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:test/constants.dart';
 import 'package:test/questionsmain.dart';
 
 class Registration extends StatelessWidget {
@@ -11,7 +12,7 @@ class Registration extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.yellow[50],
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: RegistrationPage(),
     );
@@ -50,7 +51,11 @@ class _RegistrationPage extends State<RegistrationPage> {
                 children: [
                   Text(
                     'Registration',
-                    style: TextStyle(fontSize: 48, fontFamily: 'BubblerOne'),
+                    style: TextStyle(
+                        fontSize: Constants.TITLE_SIZE,
+                        fontFamily: Constants.FONT_BASE,
+                        // fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 40),
                   Container(
@@ -72,14 +77,15 @@ class _RegistrationPage extends State<RegistrationPage> {
                         },
                         controller: _displayName,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: UnderlineInputBorder(),
                           labelText: 'Display name',
+                          labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
                           contentPadding: EdgeInsets.all(20.0),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 5),
                   Form(
                     key: _formSelfDescriptionKey,
                     child: Container(
@@ -94,8 +100,9 @@ class _RegistrationPage extends State<RegistrationPage> {
                         },
                         controller: _selfDescription,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: UnderlineInputBorder(),
                           labelText: 'Self description',
+                          labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
                           contentPadding: EdgeInsets.all(20.0),
                         ),
                       ),
@@ -230,13 +237,17 @@ class _RegistrationPage extends State<RegistrationPage> {
                         };
                         },
                       child: Text('Next',
-                        style: TextStyle(fontSize: 16, color: Colors.white,),),
+                        style: TextStyle(
+                          fontSize: Constants.BUTTON_FONT_SIZE,
+                          color: Colors.white,
+                          fontFamily: Constants.BUTTON_FONT,
+                        ),),
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
+                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                 //side: BorderSide(color: Colors.black)
                               )
                           )

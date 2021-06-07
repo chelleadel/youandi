@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test/homepage.dart';
 import 'package:test/question15.dart';
 import 'package:test/question3.dart';
+import 'package:test/constants.dart';
 
 class Question2 extends StatelessWidget {
 
@@ -9,7 +10,7 @@ class Question2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.yellow[50],
+          scaffoldBackgroundColor: Constants.BG_BASE,
         ),
         home: Scaffold(
             body: Center(
@@ -19,9 +20,12 @@ class Question2 extends StatelessWidget {
                       Text(
                         'My perfect day',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 48,
-                          fontFamily: 'BubblerOne',
-                          color: Colors.black,),
+                        style: TextStyle(
+                          fontSize: Constants.TITLE_SIZE,
+                          fontFamily: Constants.FONT_BASE,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(height: 50),
                       ElevatedButton(
@@ -32,13 +36,18 @@ class Question2 extends StatelessWidget {
                           );
                         },
                         child: Text('Chilling at home',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.white,
+                            fontFamily: Constants.BUTTON_FONT,
+                          ),
+                        ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -53,13 +62,17 @@ class Question2 extends StatelessWidget {
                           );
                         },
                         child: Text('Going for a food trip',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.white,
+                            fontFamily: Constants.BUTTON_FONT,
+                          ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -74,13 +87,17 @@ class Question2 extends StatelessWidget {
                           );
                         },
                         child: Text('Going for shopping',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.white,
+                            fontFamily: Constants.BUTTON_FONT,
+                          ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -95,13 +112,17 @@ class Question2 extends StatelessWidget {
                           );
                         },
                         child: Text('Visiting tourist attractions',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.white,
+                            fontFamily: Constants.BUTTON_FONT,
+                          ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -116,13 +137,17 @@ class Question2 extends StatelessWidget {
                           );
                         },
                         child: Text('Doing physical activities',
-                          style: TextStyle(fontSize: 16, color: Colors.white,),),
+                          style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.white,
+                            fontFamily: Constants.BUTTON_FONT,
+                          ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                   //side: BorderSide(color: Colors.black)
                                 )
                             )
@@ -137,14 +162,18 @@ class Question2 extends StatelessWidget {
                           );
                         },
                         child: Text('Back',
-                          style: TextStyle(fontSize: 16, color: Colors.black,),),
+                          style: TextStyle(
+                            fontSize: Constants.BUTTON_FONT_SIZE,
+                            color: Colors.black,
+                            fontFamily: Constants.BUTTON_FONT,
+                          ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
-                            fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  //side: BorderSide(color: Colors.black)
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),

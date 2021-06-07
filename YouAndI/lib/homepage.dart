@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/chat.dart';
 import 'package:test/profile.dart';
+import 'package:test/constants.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,9 +20,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.yellow[50],
+        backgroundColor: Constants.BG_BASE,
         body: _pageOptions[selectedPage],
-        bottomNavigationBar: true ?
+        bottomNavigationBar:
         BottomNavigationBar(
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.message, size: 30), label: 'Chat'),
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               selectedPage = index;
             });
           },
-        ) : null
+        )
     );
   }
 }
