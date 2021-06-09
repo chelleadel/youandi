@@ -3,7 +3,7 @@ import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
 import 'package:test/sign_in.dart';
 import 'package:test/sign_up.dart';
-import 'package:test/constants.dart';
+import 'package:test/test.dart';
 
 
 class WelcomePage extends StatefulWidget {
@@ -86,26 +86,26 @@ class _WelcomePage extends State<WelcomePage> {
                                 ),
                               ),
                               SizedBox(height: 10),
-                              // ElevatedButton(
-                              //   onPressed: () {
-                              //     Navigator.push(
-                              //       context,
-                              //       MaterialPageRoute(builder: (context) => Test()),
-                              //     );
-                              //   },
-                              //   child: Text('Test site',
-                              //     style: TextStyle(fontSize: 16, color: Colors.black,),),
-                              //   style: ButtonStyle(
-                              //       backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
-                              //       fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
-                              //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              //           RoundedRectangleBorder(
-                              //             borderRadius: BorderRadius.circular(18.0),
-                              //             //side: BorderSide(color: Colors.black)
-                              //           )
-                              //       )
-                              //   ),
-                              // ),
+                              ElevatedButton(
+                                 onPressed: () {
+                                   Navigator.push(
+                                     context,
+                                     MaterialPageRoute(builder: (context) => Test()),
+                                   );
+                                 },
+                                 child: Text('Test site',
+                                   style: TextStyle(fontSize: 16, color: Colors.black,),),
+                                 style: ButtonStyle(
+                                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
+                                     fixedSize: MaterialStateProperty.all<Size>(Size(290, 30)),
+                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                         RoundedRectangleBorder(
+                                           borderRadius: BorderRadius.circular(18.0),
+                                           //side: BorderSide(color: Colors.black)
+                                         )
+                                     )
+                                 ),
+                               ),
                             ]
                         ),
                     ),
