@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:test/welcomepage.dart';
 
 class Test extends StatefulWidget {
@@ -14,6 +13,7 @@ class Test extends StatefulWidget {
 class _Test extends State<Test> {
 
   final _formEmailKey = GlobalKey<FormState>();
+  final database = FirebaseFirestore.instance.collection('Users');
 
 
   @override
@@ -82,5 +82,6 @@ class _Test extends State<Test> {
       ),
     );
   }
+
 }
 
