@@ -121,7 +121,7 @@ class _WelcomePage extends State<WelcomePage> {
     return Stack(children: <Widget>[
       CircleAvatar(
           radius: 80.0,
-          backgroundImage: AssetImage("assets/spirit.png")),
+          backgroundImage: AssetImage("assets/logo.png")),
     ],);
   }
 
