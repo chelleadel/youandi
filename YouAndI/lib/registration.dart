@@ -126,7 +126,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                             color: Colors.black54
                           ),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(width: 20,),
                         DropdownButton<String>(
                           value: dropdownValueGender,
                           icon: const Icon(Icons.arrow_downward),
@@ -149,7 +149,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 15,),
                   Container(
                     margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
                     padding: const EdgeInsets.all(1.0),
@@ -243,7 +243,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                           fontFamily: Constants.BUTTON_FONT,
                         ),),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
                           fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(

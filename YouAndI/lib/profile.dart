@@ -44,13 +44,18 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow.shade50,
+        backgroundColor: Constants.BG_BASE,
         centerTitle: false,
         title: Padding(
             padding: EdgeInsets.only(left: 16, bottom: 5),
             child: Text(
               "Profile",
-              style: TextStyle(color: Colors.black, fontSize: 25, fontFamily: 'Arial', fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: Constants.HEADER_SIZE,
+                  fontFamily: 'Arial',
+                  fontWeight: FontWeight.bold
+              ),
             )
         ),
       ),
@@ -109,7 +114,7 @@ class _ProfilePage extends State<ProfilePage> {
                           )
                       ),
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 10,),
                   ElevatedButton(
                       onPressed: () {
                         showDialog(
@@ -135,7 +140,7 @@ class _ProfilePage extends State<ProfilePage> {
                           )
                       ),
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 10,),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
@@ -219,7 +224,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget imageProfile() {
     return Stack(children: <Widget>[
       CircleAvatar(
-        radius: 60.0,
+        radius: 90.0,
         // backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
         //AssetImage("assets/Demo_Pic.jpg") :
         //AssetImage("assets/Demo_Pic.jpg"),
