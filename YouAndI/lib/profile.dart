@@ -8,6 +8,7 @@ import 'package:test/prompts.dart';
 import 'package:test/questionsmain.dart';
 import 'package:test/welcomepage.dart';
 import 'package:test/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class Profile extends StatelessWidget {
@@ -36,6 +37,8 @@ class _ProfilePage extends State<ProfilePage> {
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
   final _picker = ImagePicker();
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('Users').snapshots();
+  var _testing;
 
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
@@ -44,7 +47,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow.shade50,
+        backgroundColor: Constants.BG_BASE,
         centerTitle: false,
         title: Padding(
             padding: EdgeInsets.only(left: 16, bottom: 5),
@@ -64,6 +67,60 @@ class _ProfilePage extends State<ProfilePage> {
                     child: imageProfile(),
                   ),
                   SizedBox(height: 40,),
+
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                    padding: const EdgeInsets.all(1.0),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black54)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 16,),
+                        Text(
+                          "Display Name:",
+                          style: TextStyle(
+                              fontSize: 28,
+                              color: Colors.black54
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _usersStream,
+                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Something went wrong');
+                            }
+
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Text("Loading");
+                            }
+
+                            snapshot.data!.docs.map((DocumentSnapshot document) {
+                              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                              return new Text(data['DisplayName']);
+                            });
+
+                            return new Text("Error");
+
+                            /*return new ListView(
+                              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                                Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                                return new ListTile(
+                                  title: new Text(data['DisplayName']),
+                                  subtitle: new Text(data['Gender']),
+                                );
+                              }).toList(),
+                            );*/
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+
+
+
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 50.0),
                     child: TextFormField(
