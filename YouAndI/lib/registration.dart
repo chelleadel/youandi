@@ -161,7 +161,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       children: [
                         SizedBox(width: 16,),
                         Text(
-                          "Age:",
+                          "DOB:",
                           style: TextStyle(
                               fontSize: 16,
                               color: Colors.black54

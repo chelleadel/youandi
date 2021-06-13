@@ -17,12 +17,14 @@ class Constants {
   // Font Family
   static const BUTTON_FONT = "Arial";
   static const FONT_BASE = "Helvetica";
+  static const FONT_PROMPT = "BubblerOne-Regular";
 
   // Colors
   static const CHAT_BASE = Color(0xFFE3F2FD);
   static const CHAT_BASE_DARK = Color(0xFF0277BD);
   static const BG_BASE = Colors.white;
   static const BUTTON_BASE = Colors.black;
+  static const PROMPT_ANS = Colors.purple;
 
 
 }

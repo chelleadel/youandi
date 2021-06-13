@@ -9,6 +9,7 @@ import 'package:test/questionsmain.dart';
 import 'package:test/welcomepage.dart';
 import 'package:test/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 
 class Profile extends StatelessWidget {
@@ -37,191 +38,315 @@ class _ProfilePage extends State<ProfilePage> {
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
   final _picker = ImagePicker();
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('Users').snapshots();
-  var _testing;
 
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Constants.BG_BASE,
-        centerTitle: false,
-        title: Padding(
-            padding: EdgeInsets.only(left: 16, bottom: 5),
-            child: Text(
-              "Profile",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: Constants.HEADER_SIZE,
-                  fontFamily: 'Arial',
-                  fontWeight: FontWeight.bold
-              ),
-            )
-        ),
-      ),
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 10,),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: imageProfile(),
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance.collection('Users').doc("2tCX4wQSRrTpswjDN1c5").get(),
+      builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError)
+          return Center(
+            child: Text(snapshot
+                .hasError
+                .toString()),
+          );
+        return snapshot.hasData ?
+        Scaffold(
+          appBar: AppBar(
+            backgroundColor: Constants.BG_BASE,
+            centerTitle: false,
+            title: Padding(
+                padding: EdgeInsets.only(left: 16, bottom: 5),
+                child: Text(
+                  "Profile",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: Constants.HEADER_SIZE,
+                      fontFamily: 'Arial',
+                      fontWeight: FontWeight.bold
                   ),
-                  SizedBox(height: 40,),
-
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                    padding: const EdgeInsets.all(1.0),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black54)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 16,),
-                        Text(
-                          "Display Name:",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black54
-                          ),
+                )
+            ),
+          ),
+          body: Center(
+              child: new SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 10,),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 50.0),
+                        child: imageProfile(),
+                      ),
+                      SizedBox(height: 40,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black54)
                         ),
-                        SizedBox(width: 10,),
-                        StreamBuilder<QuerySnapshot>(
-                          stream: _usersStream,
-                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return Text('Something went wrong');
-                            }
-
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Text("Loading");
-                            }
-
-                            snapshot.data!.docs.map((DocumentSnapshot document) {
-                              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                              return new Text(data['DisplayName']);
-                            });
-
-                            return new Text("Error");
-
-                            /*return new ListView(
-                              children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                                Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                                return new ListTile(
-                                  title: new Text(data['DisplayName']),
-                                  subtitle: new Text(data['Gender']),
-                                );
-                              }).toList(),
-                            );*/
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-
-
-
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: TextFormField(
-                      controller: _displayName,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Change display name',
-                        contentPadding: EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 8,),
+                            Text(
+                              "Email:",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: Constants.LABEL_SIZE,
+                                  color: Colors.black
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Expanded(
+                              child: Text(
+                                "${snapshot.data!['Email']}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: Constants.LABEL_SIZE,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: TextFormField(
-                      controller: _selfDescription,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Change self description',
-                        contentPadding: EdgeInsets.all(20.0),
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black54)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 8,),
+                            Text(
+                              "Display name:",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: Constants.LABEL_SIZE,
+                                  color: Colors.black
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Expanded(
+                              child: Text(
+                                "${snapshot.data!['DisplayName']}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: Constants.LABEL_SIZE,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 55,),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black54)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 8,),
+                            Text(
+                              "Gender:",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: Constants.LABEL_SIZE,
+                                  color: Colors.black
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Expanded(
+                              child: Text(
+                                "${snapshot.data!['Gender']}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: Constants.LABEL_SIZE,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black54)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 8,),
+                            Text(
+                              "DOB:",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: Constants.LABEL_SIZE,
+                                  color: Colors.black
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Expanded(
+                              child: Text(
+                                //"${snapshot.data!['DOB'].toDate()}",
+                                "${DateFormat.yMMMd().format(snapshot.data!['DOB'].toDate())}",
+                                //overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: Constants.LABEL_SIZE,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black54)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 8,),
+                            Text(
+                              "Self description:",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: Constants.LABEL_SIZE,
+                                  color: Colors.black
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Expanded(
+                              child: Text(
+                                "${snapshot.data!['SelfDescription']}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: Constants.LABEL_SIZE,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
                         },
-                      child: Text('View prompt',
-                        style: TextStyle(
-                            fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
-                            fontFamily: Constants.BUTTON_FONT
-                        ),),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                //side: BorderSide(color: Colors.black)
-                              )
-                          )
-                      ),
-                  ),
-                  SizedBox(height: 10,),
-                  ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text("Details updated!"),
-                              );
-                            });
-                      },
-                      child: Text('Update details',
-                        style: TextStyle(fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
-                            fontFamily: Constants.BUTTON_FONT),),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                //side: BorderSide(color: Colors.black)
-                              )
-                          )
-                      ),
-                  ),
-                  SizedBox(height: 10,),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
-                      },
-                      child: Text('Log out',
-                        style: TextStyle(
-                            fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.black,
-                            fontFamily: Constants.BUTTON_FONT
-                        ),),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
-                          fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                              side: BorderSide(color: Colors.black)
+                        child: Text('Change password',
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.white,
+                              fontFamily: Constants.BUTTON_FONT
+                          ),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                  //side: BorderSide(color: Colors.black)
+                                )
                             )
-                          )
+                        ),
                       ),
-                  ),
-                ]
-            )
-        ),
+                      SizedBox(height: 10,),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
+                        },
+                        child: Text('View prompt',
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.white,
+                              fontFamily: Constants.BUTTON_FONT
+                          ),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Details updated!"),
+                                );
+                              });
+                        },
+                        child: Text('Update details',
+                          style: TextStyle(fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.white,
+                              fontFamily: Constants.BUTTON_FONT),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                  //side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
+                        },
+                        child: Text('Log out',
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.black,
+                              fontFamily: Constants.BUTTON_FONT
+                          ),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                    side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
+                      ),
+                    ]
+                ),
+              )
+          ),
+        ) :
+        Container();
+      },
     );
   }
 
@@ -281,7 +406,7 @@ class _ProfilePage extends State<ProfilePage> {
   Widget imageProfile() {
     return Stack(children: <Widget>[
       CircleAvatar(
-        radius: 90.0,
+        radius: 60.0,
         // backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
         //AssetImage("assets/Demo_Pic.jpg") :
         //AssetImage("assets/Demo_Pic.jpg"),
