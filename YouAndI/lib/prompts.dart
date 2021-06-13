@@ -36,7 +36,7 @@ class _PromptsPage extends State<PromptsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow[50],
+        backgroundColor: Constants.BG_BASE,
         centerTitle: false,
         title: Padding(
             padding: EdgeInsets.only(left: 16, bottom: 5),
