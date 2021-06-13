@@ -28,11 +28,11 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(icon: Icon(Icons.message, size: 30), label: 'Chat'),
             BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: 'Profile'),
           ],
-          selectedItemColor: Colors.cyan.shade800,
+          selectedItemColor: Constants.CHAT_BASE_DARK,
           elevation: 5.0,
           unselectedItemColor: Colors.grey.shade600,
           currentIndex: selectedPage,
-          backgroundColor: Colors.yellow[50],
+          backgroundColor: Constants.BG_BASE,
           onTap: (index){
             setState(() {
               selectedPage = index;

@@ -28,15 +28,15 @@ class _ChatPage extends State<ChatPage> {
 
   List<ChatUsers> chatUsers = [
     ChatUsers("Brandon", "HAHAHAHA", "assets/Demo_Pic.jpg", "Now"),
-    ChatUsers("Michelle", "Wow u look amazing", "assets/Demo_Pic.jpg", "Yesterday"),
-    ChatUsers("Advisor", "Take a look at team You&I! They are insanely good", "assets/Demo_Pic.jpg", "31 Mar"),
+    ChatUsers("Michelle", "Wow u look amazing", "assets/logo.png", "Yesterday"),
+    ChatUsers("Advisor", "Take a look at team You&I! They are insanely good", "assets/spirit.png", "31 Mar"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow[50],
+        backgroundColor: Constants.BG_BASE,
         centerTitle: false,
         title: Padding(
           padding: EdgeInsets.only(left: 16, bottom: 5),
@@ -44,7 +44,7 @@ class _ChatPage extends State<ChatPage> {
             "Chats",
             style: TextStyle(
                 color: Colors.black,
-                fontSize: 25,
+                fontSize: Constants.HEADER_SIZE,
                 fontFamily: 'Arial',
                 fontWeight: FontWeight.bold
             ),
@@ -62,11 +62,7 @@ class _ChatPage extends State<ChatPage> {
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index){
                     return ConversationList(
-                      name: chatUsers[index].name,
-                      messageText: chatUsers[index].messageText,
-                      imageUrl: chatUsers[index].imageURL,
-                      time: chatUsers[index].time,
-                      isMessageRead: (index == 0 || index == 3)?true:false,
+                      chatUser: chatUsers[index],
                     );
                   },
                 ),]
@@ -78,32 +74,43 @@ class _ChatPage extends State<ChatPage> {
 }
 
 class ConversationList extends StatefulWidget{
-  String name = "en";
-  String messageText;
-  String imageUrl;
-  String time;
-  bool isMessageRead;
-  ConversationList({required this.name, required this.messageText, required this.imageUrl, required this.time, required this.isMessageRead});
+
+  final ChatUsers chatUser;
+
+  ConversationList({required this.chatUser});
   @override
-  _ConversationListState createState() => _ConversationListState();
+  _ConversationListState createState() => _ConversationListState(user: chatUser);
 }
 
 class _ConversationListState extends State<ConversationList> {
+
+  final ChatUsers user;
+
+  _ConversationListState({required this.user});
+
   @override
   Widget build(BuildContext context) {
+
+    String name = user.name;
+    String messageText =  user.messageText;
+    String imageUrl =  user.imageURL;
+    String time  = user.time;
+    bool isMessageRead = (name.length <= 7)?true : false;
+
+
     return GestureDetector(
       onTap: () {
-        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => ChatDetailPage()));
-        },
+        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => ChatDetailPage(user: user,)));
+      },
       child: Container(
         decoration: BoxDecoration(
-          color: widget.isMessageRead ? Colors.yellow.shade100 : Colors.transparent,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
-            topLeft: Radius.circular(20.0),
-            bottomLeft: Radius.circular(20.0),
-          )
+            color: isMessageRead ? Constants.CHAT_BASE : Colors.transparent,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+              topLeft: Radius.circular(20.0),
+              bottomLeft: Radius.circular(20.0),
+            )
         ),
         padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
         child: Row(
@@ -112,7 +119,7 @@ class _ConversationListState extends State<ConversationList> {
               child: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundImage: NetworkImage(widget.imageUrl),
+                    backgroundImage: AssetImage(imageUrl),
                     maxRadius: 30,
                   ),
                   SizedBox(width: 16,),
@@ -123,15 +130,15 @@ class _ConversationListState extends State<ConversationList> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            widget.name,
+                            name,
                             style: TextStyle(fontSize: 16),),
                           SizedBox(height: 6,),
                           Text(
-                            widget.messageText,
+                            messageText,
                             style: TextStyle(
                                 fontSize: 13,
                                 color: Colors.grey.shade600,
-                                fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal
+                                fontWeight: isMessageRead ? FontWeight.bold : FontWeight.normal
                             ),
                           ),
                         ],
@@ -142,22 +149,23 @@ class _ConversationListState extends State<ConversationList> {
               ),
             ),
             Column(
-              children: [
-                Text(
-                  widget.time,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: widget.isMessageRead ? FontWeight.bold : FontWeight.normal
+                children: [
+                  Text(
+                    time,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: isMessageRead ? FontWeight.bold : FontWeight.normal
+                    ),
                   ),
-                ),
-                SizedBox(height: 3),
-                widget.isMessageRead
-                    ? Icon(
-                  Icons.auto_awesome_rounded,
-                  color: Colors.yellow.shade800,
-                )
-                    : Text(''),
-              ]
+                  /*SizedBox(height: 3),
+                  isMessageRead
+                      ? Icon(
+                    Icons.auto_awesome_rounded,
+                    color: Colors.yellow.shade800,
+                  )
+                      : Text(''),
+                   */
+                ]
             ),
           ],
         ),
