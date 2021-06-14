@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 
 import 'dart:io';
 
+import 'package:test/userdetail.dart';
+
 class ChatDetailPage extends StatefulWidget{
 
   final ChatUsers user;
@@ -25,59 +27,60 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.yellow[50],
-          ),
-          centerTitle: false,
-          leading: IconButton(
-            color: Colors.black,
-            icon: const Icon(Icons.arrow_back_rounded),
-            tooltip: 'Chat Page',
-            onPressed: () {
-              Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-            },
-          ),
-          title: Padding(
-            padding: EdgeInsets.only(top: 5, bottom: 10),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage(partner.imageURL),
-                  maxRadius: 25,
-                ),
-                SizedBox(width: 15),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      partner.name,
-                      style: TextStyle(
-                        fontFamily: 'Arial',
-                        fontSize: 20,
-                        color: Colors.black
-                      )
-                    ),
-                    Text(
-                      partner.time,
-                        style: TextStyle(
-                          fontFamily: 'Arial',
-                          fontSize: 15,
-                          color: Colors.grey[800]
-                        )
-                    )
-                  ],
-                )
-              ],
+        appBar: CustomAppBar(
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.yellow[50],
             ),
-          ),
-          backgroundColor: Constants.BG_BASE,
-          actions: <Widget>[
-            IconButton(
+            centerTitle: false,
+            leading: IconButton(
               color: Colors.black,
-              icon: const Icon(Icons.report_problem_rounded),
-              tooltip: 'Report user',
+              icon: const Icon(Icons.arrow_back_rounded),
+              tooltip: 'Chat Page',
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+              },
+            ),
+            title: Padding(
+              padding: EdgeInsets.only(top: 5, bottom: 10),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(partner.imageURL),
+                    maxRadius: 25,
+                  ),
+                  SizedBox(width: 15),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          partner.name,
+                          style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 20,
+                              color: Colors.black
+                          )
+                      ),
+                      Text(
+                          partner.time,
+                          style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 15,
+                              color: Colors.grey[800]
+                          )
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            backgroundColor: Constants.BG_BASE,
+            actions: <Widget>[
+              IconButton(
+                color: Colors.black,
+                icon: const Icon(Icons.report_problem_rounded),
+                tooltip: 'Report user',
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -86,10 +89,14 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                           title: Text("User reported!"),
                         );
                       }
-                      );
+                  );
                 },
-            ),
-          ],
+              ),
+            ],
+          ),
+          onTap: () {
+            Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => UserDetailMain(user: partner,)));
+          },
         ),
         body: Scaffold(
           body: ChatBody(),
@@ -98,6 +105,22 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     );
   }
 
+}
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final VoidCallback onTap;
+  final AppBar appBar;
+
+  CustomAppBar({Key? key, required this.onTap, required this.appBar}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  GestureDetector(onTap: onTap,child: appBar);
+  }
+
+  // TODO: implement preferredSize
+  @override
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
 }
 
 class ChatBody extends StatefulWidget {
@@ -167,10 +190,6 @@ class _BottomBarState extends State<BottomBar> {
                               );
                             },
                             icon: Icon(Icons.photo_camera),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.attach_file),
                           ),
                           Expanded(
                             child: TextField(
@@ -262,6 +281,3 @@ class _BottomBarState extends State<BottomBar> {
   }
 
 }
-
-
-

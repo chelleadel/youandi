@@ -22,6 +22,7 @@ class Constants {
   static const CHAT_BASE = Color(0xFFE3F2FD);
   static const CHAT_BASE_DARK = Color(0xFF0277BD);
   static const BG_BASE = Colors.white;
+  static const FONT_COLOR = Colors.black;
   static const BUTTON_BASE = Colors.black;
 
 
