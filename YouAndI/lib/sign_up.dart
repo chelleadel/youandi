@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/confirm_email.dart';
 import 'package:test/constants.dart';
 import 'package:test/welcomepage.dart';
-import 'package:flutter/gestures.dart';
 
 class Sign_Up extends StatelessWidget {
 
@@ -25,6 +25,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPage extends State<SignUpPage> {
+
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pass1Controller = TextEditingController();
@@ -118,14 +120,35 @@ class _SignUpPage extends State<SignUpPage> {
 
                   SizedBox(height: 45),
                   ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         print('Email: ' + _emailController.text);
                         if ((_formEmailKey.currentState!.validate())) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => ConfirmEmailPage(value: _emailController.text)),
-                          );
+
+                          try {
+                            UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                email: _emailController.text,
+                                password: _pass1Controller.text
+                            );
+
+                            User? user = FirebaseAuth.instance.currentUser;
+                            if (user!= null && !user.emailVerified) {
+                              await user.sendEmailVerification();
+                            }
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => ConfirmEmailPage(value: _emailController.text)),
+                            );
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              print('The password provided is too weak.');
+                            } else if (e.code == 'email-already-in-use') {
+                              print('The account already exists for that email.');
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
                         }
                         },
                       child: Text('Continue',
