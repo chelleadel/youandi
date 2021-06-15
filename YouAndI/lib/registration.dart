@@ -40,6 +40,7 @@ class _RegistrationPage extends State<RegistrationPage> {
   final TextEditingController _selfDescription = TextEditingController();
   String dropdownValueGender = 'Choose';
   String dropdownValueAge = 'Choose';
+  DateTime _dateOfBirth = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +109,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 20,),
                   Container(
                     margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
                     padding: const EdgeInsets.all(1.0),
@@ -149,7 +150,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(height: 20,),
                   Container(
                     margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
                     padding: const EdgeInsets.all(1.0),
@@ -168,27 +169,30 @@ class _RegistrationPage extends State<RegistrationPage> {
                           ),
                         ),
                         SizedBox(width: 34,),
-                        DropdownButton<String>(
-                          value: dropdownValueAge,
-                          icon: const Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: const TextStyle(color: Colors.black),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValueAge = newValue!;
-                            });
-                          },
-                          items: <String>['Choose', '15', '16', '17', '18', '19', '20', '21'
-                            , '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
-                            ,'32', '33', '34', '35']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1990),
+                                  lastDate: DateTime.now()
+                              ).then((date) {
+                                setState(() {
+                                  if (date != null) {
+                                    _dateOfBirth = date;
+                                  }
+                                });
+                              }
+                              );
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                            ),
+                            child: Text(
+                              "${_dateOfBirth.day}-${_dateOfBirth.month}-${_dateOfBirth.year}",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                        )
                       ],
                     ),
                   ),
@@ -197,7 +201,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       onPressed: () {
                         if (_displayPictureUpdated == true) {
                           if (dropdownValueGender != "Choose") {
-                            if (dropdownValueAge != "Choose") {
+                            if (_dateOfBirth != DateTime.now()) {
                               if (_formNameKey.currentState!.validate() &&
                                   _formSelfDescriptionKey.currentState!
                                       .validate()) {
