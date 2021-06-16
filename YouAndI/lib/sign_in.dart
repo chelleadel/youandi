@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
@@ -16,7 +17,8 @@ class SignInPage extends StatefulWidget {
 class _SignInPage extends State<SignInPage> {
 
   final _formEmailKey = GlobalKey<FormState>();
-
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class _SignInPage extends State<SignInPage> {
                       child: Column(
                           children: [
                             TextFormField(
+                              controller: _emailController,
                               validator: (value) {
                                 if ((value == null) || (value.isEmpty)) {
                                   return "Email can't be empty";
@@ -59,6 +62,7 @@ class _SignInPage extends State<SignInPage> {
                             SizedBox(height: 10),
 
                             TextFormField(
+                              controller: _passwordController,
                               validator: (value) {
                                 if ((value == null) || (value.isEmpty)) {
                                   return "Password can't be empty";
@@ -79,11 +83,65 @@ class _SignInPage extends State<SignInPage> {
               ),
               SizedBox(height: 40),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  bool loginSuccess = false;
                   if (_formEmailKey.currentState!.validate()) {
+
+                    try {
+                      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text
+                      );
+                      loginSuccess = true;
+                      User? user = FirebaseAuth.instance.currentUser;
+                      print(!user!.emailVerified);
+                      print(user != null);
+                      if (user!= null && !user.emailVerified) {
+                        await user.sendEmailVerification();
+                        loginSuccess = false;
+                      }
+
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
+                  }
+                  if (loginSuccess) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("Email is not verified!"),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: const <Widget>[
+                                  Text('A verification email has just been sent to your registered email address.'),
+                                  Text('Kindly verify'),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Ok'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => WelcomePage()),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        }
                     );
                   }
                 },
