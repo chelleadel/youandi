@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/confirm_email.dart';
 import 'package:test/constants.dart';
+import 'package:test/registration.dart';
 import 'package:test/welcomepage.dart';
 
 class Sign_Up extends StatelessWidget {
@@ -134,11 +135,10 @@ class _SignUpPage extends State<SignUpPage> {
                             if (user!= null && !user.emailVerified) {
                               await user.sendEmailVerification();
                             }
-
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => ConfirmEmailPage(value: _emailController.text)),
+                                  builder: (BuildContext context) => Registration()),
                             );
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {

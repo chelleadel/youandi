@@ -1,6 +1,7 @@
 //import 'dart:html';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test/chat.dart';
@@ -41,11 +42,14 @@ class _ProfilePage extends State<ProfilePage> {
 
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
+  var currentUser = FirebaseAuth.instance.currentUser;
+
 
   @override
   Widget build(BuildContext context) {
+
     return FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance.collection('Users').doc("2tCX4wQSRrTpswjDN1c5").get(),
+      future: FirebaseFirestore.instance.collection('Users').doc(currentUser!.uid).get(),
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError)
           return Center(
@@ -320,7 +324,8 @@ class _ProfilePage extends State<ProfilePage> {
                       ),
                       SizedBox(height: 10,),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
                           Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
                         },
                         child: Text('Log out',
