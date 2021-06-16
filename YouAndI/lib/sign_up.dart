@@ -26,8 +26,6 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPage extends State<SignUpPage> {
 
-  FirebaseAuth auth = FirebaseAuth.instance;
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pass1Controller = TextEditingController();
   final TextEditingController _pass2Controller = TextEditingController();
@@ -130,6 +128,7 @@ class _SignUpPage extends State<SignUpPage> {
                                 password: _pass1Controller.text
                             );
 
+
                             User? user = FirebaseAuth.instance.currentUser;
                             if (user!= null && !user.emailVerified) {
                               await user.sendEmailVerification();
@@ -138,7 +137,7 @@ class _SignUpPage extends State<SignUpPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => ConfirmEmailPage(value: _emailController.text)),
+                                  builder: (BuildContext context) => ConfirmEmailPage()),
                             );
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
