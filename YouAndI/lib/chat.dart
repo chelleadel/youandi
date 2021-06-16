@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:test/chatusers.dart';
+import 'package:test/models/chatusers.dart';
 import 'package:test/chatdetail.dart';
 import 'package:test/constants.dart';
 

@@ -1,43 +1,25 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'dart:async';
 
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:flutter/gestures.dart';
 import 'package:test/constants.dart';
 import 'package:test/registration.dart';
 import 'package:test/sign_up.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class ConfirmEmailPage extends StatefulWidget {
 
-  final String value;
 
-  ConfirmEmailPage({Key? key, required this.value}) : super(key: key);
+  ConfirmEmailPage({Key? key}) : super(key: key);
 
   @override
-  State<ConfirmEmailPage> createState() => _ConfirmEmailPage(recipient: value);
+  State<ConfirmEmailPage> createState() => _ConfirmEmailPage();
 
 }
 
 class _ConfirmEmailPage extends State<ConfirmEmailPage> {
-
-  var currentUser = FirebaseAuth.instance.currentUser;
-
-
-  final String username = "youandi-main@outlook.com";
-
-  final smtpServer = hotmail("youandi-main@outlook.com","1605youandi1993");
-
-  final String recipient;
-  final String subject = "Please verify your account";
-  final TextEditingController _authenController = TextEditingController();
-
-  // random number generator
-  int validate = 100000 + new Random().nextInt(999999 - 100000);
 
   // timer
   int _start = 60;
@@ -45,39 +27,169 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
     print("done");
   });
 
-
-  _ConfirmEmailPage({required this.recipient}) : super();
+  final database = FirebaseAuth.instance;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
 
+    User? user = database.currentUser;
+
+    if (user != null) {
+      if (_start == 60) {
+        startTimer();
+      } else {
+        user.reload();
+        if (user.emailVerified) {
+          _timer.cancel();
+          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration()));
+        }
+      }
+    }
+
+
+
     return MaterialApp(
         theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-    ),
-    home: Scaffold(
-      resizeToAvoidBottomInset: false,
-        body:
-      Text(
-        'Registration',
-        style: TextStyle(
-          fontSize: Constants.TITLE_SIZE,
-          fontFamily: Constants.FONT_BASE,
-          // fontWeight: FontWeight.bold,
+          scaffoldBackgroundColor: Colors.white,
         ),
-      ),
-    )
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'An email have been sent',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: Constants.TITLE_SIZE,
+                        fontFamily: Constants.FONT_BASE),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "Press the link to verify your email",
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: Constants.FONT_BASE),
+                  ),
+                  SizedBox(height: 60),
+                  Text(_start.toString()),
+                  SizedBox(height: 60),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _timer.cancel();
+                        _start = 60;
+                      });
+                    },
+                    child: Text('Resend',
+                      style: TextStyle(
+                          fontSize: Constants.BUTTON_FONT_SIZE,
+                          color: Colors.black,
+                          fontFamily: Constants.BUTTON_FONT
+                      ),),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                        fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                side: BorderSide(color: Colors.black)
+                            )
+                        )
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      User? user = FirebaseAuth.instance.currentUser;
+                      if (user != null) {
+                        user.delete();
+                      };
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Sign_Up()));
+                    },
+                    child: Text('Back',
+                      style: TextStyle(
+                        fontSize: Constants.BUTTON_FONT_SIZE,
+                        color: Colors.black,
+                        fontFamily: Constants.BUTTON_FONT,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                        fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                side: BorderSide(color: Colors.black)
+                              //side: BorderSide(color: Colors.black)
+                            )
+                        )
+                    ),
+                  ),
+                ]
+            ),
+          ),
+        )
     );
 
   }
 
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            print("repeat");
+            timer.cancel();
+            returnMainPage();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
 
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
+  void returnMainPage() {
 
+    AlertDialog alert = AlertDialog(
+      title: Text("Exceeded Time Limit"),
+      content: Text("Press the screen to return to Sign Up Page"),
+      actions: [
+      ],
+    );
 
-
-
-
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        }).then((exit) async {
+      _timer.cancel();
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        user.delete();
+      };
+      await FirebaseAuth.instance.signOut();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => SignUpPage()),
+      );
+    }
+    );
+  }
 
 }
-
