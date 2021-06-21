@@ -42,7 +42,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
         user.reload();
         if (user.emailVerified) {
           _timer.cancel();
-          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration()));
+          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration(reEnter: false,)));
         }
       }
     }
