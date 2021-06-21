@@ -1,16 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/question15.dart';
 import 'package:test/question2.dart';
 import 'package:test/constants.dart';
 
-class Question3 extends StatefulWidget {
+import 'firebase.dart';
 
+// Lower/Upper Age preference; LowerAgePreference, UpperAgePreference
+class Question3 extends StatefulWidget {
   @override
   _Question3 createState() => _Question3();
 }
 
 
 class _Question3 extends State<Question3> {
+  var currentUser = FirebaseAuth.instance.currentUser;
 
   double start = 0.25;
   double end = 0.75;
@@ -77,6 +81,8 @@ class _Question3 extends State<Question3> {
             SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
+                Firebase.UPDATE_USER_INT(currentUser!.uid, "LowerAgePreference", scalc);
+                Firebase.UPDATE_USER_INT(currentUser!.uid, "UpperAgePreference", ecalc);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Question2()),

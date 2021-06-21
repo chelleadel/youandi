@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/constants.dart';
 import 'package:test/question15.dart';
 import 'package:test/question2.dart';
+import 'firebase.dart';
 
+// Q1- I am looking for; 1- Romantic R/S, 2- Friendship, 3- Both
 class Question1 extends StatelessWidget {
+  var currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class Question1 extends StatelessWidget {
                       SizedBox(height: 50),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q1", 1);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Question15()),
@@ -53,6 +58,7 @@ class Question1 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q1", 2);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Question15()),
@@ -79,6 +85,7 @@ class Question1 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q1", 3);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Question15()),

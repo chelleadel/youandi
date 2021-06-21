@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:test/chat.dart';
 import 'package:test/prompts.dart';
 import 'package:test/questionsmain.dart';
+import 'package:test/registration.dart';
 import 'package:test/welcomepage.dart';
 import 'package:test/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -299,13 +300,7 @@ class _ProfilePage extends State<ProfilePage> {
                       SizedBox(height: 10,),
                       ElevatedButton(
                         onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text("Details updated!"),
-                                );
-                              });
+                          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration(reEnter: true,)));
                         },
                         child: Text('Update details',
                           style: TextStyle(fontSize: Constants.BUTTON_FONT_SIZE,

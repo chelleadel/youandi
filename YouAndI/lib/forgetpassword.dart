@@ -7,17 +7,16 @@ import 'package:test/test.dart';
 import 'package:test/welcomepage.dart';
 import 'package:test/constants.dart';
 
-import 'forgetpassword.dart';
-
-class SignInPage extends StatefulWidget {
-  SignInPage({Key? key}) : super(key: key);
+class ForgetPasswordPage extends StatefulWidget {
+  ForgetPasswordPage({Key? key}) : super(key: key);
 
   @override
-  State<SignInPage> createState() => _SignInPage();
+  State<ForgetPasswordPage> createState() => _ForgetPasswordPage();
 }
 
-class _SignInPage extends State<SignInPage> {
+class _ForgetPasswordPage extends State<ForgetPasswordPage> {
 
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final _formEmailKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -30,7 +29,7 @@ class _SignInPage extends State<SignInPage> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Sign In',
+              Text('Forget Password',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: Constants.TITLE_SIZE,
@@ -50,6 +49,8 @@ class _SignInPage extends State<SignInPage> {
                               validator: (value) {
                                 if ((value == null) || (value.isEmpty)) {
                                   return "Email can't be empty";
+                                } else if (!(value.contains('@u.nus.edu'))) {
+                                  return "NUS Email required";
                                 } else {
                                   return null;
                                 }
@@ -61,72 +62,25 @@ class _SignInPage extends State<SignInPage> {
                                 contentPadding: EdgeInsets.all(20.0),
                               ),
                             ),
-                            SizedBox(height: 10),
-
-                            TextFormField(
-                              controller: _passwordController,
-                              validator: (value) {
-                                if ((value == null) || (value.isEmpty)) {
-                                  return "Password can't be empty";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                border: UnderlineInputBorder(),
-                                labelText: 'Password',
-                                labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
-                                contentPadding: EdgeInsets.all(20.0),
-                              ),
-                            )
                           ]
                       )
                   )
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 40,),
               ElevatedButton(
-                onPressed: () async {
-                  bool loginSuccess = false;
-                  if (_formEmailKey.currentState!.validate()) {
+                onPressed: () {
+                  if ((_formEmailKey.currentState!.validate())) {
+                    resetPassword(_emailController.text);
 
-                    try {
-                      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text
-                      );
-                      loginSuccess = true;
-                      User? user = FirebaseAuth.instance.currentUser;
-                      print(!user!.emailVerified);
-                      print(user != null);
-                      if (user!= null && !user.emailVerified) {
-                        await user.sendEmailVerification();
-                        loginSuccess = false;
-                      }
-
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        print('No user found for that email.');
-                      } else if (e.code == 'wrong-password') {
-                        print('Wrong password provided for that user.');
-                      }
-                    }
-                  }
-                  if (loginSuccess) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                  } else {
                     showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Email is not verified!"),
+                            title: Text("Check your registered email"),
                             content: SingleChildScrollView(
                               child: ListBody(
                                 children: const <Widget>[
-                                  Text('A verification email has just been sent to your registered email address.'),
-                                  Text('Kindly verify'),
+                                  Text('An email has just been sent to your registered email address to change your password.'),
                                 ],
                               ),
                             ),
@@ -165,33 +119,7 @@ class _SignInPage extends State<SignInPage> {
                     )
                 ),
               ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ForgetPasswordPage()),
-                  );
-                },
-                child: Text('Forget password',
-                  style: TextStyle(
-                    fontSize: Constants.BUTTON_FONT_SIZE,
-                    color: Colors.black,
-                    fontFamily: Constants.BUTTON_FONT,
-                  ),
-                ),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
-                    fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                            side: BorderSide(color: Colors.black)
-                        )
-                    )
-                ),
-              ),
-              SizedBox(height: 10),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -221,6 +149,11 @@ class _SignInPage extends State<SignInPage> {
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> resetPassword(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 }
 

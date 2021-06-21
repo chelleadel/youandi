@@ -1,10 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/homepage.dart';
 import 'package:test/question15.dart';
 import 'package:test/question3.dart';
 import 'package:test/constants.dart';
 
+import 'firebase.dart';
+
+// Q3- My perfect day; [1- Chilling at home, 2- Going for a food trip, 3- Going for shopping,
+// 4- Visiting tourist attractions, 5- Doing physical activities]
 class Question2 extends StatelessWidget {
+  var currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +36,7 @@ class Question2 extends StatelessWidget {
                       SizedBox(height: 50),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 1);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
@@ -56,6 +63,7 @@ class Question2 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 2);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
@@ -81,6 +89,7 @@ class Question2 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 3);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
@@ -106,6 +115,7 @@ class Question2 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 4);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
@@ -131,6 +141,7 @@ class Question2 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 5);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
