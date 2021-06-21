@@ -141,7 +141,7 @@ class _SignUpPage extends State<SignUpPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => Registration(reEnter: false,)),
+                                  builder: (BuildContext context) => ConfirmEmailPage()),
                             );
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
