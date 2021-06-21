@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/homepage.dart';
 import 'package:test/question1.dart';
@@ -33,10 +34,11 @@ class PromptsPage extends StatefulWidget {
 
 class _PromptsPage extends State<PromptsPage> {
 
+  var currentUser = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance.collection('Users').doc("2tCX4wQSRrTpswjDN1c5").get(),
+      future: FirebaseFirestore.instance.collection('Users').doc(currentUser!.uid).get(),
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError)
           return Center(
@@ -152,7 +154,7 @@ class _PromptsPage extends State<PromptsPage> {
                       ),
                       SizedBox(height: 10,),
                       Text(
-                        determineQ4(snapshot.data!['Q4']),
+                        determineQ4(snapshot.data!['Q3']),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: Constants.LABEL_SIZE,

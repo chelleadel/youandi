@@ -1,12 +1,19 @@
 //import 'dart:html';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test/constants.dart';
+import 'package:test/homepage.dart';
 import 'package:test/questionsmain.dart';
 
+import 'firebase.dart';
+
 class Registration extends StatelessWidget {
+  bool reEnter;
+  Registration({required this.reEnter});
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +21,27 @@ class Registration extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: RegistrationPage(),
+      home: RegistrationPage(reEnter: reEnter,),
     );
   }
 }
 
 class RegistrationPage extends StatefulWidget {
-  RegistrationPage({Key? key}) : super(key: key);
+
+  bool reEnter;
+  RegistrationPage({required this.reEnter});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPage();
+  State<RegistrationPage> createState() => _RegistrationPage(reEnter: reEnter);
 }
 
 class _RegistrationPage extends State<RegistrationPage> {
+  bool reEnter;
+  _RegistrationPage({required this.reEnter});
+
   final _formNameKey = GlobalKey<FormState>();
   final _formSelfDescriptionKey = GlobalKey<FormState>();
+  var currentUser = FirebaseAuth.instance.currentUser;
 
   File _displayPicture = File("assets/Demo_Pic.jpg");
   
@@ -205,11 +218,28 @@ class _RegistrationPage extends State<RegistrationPage> {
                               if (_formNameKey.currentState!.validate() &&
                                   _formSelfDescriptionKey.currentState!
                                       .validate()) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => QuestionsMain()),
-                                );
+                                Firebase.UPDATE_USER_STRING(currentUser!.uid, "DisplayName", _displayName.text);
+                                Firebase.UPDATE_USER_STRING(currentUser!.uid, "SelfDescription", _selfDescription.text);
+                                Firebase.UPDATE_USER_STRING(currentUser!.uid, "Gender", dropdownValueGender);
+                                Firebase.UPDATE_USER_TIME(currentUser!.uid, "DOB", _dateOfBirth);
+
+                                print("ReEnter status: ");
+                                print(reEnter);
+                                if (reEnter == true) {
+                                  print("YAYYY");
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage()),
+                                  );
+                                }
+                                else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => QuestionsMain()),
+                                  );
+                                }
                               }
                             } else {
                               showDialog(

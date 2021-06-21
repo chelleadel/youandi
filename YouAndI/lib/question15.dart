@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/question1.dart';
 import 'package:test/question2.dart';
 import 'package:test/constants.dart';
 import 'package:test/question3.dart';
+import 'firebase.dart';
 
+// Q2- Pair me with a; 1- Female, 2- Male, 3- Both
 class Question15 extends StatelessWidget {
+  var currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,7 @@ class Question15 extends StatelessWidget {
                       SizedBox(height: 50),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q2", 1);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Question3()),
@@ -55,6 +60,7 @@ class Question15 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q2", 2);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Question3()),
@@ -80,6 +86,7 @@ class Question15 extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
+                          Firebase.UPDATE_USER_INT(currentUser!.uid, "Q2", 3);
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Question3()),

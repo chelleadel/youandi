@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Firebase {
 
-  CollectionReference users = FirebaseFirestore.instance.collection('Users');
+  static CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
-  Future<void> addUser(String userId, String key, String item) {
+  static Future<void> ADD_USER_STRING(String userId, String key, String item) {
     return users
         .doc(userId)
         .set({
@@ -15,7 +15,31 @@ class Firebase {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> updateUser(String userId, String key, String item) {
+  static Future<void> UPDATE_USER_STRING(String userId, String key, String item) {
+    return users
+        .doc(userId)
+        .update({key: item})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static Future<void> UPDATE_USER_INT(String userId, String key, int item) {
+    return users
+        .doc(userId)
+        .update({key: item})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static Future<void> UPDATE_USER_DOUBLE(String userId, String key, double item) {
+    return users
+        .doc(userId)
+        .update({key: item})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static Future<void> UPDATE_USER_TIME(String userId, String key, DateTime item) {
     return users
         .doc(userId)
         .update({key: item})

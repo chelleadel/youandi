@@ -4,6 +4,7 @@ import 'package:test/confirm_email.dart';
 import 'package:test/constants.dart';
 import 'package:test/registration.dart';
 import 'package:test/welcomepage.dart';
+import 'firebase.dart';
 
 class Sign_Up extends StatelessWidget {
 
@@ -135,15 +136,63 @@ class _SignUpPage extends State<SignUpPage> {
                             if (user!= null && !user.emailVerified) {
                               await user.sendEmailVerification();
                             }
+                            var currentUser = FirebaseAuth.instance.currentUser;
+                            Firebase.ADD_USER_STRING(currentUser!.uid, "Email", _emailController.text);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => Registration()),
+                                  builder: (BuildContext context) => Registration(reEnter: false,)),
                             );
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text("Password is too weak!"),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text('Please use a strong password.'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Ok'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  }
+                              );
                               print('The password provided is too weak.');
                             } else if (e.code == 'email-already-in-use') {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text("Account has already been registered"),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text('Kindly log in instead.'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Ok'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  }
+                              );
                               print('The account already exists for that email.');
                             }
                           } catch (e) {
