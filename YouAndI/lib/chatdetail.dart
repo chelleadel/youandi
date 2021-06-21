@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test/chatusers.dart';
+import 'package:test/models/chatusers.dart';
 import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
 import 'package:image_picker/image_picker.dart';
