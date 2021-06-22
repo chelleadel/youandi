@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test/models/chatusers.dart';
 import 'package:test/constants.dart';
@@ -10,19 +11,27 @@ import 'package:test/userdetail.dart';
 
 class ChatDetailPage extends StatefulWidget{
 
-  final ChatUsers user;
+  String userId;
+  String partnerId;
+  String chatId;
 
-  ChatDetailPage({required this.user});
+  ChatDetailPage({required this.userId, required this.partnerId, required this.chatId});
 
   @override
-  _ChatDetailPageState createState() => _ChatDetailPageState(partner: user);
+  _ChatDetailPageState createState() => _ChatDetailPageState(userId: userId, partnerId: partnerId, chatId: chatId);
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
 
-  final ChatUsers partner;
+  String userId;
+  String partnerId;
+  String chatId;
+  CollectionReference users = FirebaseFirestore.instance.collection("Users");
+  CollectionReference chat = FirebaseFirestore.instance.collection("Chat");
 
-  _ChatDetailPageState({required this.partner});
+  final ChatUsers partner = ChatUsers("Brandon", "HAHAHAHA", "assets/Demo_Pic.jpg", "Now");
+
+  _ChatDetailPageState({required this.userId, required this.partnerId, required this.chatId});
 
   @override
   Widget build(BuildContext context) {
@@ -54,22 +63,34 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          partner.name,
-                          style: TextStyle(
-                              fontFamily: 'Arial',
-                              fontSize: 20,
-                              color: Colors.black
-                          )
+                      FutureBuilder(
+                          future: users.
+                          doc(partnerId).
+                          get(),
+                          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                            if (!snapshot.hasData) {
+                              return CircularProgressIndicator();
+                            } else {
+                              return Text(
+                                "${snapshot.data!['DisplayName']}",
+                                style: TextStyle(fontSize: 16, color: Constants.FONT_COLOR),);
+                            }
+                          }
                       ),
-                      Text(
-                          partner.time,
-                          style: TextStyle(
-                              fontFamily: 'Arial',
-                              fontSize: 15,
-                              color: Colors.grey[800]
-                          )
-                      )
+                      FutureBuilder(
+                          future: users.
+                          doc(partnerId).
+                          get(),
+                          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                            if (!snapshot.hasData) {
+                              return CircularProgressIndicator();
+                            } else {
+                              return Text(
+                                "${snapshot.data!['SelfDescription']}",
+                                style: TextStyle(fontSize: 14, color: Colors.grey.shade800),);
+                            }
+                          }
+                      ),
                     ],
                   )
                 ],
@@ -95,13 +116,27 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             ],
           ),
           onTap: () {
-            Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => UserDetailMain(user: partner,)));
+            Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => UserDetailMain(userId: userId, partnerId: partnerId, chatId: chatId)));
           },
         ),
         body: Scaffold(
-          body: ChatBody(),
+          body: Container(
+            child: Stack(
+                children: [
+                  ChatBody(userId: userId, partnerId: partnerId, chatId: chatId),
+              Container(
+                  alignment: Alignment.bottomCenter,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  child: BottomBar(userId: userId, chatId: chatId,)
+              )
+                ]
+            )
+          )
         ),
-        bottomNavigationBar: BottomBar(),
+        bottomNavigationBar: null,
     );
   }
 
@@ -125,38 +160,172 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
 class ChatBody extends StatefulWidget {
 
-  const ChatBody({Key? key}) : super(key: key);
+  String userId;
+  String partnerId;
+  String chatId;
+
+  ChatBody({required this.userId, required this.partnerId, required this.chatId});
 
   @override
-  _ChatBodyState createState() => _ChatBodyState();
+  _ChatBodyState createState() => _ChatBodyState(userId: userId, partnerId: partnerId, chatId: chatId);
 }
 
 class _ChatBodyState extends State<ChatBody> {
 
+  String userId;
+  String partnerId;
+  String chatId;
+
+  _ChatBodyState({required this.userId, required this.partnerId, required this.chatId});
+
+  CollectionReference chats = FirebaseFirestore.instance.collection('Chat');
+  dynamic _chatStream;
+
   @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          ]
-      )
-    );
+  void initState() {
+    _chatStream = chats.
+          doc(chatId).
+          collection("Messages").
+          orderBy("sentAt").
+          snapshots();
+    super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: _chatStream,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (!snapshot.hasData) {
+            return Container();
+          } else {
+            return SingleChildScrollView(
+                child: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ListView.builder(
+                            itemCount: snapshot.data.docs.length,
+                            shrinkWrap: true,
+                            padding: EdgeInsets.only(top: 16),
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return textBubble(
+                                message: snapshot.data.docs[index].data()!['message'],
+                                sendByMe: userId == snapshot.data.docs[index].data()!['sentBy'],
+                              );
+                            },
+                          ),
+                        ]
+                    )
+                )
+            );
+          }
+        }
+    );
+  }
 }
 
-class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key}) : super(key: key);
+class textBubble extends StatelessWidget {
+
+  final String message;
+  final bool sendByMe;
+
+  textBubble({required this.message,required this.sendByMe});
 
   @override
-  _BottomBarState createState() => _BottomBarState();
+  Widget build(BuildContext context) {
+    print(sendByMe);
+    return Container(
+      padding: EdgeInsets.only(
+          top: 8,
+          bottom: 8,
+          left: sendByMe ? 0 : 24,
+          right: sendByMe ? 24 : 0),
+      alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+          margin: sendByMe
+              ? EdgeInsets.only(left: 30)
+              : EdgeInsets.only(right: 30),
+          padding: EdgeInsets.only(
+              top: 17, bottom: 17, left: 20, right: 20),
+          decoration: BoxDecoration(
+            borderRadius: sendByMe ? BorderRadius.only(
+                topLeft: Radius.circular(23),
+                topRight: Radius.circular(23),
+                bottomLeft: Radius.circular(23)
+            ) :
+            BorderRadius.only(
+                topLeft: Radius.circular(23),
+                topRight: Radius.circular(23),
+                bottomRight: Radius.circular(23)),
+            gradient: LinearGradient(
+                colors: [
+                const Color(0xff007EF4),
+                const Color(0xff2A75BC)
+                ],
+          )
+      ),
+      child: Text(message,
+          textAlign: TextAlign.start,
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: 'OverpassRegular',
+              fontWeight: FontWeight.w300)),
+    ),
+    );
+  }
+}
+
+
+class BottomBar extends StatefulWidget {
+
+  String chatId;
+  String userId;
+
+  BottomBar({required this.chatId, required this.userId});
+
+  @override
+  _BottomBarState createState() => _BottomBarState(chatId: chatId, userId: userId);
 }
 
 class _BottomBarState extends State<BottomBar> {
 
+  String chatId;
+  String userId;
+  _BottomBarState({required this.chatId, required this.userId});
+
   final _picker = ImagePicker();
+  TextEditingController _message = new TextEditingController();
   bool _sentPictureUpdated = false;
   File _sentPicture = File("assets/Demo_Pic.jpg");
+
+  addMessage() {
+    if(_message.text.isNotEmpty) {
+      Map<String, dynamic> chatMessageMap = {
+        "sentBy": userId,
+        "message": _message.text,
+        'sentAt': Timestamp.now(),
+      };
+
+      FirebaseFirestore.
+      instance.
+      collection("Chat").
+      doc(chatId).
+      collection("Messages").
+      add(chatMessageMap).
+      catchError((e) {
+        print(e.toString());
+      });
+
+      setState(() {
+        _message.text = "";
+      });
+
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +362,7 @@ class _BottomBarState extends State<BottomBar> {
                           ),
                           Expanded(
                             child: TextField(
+                              controller: _message,
                               decoration: InputDecoration(
                                 hintText: "Type here",
                                 border: InputBorder.none,
@@ -215,7 +385,9 @@ class _BottomBarState extends State<BottomBar> {
                       Icons.arrow_forward_ios_rounded,
                       color: Colors.white,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      addMessage();
+                    },
                   ),
                 )
               ]
