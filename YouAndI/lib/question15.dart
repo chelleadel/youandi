@@ -4,7 +4,7 @@ import 'package:test/question1.dart';
 import 'package:test/question2.dart';
 import 'package:test/constants.dart';
 import 'package:test/question3.dart';
-import 'firebase.dart';
+import 'services/firebase.dart';
 
 // Q2- Pair me with a; 1- Female, 2- Male, 3- Both
 class Question15 extends StatelessWidget {

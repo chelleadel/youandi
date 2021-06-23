@@ -2,12 +2,14 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test/chat.dart';
 import 'package:test/prompts.dart';
 import 'package:test/questionsmain.dart';
 import 'package:test/registration.dart';
+import 'package:test/services/storage.dart';
 import 'package:test/welcomepage.dart';
 import 'package:test/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,6 +46,8 @@ class _ProfilePage extends State<ProfilePage> {
   //final TextEditingController _displayPicture = TextEditingController();
   final TextEditingController _selfDescription = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
+
+  final _storage = FirebaseStorage.instance.ref('displayPictures');
 
 
   @override
@@ -403,35 +407,35 @@ class _ProfilePage extends State<ProfilePage> {
     });
   }
 
-  Widget imageProfile() {
-    return Stack(children: <Widget>[
-      CircleAvatar(
-        radius: 60.0,
-        // backgroundImage: //_displayPicture == PickedFile("assets/Demo_Pic.jpg") ?
-        //AssetImage("assets/Demo_Pic.jpg") :
-        //AssetImage("assets/Demo_Pic.jpg"),
-        ///FileImage(File(_displayPicture.path)),
-        // _displayPicture == null ?
-        // FileImage(File("assets/Demo_Pic.jpg")) :
-        // FileImage(File(_displayPicture.path))
-      ),
-      Positioned(
-        bottom: 20.0,
-      right: 20.0,
-        child: InkWell(
-        onTap: () {
-          showModalBottomSheet(
-              context: context,
-              builder: ((builder) => bottomSheet()),
-          );
-        },
-        child:
-      Icon(Icons.camera_alt,
-    color: Colors.cyanAccent,
-    size: 20.0,),
-        ),
-      )
-    ],);
+  imageProfile() {
+
+    StorageService ss = new StorageService();
+    User? user = FirebaseAuth.instance.currentUser;
+    String id = "buffer";
+    if (user != null) {
+      id = user.uid;
+    }
+
+    print(id);
+
+    return FutureBuilder(
+        future: ss.
+        findDisplayPicture(id),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircleAvatar(
+              radius: 80.0,
+            );
+          } else {
+            print(snapshot.data.toString());
+            return CircleAvatar(
+              radius: 80.0,
+              backgroundImage: NetworkImage('${snapshot.data.toString()}'),
+            );
+          }
+        }
+    );
+
   }
 
 

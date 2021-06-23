@@ -1,15 +1,15 @@
-//import 'dart:html';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
 import 'package:test/questionsmain.dart';
 
-import 'firebase.dart';
+import 'services/firebase.dart';
 
 class Registration extends StatelessWidget {
   bool reEnter;
@@ -36,6 +36,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPage extends State<RegistrationPage> {
+
   bool reEnter;
   _RegistrationPage({required this.reEnter});
 
@@ -335,19 +336,66 @@ class _RegistrationPage extends State<RegistrationPage> {
   }
 
   Future takePhoto(ImageSource source) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String uid = "buffer";
+    if (user != null){
+      uid = user.uid;
+    }
+
+    final _storage = FirebaseStorage.instance;
     final pickedFile = await _picker.getImage(source: source);
 
-    setState(() {
-      if (pickedFile != null) {
+
+    if (pickedFile != null){
+
+      if (_displayPictureUpdated) {
+        // delete the existing data!
+        await _storage
+            .ref()
+            .child('displayPictures/${uid}')
+            .delete();
+      }
+
+      //Upload to Firebase
+      await _storage
+          .ref()
+          .child('displayPictures/${uid}')
+          .putFile(File(pickedFile.path));
+
+      setState(() {
         _displayPictureUpdated = true;
         _displayPicture = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
+      });
+
+    } else {
+      print('No Path Received');
+    }
+  }
+
+  checkExistingPicture() async {
+
+    User? user = FirebaseAuth.instance.currentUser;
+    String uid = "buffer";
+    if (user != null){
+      uid = user.uid;
+    }
+
+    String existedPicture = await FirebaseStorage.instance
+              .ref('displayPictures/${uid}')
+              .getDownloadURL();
+
+    if (existedPicture.isNotEmpty) {
+      _displayPictureUpdated = true;
+      _displayPicture = File("assets/Demo_Pic.jpg");
+
+    }
   }
 
   Widget imageProfile() {
+
+    checkExistingPicture();
+    print(_displayPictureUpdated);
+
     return Stack(children: <Widget>[
       CircleAvatar(
         radius: 80.0,
@@ -367,8 +415,8 @@ class _RegistrationPage extends State<RegistrationPage> {
         },
         child:
       Icon(Icons.camera_alt,
-    color: Colors.cyanAccent,
-    size: 28.0,),
+        color: Colors.cyanAccent,
+        size: 28.0,),
         ),
       )
     ],);
