@@ -15,6 +15,8 @@ import 'package:test/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
+import 'changepassword.dart';
+
 
 class Profile extends StatelessWidget {
 
@@ -260,7 +262,7 @@ class _ProfilePage extends State<ProfilePage> {
                       SizedBox(height: 20,),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
+                          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => ChangePasswordPage()));
                         },
                         child: Text('Change password',
                           style: TextStyle(

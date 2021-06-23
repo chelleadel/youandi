@@ -227,7 +227,6 @@ class _RegistrationPage extends State<RegistrationPage> {
                                 print("ReEnter status: ");
                                 print(reEnter);
                                 if (reEnter == true) {
-                                  print("YAYYY");
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
