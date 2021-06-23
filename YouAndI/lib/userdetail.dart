@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:test/chatdetail.dart';
 import 'package:test/models/chatusers.dart';
 import 'package:test/constants.dart';
+import 'package:test/services/storage.dart';
 
 class UserDetailMain extends StatelessWidget {
 
@@ -60,6 +61,27 @@ class _UserDetailState extends State<UserDetail> {
 
   _UserDetailState({required this.userId, required this.partnerId, required this.chatId});
 
+  imageProfile(String pid) {
+
+    StorageService ss = new StorageService();
+    
+    return FutureBuilder(
+        future: ss.
+        findDisplayPicture(pid),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          } else {
+            print(snapshot.data.toString());
+            return CircleAvatar(
+              radius: 70,
+              backgroundImage: NetworkImage('${snapshot.data.toString()}'),
+            );
+          }
+        }
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,12 +97,9 @@ class _UserDetailState extends State<UserDetail> {
             child: Hero(
               tag: user.imageURL,
               child: Container(
-                child: CircleAvatar(
-                  radius: 70,
-                  backgroundImage: AssetImage(user.imageURL),
+                child: imageProfile(partnerId)
                 ),
               ),
-            ),
           ),
           SizedBox(height: 40),
           FutureBuilder(
@@ -114,6 +133,23 @@ class PictureDetail extends StatelessWidget {
 
   PictureDetail({required this.userId, required this.partnerId, required this.chatId});
 
+  imageProfile(String pid) {
+    
+    StorageService ss = new StorageService();
+    
+    return FutureBuilder(
+        future: ss.
+        findDisplayPicture(pid),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          } else {
+            return Image.network('${snapshot.data.toString()}');
+          }
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +174,7 @@ class PictureDetail extends StatelessWidget {
               Hero(
                 transitionOnUserGestures: true,
                 tag: user.imageURL,
-                child: Image.asset(user.imageURL),
+                child: imageProfile(partnerId),
               ),
             ],
           ),
@@ -146,7 +182,6 @@ class PictureDetail extends StatelessWidget {
     );
   }
 }
-
 
 
 

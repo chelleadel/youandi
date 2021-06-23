@@ -4,6 +4,7 @@ import 'package:test/models/chatusers.dart';
 import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:test/services/storage.dart';
 
 import 'dart:io';
 
@@ -33,6 +34,34 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   _ChatDetailPageState({required this.userId, required this.partnerId, required this.chatId});
 
+  imageProfile(String pid) {
+
+    StorageService ss = new StorageService();
+
+
+    return FutureBuilder(
+        future: ss.
+        findDisplayPicture(pid),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+            /*
+              CircleAvatar(
+              radius: 60.0,
+            );
+               */
+          } else {
+            print(snapshot.data.toString());
+            return CircleAvatar(
+              maxRadius: 25,
+              backgroundImage: NetworkImage('${snapshot.data.toString()}'),
+            );
+          }
+        }
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +83,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               padding: EdgeInsets.only(top: 5, bottom: 10),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(partner.imageURL),
-                    maxRadius: 25,
-                  ),
+                  imageProfile(partnerId),
                   SizedBox(width: 15),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,

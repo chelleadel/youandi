@@ -8,6 +8,7 @@ import 'package:test/models/chatusers.dart';
 import 'package:test/chatdetail.dart';
 import 'package:test/constants.dart';
 import 'package:test/services/query.dart';
+import 'package:test/services/storage.dart';
 
 class Chat extends StatelessWidget {
 
@@ -176,10 +177,7 @@ class _ConversationListState extends State<ConversationList> {
                       Expanded(
                         child: Row(
                           children: [
-                            CircleAvatar(
-                              backgroundImage: AssetImage(imageUrl),
-                              maxRadius: 30,
-                            ),
+                            imageProfile(pid),
                             SizedBox(width: 16,),
                             Expanded(
                               child: Container(
@@ -285,5 +283,34 @@ class _ConversationListState extends State<ConversationList> {
       ),
     );
   }
+
+  imageProfile(String pid) {
+
+    StorageService ss = new StorageService();
+    
+
+    return FutureBuilder(
+        future: ss.
+        findDisplayPicture(pid),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+            /*
+              CircleAvatar(
+              radius: 60.0,
+            );
+               */
+          } else {
+            print(snapshot.data.toString());
+            return CircleAvatar(
+              maxRadius: 30,
+              backgroundImage: NetworkImage('${snapshot.data.toString()}'),
+            );
+          }
+        }
+    );
+
+  }
+  
 }
 

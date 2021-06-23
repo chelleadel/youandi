@@ -4,7 +4,7 @@ import 'package:test/confirm_email.dart';
 import 'package:test/constants.dart';
 import 'package:test/registration.dart';
 import 'package:test/welcomepage.dart';
-import 'firebase.dart';
+import 'services/firebase.dart';
 
 class Sign_Up extends StatelessWidget {
 

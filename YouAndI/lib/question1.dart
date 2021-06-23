@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:test/constants.dart';
 import 'package:test/question15.dart';
 import 'package:test/question2.dart';
-import 'firebase.dart';
+import 'services/firebase.dart';
 
 // Q1- I am looking for; 1- Romantic R/S, 2- Friendship, 3- Both
 class Question1 extends StatelessWidget {
