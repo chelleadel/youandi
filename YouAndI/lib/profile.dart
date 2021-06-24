@@ -2,12 +2,9 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:test/chat.dart';
 import 'package:test/prompts.dart';
-import 'package:test/questionsmain.dart';
 import 'package:test/registration.dart';
 import 'package:test/services/storage.dart';
 import 'package:test/welcomepage.dart';
@@ -41,16 +38,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePage extends State<ProfilePage> {
 
   File _displayPicture = File("assets/Demo_Pic.jpg");
-  bool _displayPictureUpdated = false;
-  final TextEditingController _displayName = TextEditingController();
   final _picker = ImagePicker();
 
-  //final TextEditingController _displayPicture = TextEditingController();
-  final TextEditingController _selfDescription = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
-
-  final _storage = FirebaseStorage.instance.ref('displayPictures');
-
 
   @override
   Widget build(BuildContext context) {
