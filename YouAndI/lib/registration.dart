@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
 import 'package:test/questionsmain.dart';
+import 'package:test/services/storage.dart';
 
 import 'services/firebase.dart';
 
@@ -44,7 +45,7 @@ class _RegistrationPage extends State<RegistrationPage> {
   final _formSelfDescriptionKey = GlobalKey<FormState>();
   var currentUser = FirebaseAuth.instance.currentUser;
 
-  File _displayPicture = File("assets/Demo_Pic.jpg");
+  String _displayPicture = "https://cdn.asiatatler.com/asiatatler/i/hk/2021/04/23123235-image-11_cover_1024x1024.png";
   
   bool _displayPictureUpdated = false;
   final TextEditingController _displayName = TextEditingController();
@@ -58,6 +59,7 @@ class _RegistrationPage extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Center(
@@ -151,6 +153,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownValueGender = newValue!;
+                              print('ss ' + _displayPicture);
                             });
                           },
                           items: <String>['Choose', 'Male', 'Female']
@@ -227,7 +230,6 @@ class _RegistrationPage extends State<RegistrationPage> {
                                 print("ReEnter status: ");
                                 print(reEnter);
                                 if (reEnter == true) {
-                                  print("YAYYY");
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -344,7 +346,7 @@ class _RegistrationPage extends State<RegistrationPage> {
 
     final _storage = FirebaseStorage.instance;
     final pickedFile = await _picker.getImage(source: source);
-
+    StorageService ss = new StorageService();
 
     if (pickedFile != null){
 
@@ -362,9 +364,11 @@ class _RegistrationPage extends State<RegistrationPage> {
           .child('displayPictures/${uid}')
           .putFile(File(pickedFile.path));
 
+      String downUrl = await ss.findDisplayPicture(uid);
+
       setState(() {
         _displayPictureUpdated = true;
-        _displayPicture = File(pickedFile.path);
+        _displayPicture = downUrl;
       });
 
     } else {
@@ -386,7 +390,7 @@ class _RegistrationPage extends State<RegistrationPage> {
 
     if (existedPicture.isNotEmpty) {
       _displayPictureUpdated = true;
-      _displayPicture = File("assets/Demo_Pic.jpg");
+      _displayPicture = existedPicture;
 
     }
   }
@@ -394,14 +398,11 @@ class _RegistrationPage extends State<RegistrationPage> {
   Widget imageProfile() {
 
     checkExistingPicture();
-    print(_displayPictureUpdated);
 
     return Stack(children: <Widget>[
       CircleAvatar(
         radius: 80.0,
-        backgroundImage: _displayPictureUpdated == false ?
-        FileImage(File("assets/Demo_Pic.jpg")) :
-        FileImage(File(_displayPicture.path)),
+        backgroundImage: NetworkImage(_displayPicture),
       ),
       Positioned(
         bottom: 20.0,

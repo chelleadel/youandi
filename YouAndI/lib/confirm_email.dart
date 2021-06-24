@@ -42,7 +42,9 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
         user.reload();
         if (user.emailVerified) {
           _timer.cancel();
-          Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration(reEnter: false,)));
+          WidgetsBinding.instance!
+              .addPostFrameCallback((_) => Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration(reEnter: false,))));
+          // Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration(reEnter: false,)));
         }
       }
     }
@@ -77,7 +79,13 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                   Text(_start.toString()),
                   SizedBox(height: 60),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+
+                      User? user = FirebaseAuth.instance.currentUser;
+                      if (user != null && !user.emailVerified) {
+                        await user.sendEmailVerification();
+                      }
+
                       setState(() {
                         _timer.cancel();
                         _start = 60;
@@ -144,7 +152,6 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
           (Timer timer) {
         if (_start == 0) {
           setState(() {
-            print("repeat");
             timer.cancel();
             returnMainPage();
           });
