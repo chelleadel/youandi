@@ -72,7 +72,6 @@ class _UserDetailState extends State<UserDetail> {
           if (!snapshot.hasData) {
             return CircularProgressIndicator();
           } else {
-            print(snapshot.data.toString());
             return CircleAvatar(
               radius: 70,
               backgroundImage: NetworkImage('${snapshot.data.toString()}'),
