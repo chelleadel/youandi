@@ -264,14 +264,6 @@ class _ConversationListState extends State<ConversationList> {
                                   }
                                 }
                             ),
-                            /*SizedBox(height: 3),
-                  isMessageRead
-                      ? Icon(
-                    Icons.auto_awesome_rounded,
-                    color: Colors.yellow.shade800,
-                  )
-                      : Text(''),
-                   */
                           ]
                       ),
                     ],
@@ -294,12 +286,9 @@ class _ConversationListState extends State<ConversationList> {
         findDisplayPicture(pid),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
-            /*
-              CircleAvatar(
-              radius: 60.0,
+            return CircleAvatar(
+              maxRadius: 30,
             );
-               */
           } else {
             print(snapshot.data.toString());
             return CircleAvatar(

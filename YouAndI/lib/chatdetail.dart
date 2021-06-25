@@ -150,19 +150,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             child: Stack(
                 children: [
                   ChatBody(userId: userId, partnerId: partnerId, chatId: chatId),
-              Container(
-                  alignment: Alignment.bottomCenter,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  child: BottomBar(userId: userId, chatId: chatId,)
-              )
                 ]
             )
           )
         ),
-        bottomNavigationBar: null,
+        bottomNavigationBar: BottomBar(userId: userId, chatId: chatId,),
     );
   }
 
@@ -210,10 +202,10 @@ class _ChatBodyState extends State<ChatBody> {
   @override
   void initState() {
     _chatStream = chats.
-          doc(chatId).
-          collection("Messages").
-          orderBy("sentAt").
-          snapshots();
+    doc(chatId).
+    collection("Messages").
+    orderBy("sentAt").
+    snapshots();
     super.initState();
   }
 
@@ -226,6 +218,7 @@ class _ChatBodyState extends State<ChatBody> {
             return Container();
           } else {
             return SingleChildScrollView(
+                reverse: true,
                 child: Center(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -239,6 +232,7 @@ class _ChatBodyState extends State<ChatBody> {
                               return textBubble(
                                 message: snapshot.data.docs[index].data()!['message'],
                                 sendByMe: userId == snapshot.data.docs[index].data()!['sentBy'],
+                                sendAt: snapshot.data.docs[index].data()!['sentAt'],
                               );
                             },
                           ),
@@ -256,50 +250,75 @@ class textBubble extends StatelessWidget {
 
   final String message;
   final bool sendByMe;
+  final Timestamp sendAt;
 
-  textBubble({required this.message,required this.sendByMe});
+  textBubble({required this.message,required this.sendByMe, required this.sendAt});
 
   @override
   Widget build(BuildContext context) {
-    print(sendByMe);
-    return Container(
-      padding: EdgeInsets.only(
+
+    DateTime sentAt = sendAt.toDate();
+    int compare = DateTime.now().difference(sentAt).inDays;
+
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(
           top: 8,
-          bottom: 8,
           left: sendByMe ? 0 : 24,
           right: sendByMe ? 24 : 0),
-      alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-          margin: sendByMe
-              ? EdgeInsets.only(left: 30)
-              : EdgeInsets.only(right: 30),
+          alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
+          child: Text(
+            (compare >=1) ? "${sentAt.day}-${sentAt.month}" : "${sentAt.hour}:${sentAt.minute}",
+            style: TextStyle(
+              fontSize: 9,
+              color: Colors.grey.shade800
+            ),
+          ),
+        ),
+        Container(
           padding: EdgeInsets.only(
-              top: 17, bottom: 17, left: 20, right: 20),
-          decoration: BoxDecoration(
-            borderRadius: sendByMe ? BorderRadius.only(
-                topLeft: Radius.circular(23),
-                topRight: Radius.circular(23),
-                bottomLeft: Radius.circular(23)
-            ) :
-            BorderRadius.only(
-                topLeft: Radius.circular(23),
-                topRight: Radius.circular(23),
-                bottomRight: Radius.circular(23)),
-            gradient: LinearGradient(
-                colors: [
-                const Color(0xff007EF4),
-                const Color(0xff2A75BC)
-                ],
-          )
-      ),
-      child: Text(message,
-          textAlign: TextAlign.start,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontFamily: 'OverpassRegular',
-              fontWeight: FontWeight.w300)),
-    ),
+              top: 2,
+              bottom: 8,
+              left: sendByMe ? 0 : 24,
+              right: sendByMe ? 24 : 0),
+          alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
+          child: Container(
+              margin: sendByMe
+                  ? EdgeInsets.only(left: 30)
+                  : EdgeInsets.only(right: 30),
+              padding: EdgeInsets.only(
+                  top: 17, bottom: 17, left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: sendByMe ? BorderRadius.only(
+                    topLeft: Radius.circular(23),
+                    topRight: Radius.circular(23),
+                    bottomLeft: Radius.circular(23)
+                ) :
+                BorderRadius.only(
+                    topLeft: Radius.circular(23),
+                    topRight: Radius.circular(23),
+                    bottomRight: Radius.circular(23)),
+                gradient: LinearGradient(
+                    colors: [
+                    const Color(0xff007EF4),
+                    const Color(0xff2A75BC)
+                    ],
+              )
+          ),
+          child: Text(
+                message,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'OverpassRegular',
+                  fontWeight: FontWeight.w300
+                )
+            ),
+        ),
+        )
+    ]
     );
   }
 }
