@@ -31,46 +31,52 @@ class _HomePageState extends State<HomePage> {
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
 
-        // Matching starts
-        if (Matching.hasMaxMatches(snapshot.data!['NumberOfMatch']) == false) {
-          print("Number of personal match:");
-          print(snapshot.data!['NumberOfMatch']);
-          Matching.findMatch(snapshot.data!['Email']);
-        }
-
-
-        // Matching ends
-
         if (snapshot.hasError)
           return Center(
             child: Text(snapshot
                 .hasError
                 .toString()),
           );
-        return snapshot.hasData ?
 
-        Scaffold(
-            backgroundColor: Constants.BG_BASE,
-            body: _pageOptions[selectedPage],
-            bottomNavigationBar:
-            BottomNavigationBar(
-              items: [
-                BottomNavigationBarItem(icon: Icon(Icons.message, size: 30), label: 'Chat'),
-                BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: 'Profile'),
-              ],
-              selectedItemColor: Constants.CHAT_BASE_DARK,
-              elevation: 5.0,
-              unselectedItemColor: Colors.grey.shade600,
-              currentIndex: selectedPage,
+        if (snapshot.hasData) {
+
+          // Matching starts
+          if (Matching.hasMaxMatches(snapshot.data!['NumberOfMatch']) == false) {
+            print("Number of personal match:");
+            print(snapshot.data!['NumberOfMatch']);
+            Matching.findMatch(snapshot.data!['Email']);
+          }
+
+
+          // Matching ends
+
+          return Scaffold(
               backgroundColor: Constants.BG_BASE,
-              onTap: (index){
-                setState(() {
-                  selectedPage = index;
-                });
-              },
-            )
-        ) :
-        Container();
+              body: _pageOptions[selectedPage],
+              bottomNavigationBar:
+              BottomNavigationBar(
+                items: [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.message, size: 30), label: 'Chat'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.account_circle, size: 30),
+                      label: 'Profile'),
+                ],
+                selectedItemColor: Constants.CHAT_BASE_DARK,
+                elevation: 5.0,
+                unselectedItemColor: Colors.grey.shade600,
+                currentIndex: selectedPage,
+                backgroundColor: Constants.BG_BASE,
+                onTap: (index) {
+                  setState(() {
+                    selectedPage = index;
+                  });
+                },
+              )
+          );
+        } else {
+          return Container();
+        }
       },
     );
   }
