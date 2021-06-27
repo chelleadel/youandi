@@ -72,6 +72,7 @@ class _SignInPage extends State<SignInPage> {
                                   return null;
                                 }
                               },
+                              obscureText: true,
                               decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
                                 labelText: 'Password',
@@ -107,6 +108,26 @@ class _SignInPage extends State<SignInPage> {
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
                       } else if (e.code == 'wrong-password') {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Password incorrect!"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('Ok'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => WelcomePage()),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            }
+                        );
                         print('Wrong password provided for that user.');
                       }
                     }
