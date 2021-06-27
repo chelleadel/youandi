@@ -31,6 +31,14 @@ class Firebase {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
+  static Future<void> UPDATE_USER_BOOL(String userId, String key, bool item) {
+    return users
+        .doc(userId)
+        .update({key: item})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   static Future<void> UPDATE_USER_DOUBLE(String userId, String key, double item) {
     return users
         .doc(userId)

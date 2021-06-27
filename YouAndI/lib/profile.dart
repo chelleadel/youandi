@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:test/matching.dart';
 import 'package:test/prompts.dart';
 import 'package:test/registration.dart';
 import 'package:test/services/storage.dart';
@@ -48,6 +49,7 @@ class _ProfilePage extends State<ProfilePage> {
     return FutureBuilder<DocumentSnapshot>(
       future: FirebaseFirestore.instance.collection('Users').doc(currentUser!.uid).get(),
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
         if (snapshot.hasError)
           return Center(
             child: Text(snapshot
