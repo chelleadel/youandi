@@ -73,6 +73,10 @@ flutter:
       fonts:
         - asset: fonts/Helvetica.ttf
 
+    - family: VisbyRoundCF
+      fonts:
+        - asset: fonts/VisbyRoundCF-Medium.otf
+
 
   # To add assets to your application, add an assets section, like this:
   assets:
@@ -80,6 +84,7 @@ flutter:
     - assets/spirit.png
     - assets/night.png
     - assets/logo.png
+    - assets/finalogo.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

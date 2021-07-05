@@ -1,10 +1,8 @@
-//import 'dart:html';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:test/matching.dart';
 import 'package:test/prompts.dart';
 import 'package:test/registration.dart';
 import 'package:test/services/storage.dart';
@@ -80,7 +78,7 @@ class _ProfilePage extends State<ProfilePage> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 10,),
+                      SizedBox(height: 30,),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 50.0),
                         child: imageProfile(),
@@ -89,55 +87,9 @@ class _ProfilePage extends State<ProfilePage> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
                         padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54)
-                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(width: 8,),
-                            Text(
-                              "Email:",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: Constants.LABEL_SIZE,
-                                  color: Colors.black
-                              ),
-                            ),
-                            SizedBox(width: 10,),
-                            Expanded(
-                              child: Text(
-                                "${snapshot.data!['Email']}",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: Constants.LABEL_SIZE,
-                                    color: Colors.black
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(width: 8,),
-                            Text(
-                              "Display name:",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: Constants.LABEL_SIZE,
-                                  color: Colors.black
-                              ),
-                            ),
-                            SizedBox(width: 10,),
                             Expanded(
                               child: Text(
                                 "${snapshot.data!['DisplayName']}",
@@ -155,22 +107,52 @@ class _ProfilePage extends State<ProfilePage> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
                         padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54)
-                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(width: 8,),
-                            Text(
-                              "Gender:",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: Constants.LABEL_SIZE,
-                                  color: Colors.black
+                            Expanded(
+                              child: Text(
+                                "${snapshot.data!['SelfDescription']}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: Constants.LABEL_SIZE,
+                                    color: Colors.black
+                                ),
                               ),
                             ),
-                            SizedBox(width: 10,),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        padding: const EdgeInsets.all(10.0),
+                        /*decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black54)
+                        ),*/
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${snapshot.data!['Email']}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: Constants.LABEL_SIZE,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
                             Expanded(
                               child: Text(
                                 "${snapshot.data!['Gender']}",
@@ -188,22 +170,9 @@ class _ProfilePage extends State<ProfilePage> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
                         padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54)
-                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(width: 8,),
-                            Text(
-                              "DOB:",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: Constants.LABEL_SIZE,
-                                  color: Colors.black
-                              ),
-                            ),
-                            SizedBox(width: 10,),
                             Expanded(
                               child: Text(
                                 //"${snapshot.data!['DOB'].toDate()}",
@@ -218,40 +187,7 @@ class _ProfilePage extends State<ProfilePage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20,),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(width: 8,),
-                            Text(
-                              "Self description:",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: Constants.LABEL_SIZE,
-                                  color: Colors.black
-                              ),
-                            ),
-                            SizedBox(width: 10,),
-                            Expanded(
-                              child: Text(
-                                "${snapshot.data!['SelfDescription']}",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: Constants.LABEL_SIZE,
-                                    color: Colors.black
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 30,),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => ChangePasswordPage()));
@@ -259,21 +195,21 @@ class _ProfilePage extends State<ProfilePage> {
                         child: Text('Change password',
                           style: TextStyle(
                               fontSize: Constants.BUTTON_FONT_SIZE,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontFamily: Constants.BUTTON_FONT
                           ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 20,),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Prompts()));
@@ -281,41 +217,42 @@ class _ProfilePage extends State<ProfilePage> {
                         child: Text('View prompt',
                           style: TextStyle(
                               fontSize: Constants.BUTTON_FONT_SIZE,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontFamily: Constants.BUTTON_FONT
-                          ),),
+                          ),
+                        ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 20,),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Registration(reEnter: true,)));
                         },
                         child: Text('Update details',
                           style: TextStyle(fontSize: Constants.BUTTON_FONT_SIZE,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontFamily: Constants.BUTTON_FONT),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 20,),
                       ElevatedButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
