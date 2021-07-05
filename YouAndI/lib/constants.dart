@@ -12,10 +12,11 @@ class Constants {
   // Border Size
   static const BORDER_WIDTH = 290.0;
   static const BORDER_HEIGHT = 50.0;
+  static const BORDER_HEIGHT_QS = 70.0;
   static const BORDER_RADIUS = 30.0;
 
   // Font Family
-  static const BUTTON_FONT = "Arial";
+  static const BUTTON_FONT = "VisbyRoundCF";
   static const FONT_BASE = "Helvetica";
   static const FONT_PROMPT = "BubblerOne-Regular";
 

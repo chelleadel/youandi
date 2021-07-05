@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/constants.dart';
-import 'package:test/homepage.dart';
 import 'package:test/sign_in.dart';
 import 'package:test/sign_up.dart';
-import 'package:test/test.dart';
 
 
 class WelcomePage extends StatefulWidget {
@@ -28,7 +26,7 @@ class _WelcomePage extends State<WelcomePage> {
               children: [
                 SizedBox(height: 200),
                 imageProfile(),
-                SizedBox(height: 180),
+                SizedBox(height: 160),
                 Form(
                     key: _formEmailKey,
                     child: Container(
@@ -42,33 +40,32 @@ class _WelcomePage extends State<WelcomePage> {
                                     MaterialPageRoute(builder: (context) => Sign_Up()),
                                   );
                                 },
-                                child: Text('Sign Up',
+                                child: Text('SIGN UP',
                                   style: TextStyle(
                                     fontSize: Constants.BUTTON_FONT_SIZE,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontFamily: Constants.BUTTON_FONT,
                                   ),),
                                 style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                                    backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                                     fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                          //side: BorderSide(color: Colors.black)
+                                          side: BorderSide(color: Colors.black)
                                         )
                                     ),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 12),
                               ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => SignInPage()),
                                   );
-
                                 },
-                                child: Text('Log In',
+                                child: Text('LOG IN',
                                   style: TextStyle(
                                     fontSize: Constants.BUTTON_FONT_SIZE,
                                     color: Colors.black,
@@ -90,7 +87,7 @@ class _WelcomePage extends State<WelcomePage> {
                         ),
                     ),
                 ),
-                SizedBox(height: 50)
+                SizedBox(height: 70)
               ]
         )
       )
@@ -98,11 +95,15 @@ class _WelcomePage extends State<WelcomePage> {
   }
 
   Widget imageProfile() {
-    return Stack(children: <Widget>[
-      CircleAvatar(
-          radius: 80.0,
-          backgroundImage: AssetImage("assets/logo.png")),
-    ],);
+    return Stack(
+      children: <Widget> [
+        CircleAvatar(
+          radius: 120.0,
+          backgroundImage: AssetImage("assets/finalogo.png"),
+          backgroundColor: Colors.white,
+        ),
+      ],
+    );
   }
 
 }

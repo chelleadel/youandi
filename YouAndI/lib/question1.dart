@@ -41,21 +41,21 @@ class Question1 extends StatelessWidget {
                         child: Text('Romantic Relationship',
                           style: TextStyle(
                             fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontFamily: Constants.BUTTON_FONT
                           ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  // side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           Firebase.UPDATE_USER_INT(currentUser!.uid, "Q1", 2);
@@ -67,22 +67,22 @@ class Question1 extends StatelessWidget {
                         child: Text('Friendship',
                           style: TextStyle(
                               fontSize: Constants.BUTTON_FONT_SIZE,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontFamily: Constants.BUTTON_FONT
                           ),
                         ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  // side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           Firebase.UPDATE_USER_INT(currentUser!.uid, "Q1", 3);
@@ -94,17 +94,17 @@ class Question1 extends StatelessWidget {
                         child: Text('Both',
                           style: TextStyle(
                               fontSize: Constants.BUTTON_FONT_SIZE,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontFamily: Constants.BUTTON_FONT
                           ),
                         ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  // side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
