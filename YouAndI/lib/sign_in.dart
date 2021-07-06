@@ -72,6 +72,7 @@ class _SignInPage extends State<SignInPage> {
                                   return null;
                                 }
                               },
+                              obscureText: true,
                               decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
                                 labelText: 'Password',
@@ -87,6 +88,7 @@ class _SignInPage extends State<SignInPage> {
               ElevatedButton(
                 onPressed: () async {
                   bool loginSuccess = false;
+                  String error = "None";
                   if (_formEmailKey.currentState!.validate()) {
 
                     try {
@@ -106,8 +108,10 @@ class _SignInPage extends State<SignInPage> {
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
+                        error = 'User not found';
                       } else if (e.code == 'wrong-password') {
                         print('Wrong password provided for that user.');
+                        error = 'Wrong password';
                       }
                     }
                   }
@@ -115,6 +119,55 @@ class _SignInPage extends State<SignInPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  } else if (error == "User not found") {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("User not found"),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: const <Widget>[
+                                  Text('Please try again'),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Ok'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        }
+                    );
+                  }
+                  else if (error == "Wrong password") {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("Wrong password"),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: const <Widget>[
+                                  Text('Please try again'),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Ok'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        }
                     );
                   } else {
                     showDialog(
@@ -135,10 +188,6 @@ class _SignInPage extends State<SignInPage> {
                                 child: const Text('Ok'),
                                 onPressed: () {
                                   Navigator.of(context).pop();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => WelcomePage()),
-                                  );
                                 },
                               ),
                             ],
