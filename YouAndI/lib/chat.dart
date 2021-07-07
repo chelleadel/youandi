@@ -42,6 +42,7 @@ class _ChatPage extends State<ChatPage> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       _chatIds = qs.getChatId(user.uid);
+      print(user.uid);
     }
   }
 
