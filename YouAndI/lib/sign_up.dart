@@ -139,6 +139,8 @@ class _SignUpPage extends State<SignUpPage> {
                             Firebase.ADD_USER_STRING(currentUser!.uid, "Email", _emailController.text);
                             Firebase.UPDATE_USER_INT(currentUser.uid, "NumberOfMatch", 0);
                             Firebase.UPDATE_USER_BOOL(currentUser.uid, "IsUserAlerted", true);
+                            Firebase.UPDATE_USER_INT(currentUser.uid, "warningCounter", 0);
+                            Firebase.CREATE_WARNING_ARRAY(currentUser.uid);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

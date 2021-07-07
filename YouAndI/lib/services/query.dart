@@ -17,13 +17,14 @@ class QueryService {
     await chat.
     where('Users', arrayContains: uid).
     get().
-    then((value) =>
+    then((value) {
         value.
         docs.
         forEach((element) {
           listOfChat.add(element.id);
           print("here: " + element.id);
-        })
+        });
+      }
     );
 
     return listOfChat;
