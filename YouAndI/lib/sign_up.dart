@@ -39,6 +39,17 @@ class _SignUpPage extends State<SignUpPage> {
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Constants.BG_BASE,
+          leading: IconButton(
+            color: Colors.black,
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Back',
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
+            },
+          ),
+        ),
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,6 +151,7 @@ class _SignUpPage extends State<SignUpPage> {
                             Firebase.UPDATE_USER_INT(currentUser.uid, "NumberOfMatch", 0);
                             Firebase.UPDATE_USER_BOOL(currentUser.uid, "IsUserAlerted", true);
                             Firebase.UPDATE_USER_INT(currentUser.uid, "warningCounter", 0);
+                            Firebase.UPDATE_USER_ARRAY(currentUser.uid, "warningArray", [""]);
                             Firebase.CREATE_WARNING_ARRAY(currentUser.uid);
                             Navigator.push(
                               context,
@@ -220,33 +232,6 @@ class _SignUpPage extends State<SignUpPage> {
                           )
                       ),
                   ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => WelcomePage()),
-                      );
-                    },
-                    child: Text('Back',
-                      style: TextStyle(
-                        fontSize: Constants.BUTTON_FONT_SIZE,
-                        color: Colors.black,
-                        fontFamily: Constants.BUTTON_FONT,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
-                        fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                              side: BorderSide(color: Colors.black)
-                            )
-                        )
-                    ),
-                  ),
-
                 ]
             )
         )

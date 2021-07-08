@@ -44,7 +44,9 @@ class _HomePageState extends State<HomePage> {
           if (Matching.hasMaxMatches(snapshot.data!['NumberOfMatch']) == false) {
             print("Number of personal match:");
             print(snapshot.data!['NumberOfMatch']);
-            Matching.findMatch(snapshot.data!['Email']);
+            Matching.findMatch(snapshot.data!['Email'].toString(), snapshot.data!['Gender'].toString(),
+                snapshot.data!['LowerAgePreference'], snapshot.data!['UpperAgePreference'],
+                snapshot.data!['Q1'].toString(), snapshot.data!['Q2'].toString(), snapshot.data!['Q3'].toString(), snapshot.data!['DOB']);
           }
 
 

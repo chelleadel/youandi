@@ -53,6 +53,14 @@ class Firebase {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
+  static Future<void> UPDATE_USER_ARRAY(String userId, String key, List item) {
+    return users
+        .doc(userId)
+        .update({key: item})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   static Future<void> CREATE_WARNING_ARRAY(String userId) {
     return users
         .doc(userId)
@@ -76,6 +84,5 @@ class Firebase {
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
-
 
 }
