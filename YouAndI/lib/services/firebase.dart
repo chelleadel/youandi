@@ -8,9 +8,7 @@ class Firebase {
   static Future<void> ADD_USER_STRING(String userId, String key, String item) {
     return users
         .doc(userId)
-        .set({
-      key: item,
-    })
+        .set({key: item,})
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
@@ -62,4 +60,29 @@ class Firebase {
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
+
+  static Future<void> CREATE_WARNING_ARRAY(String userId) {
+    return users
+        .doc(userId)
+        .update({"warningArray": []})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static Future<void> INCREMENT_WARNING_COUNTER(String userId) {
+    return users
+        .doc(userId)
+        .update({"warningCounter": FieldValue.increment(1)})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static Future<void> UPDATE_WARNING_ARRAY(String userId, String reason) {
+    return users
+        .doc(userId)
+        .update({"warningArray": FieldValue.arrayUnion([reason])})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
 }

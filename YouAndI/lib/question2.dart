@@ -56,22 +56,22 @@ class Question2 extends StatelessWidget {
                         child: Text('Chilling at home',
                           style: TextStyle(
                             fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontFamily: Constants.BUTTON_FONT,
                           ),
                         ),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 2);
@@ -83,21 +83,22 @@ class Question2 extends StatelessWidget {
                         child: Text('Going for a food trip',
                           style: TextStyle(
                             fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontFamily: Constants.BUTTON_FONT,
                           ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black
+                                  )
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 3);
@@ -109,21 +110,22 @@ class Question2 extends StatelessWidget {
                         child: Text('Going for shopping',
                           style: TextStyle(
                             fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontFamily: Constants.BUTTON_FONT,
                           ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black
+                                  )
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 4);
@@ -135,21 +137,21 @@ class Question2 extends StatelessWidget {
                         child: Text('Visiting tourist attractions',
                           style: TextStyle(
                             fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontFamily: Constants.BUTTON_FONT,
                           ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           Firebase.UPDATE_USER_INT(currentUser!.uid, "Q3", 5);
@@ -161,16 +163,16 @@ class Question2 extends StatelessWidget {
                         child: Text('Doing physical activities',
                           style: TextStyle(
                             fontSize: Constants.BUTTON_FONT_SIZE,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontFamily: Constants.BUTTON_FONT,
                           ),),
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                             fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                  //side: BorderSide(color: Colors.black)
+                                  side: BorderSide(color: Colors.black)
                                 )
                             )
                         ),

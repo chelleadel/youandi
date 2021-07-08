@@ -4,6 +4,7 @@ import 'package:test/models/chatusers.dart';
 import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:test/services/firebase.dart';
 import 'package:test/services/storage.dart';
 
 import 'dart:io';
@@ -27,10 +28,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   String userId;
   String partnerId;
   String chatId;
+  TextEditingController _reportMessage = new TextEditingController();
+  final _formReportKey = GlobalKey<FormState>();
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
   CollectionReference chat = FirebaseFirestore.instance.collection("Chat");
-
-  final ChatUsers partner = ChatUsers("Brandon", "HAHAHAHA", "assets/Demo_Pic.jpg", "Now");
 
   _ChatDetailPageState({required this.userId, required this.partnerId, required this.chatId});
 
@@ -133,7 +134,46 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text("User reported!"),
+                          title: Text("Report User"),
+                          content: Form(
+                            key: _formReportKey,
+                            child: TextFormField(
+                              controller: _reportMessage,
+                              validator: (value) {
+                                if ((value == null) || (value.isEmpty)) {
+                                  return "Report Message can't be empty";
+                                }
+                              },
+                              decoration: InputDecoration(
+                                border: UnderlineInputBorder(),
+                                labelText: 'Why are you reporting this user?',
+                                labelStyle: TextStyle(
+                                    fontSize: 15,
+                                ),
+                                hintText: 'Explain here',
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    Firebase.INCREMENT_WARNING_COUNTER(partnerId);
+                                    Firebase.UPDATE_WARNING_ARRAY(partnerId, _reportMessage.text);
+                                    _reportMessage.clear();
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: Text("Ok")),
+                            TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _reportMessage.clear();
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: Text("Cancel"))
+                          ],
                         );
                       }
                   );

@@ -152,6 +152,7 @@ class _SignUpPage extends State<SignUpPage> {
                             Firebase.UPDATE_USER_BOOL(currentUser.uid, "IsUserAlerted", true);
                             Firebase.UPDATE_USER_INT(currentUser.uid, "warningCounter", 0);
                             Firebase.UPDATE_USER_ARRAY(currentUser.uid, "warningArray", [""]);
+                            Firebase.CREATE_WARNING_ARRAY(currentUser.uid);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -217,16 +218,16 @@ class _SignUpPage extends State<SignUpPage> {
                       child: Text('Continue',
                         style: TextStyle(
                           fontSize: Constants.BUTTON_FONT_SIZE,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontFamily: Constants.BUTTON_FONT,
                         ),),
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BUTTON_BASE),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
                           fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                //side: BorderSide(color: Colors.black)
+                                side: BorderSide(color: Colors.black)
                               )
                           )
                       ),
