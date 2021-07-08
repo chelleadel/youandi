@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -57,6 +58,23 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
         ),
         home: Scaffold(
           resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            backgroundColor: Constants.BG_BASE,
+            leading: IconButton(
+              color: Colors.black,
+              icon: const Icon(Icons.arrow_back_rounded),
+              tooltip: 'Back',
+              onPressed: () async {
+                User? user = FirebaseAuth.instance.currentUser;
+                if (user != null) {
+                  FirebaseFirestore.instance.collection('Users').doc(user.uid).delete();
+                  user.delete();
+                };
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Sign_Up()));
+              },
+            ),
+          ),
           body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -104,35 +122,6 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                                 side: BorderSide(color: Colors.black)
-                            )
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () async {
-                      User? user = FirebaseAuth.instance.currentUser;
-                      if (user != null) {
-                        user.delete();
-                      };
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => Sign_Up()));
-                    },
-                    child: Text('Back',
-                      style: TextStyle(
-                        fontSize: Constants.BUTTON_FONT_SIZE,
-                        color: Colors.black,
-                        fontFamily: Constants.BUTTON_FONT,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
-                        fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                                side: BorderSide(color: Colors.black)
-                              //side: BorderSide(color: Colors.black)
                             )
                         )
                     ),
@@ -186,9 +175,11 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
         }).then((exit) async {
       _timer.cancel();
       User? user = FirebaseAuth.instance.currentUser;
+      String uid = user!.uid;
       if (user != null) {
         user.delete();
-      };
+      }
+      FirebaseFirestore.instance.collection('Users').doc(uid).delete();
       await FirebaseAuth.instance.signOut();
       Navigator.push(
         context,
