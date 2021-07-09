@@ -19,6 +19,7 @@ class Question15 extends StatelessWidget {
         home: Scaffold(
             appBar: AppBar(
               backgroundColor: Constants.BG_BASE,
+              elevation: 0,
               leading: IconButton(
                 color: Colors.black,
                 icon: const Icon(Icons.arrow_back_rounded),

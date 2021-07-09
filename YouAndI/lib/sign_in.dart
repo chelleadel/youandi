@@ -25,6 +25,18 @@ class _SignInPage extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Constants.BG_BASE,
+        elevation: 0,
+        leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back_rounded),
+          tooltip: 'Back',
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
+          },
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
@@ -236,32 +248,6 @@ class _SignInPage extends State<SignInPage> {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
                             side: BorderSide(color: Colors.black)
-                        )
-                    )
-                ),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => WelcomePage()),
-                  );
-                },
-                child: Text('Back',
-                  style: TextStyle(
-                    fontSize: Constants.BUTTON_FONT_SIZE,
-                    color: Colors.black,
-                    fontFamily: Constants.BUTTON_FONT,
-                  ),
-                ),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
-                    fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
-                          side: BorderSide(color: Colors.black)
                         )
                     )
                 ),

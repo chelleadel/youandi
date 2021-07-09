@@ -41,6 +41,7 @@ class _SignUpPage extends State<SignUpPage> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Constants.BG_BASE,
+          elevation: 0,
           leading: IconButton(
             color: Colors.black,
             icon: const Icon(Icons.arrow_back_rounded),
@@ -151,7 +152,6 @@ class _SignUpPage extends State<SignUpPage> {
                             Firebase.UPDATE_USER_INT(currentUser.uid, "NumberOfMatch", 0);
                             Firebase.UPDATE_USER_BOOL(currentUser.uid, "IsUserAlerted", true);
                             Firebase.UPDATE_USER_INT(currentUser.uid, "warningCounter", 0);
-                            Firebase.UPDATE_USER_ARRAY(currentUser.uid, "warningArray", [""]);
                             Firebase.CREATE_WARNING_ARRAY(currentUser.uid);
                             Navigator.push(
                               context,
