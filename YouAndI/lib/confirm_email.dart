@@ -60,6 +60,7 @@ class _ConfirmEmailPage extends State<ConfirmEmailPage> {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: Constants.BG_BASE,
+            elevation: 0,
             leading: IconButton(
               color: Colors.black,
               icon: const Icon(Icons.arrow_back_rounded),

@@ -85,8 +85,24 @@ class _ChatPage extends State<ChatPage> {
                       padding: EdgeInsets.only(top: 16),
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return ConversationList(
-                          chatId: snapshot.data[index],
+                        final item = snapshot.data[index];
+                        return Dismissible(
+                          key: Key(item),
+                          child: ConversationList(
+                            chatId: snapshot.data[index],
+                          ),
+                          onDismissed: (direction) {},
+                          background: Container(
+                            alignment: AlignmentDirectional.centerEnd,
+                            color: Colors.red,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+                              child: Icon(Icons.delete,
+                                color: Colors.white,
+
+                              ),
+                            ),
+                          ),
                         );
                       },
                     ),
