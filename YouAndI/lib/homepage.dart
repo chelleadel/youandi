@@ -6,6 +6,7 @@ import 'package:test/matching.dart';
 import 'package:test/profile.dart';
 import 'package:test/constants.dart';
 import 'package:test/services/firebase.dart';
+import 'package:test/welcomepage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -71,6 +72,34 @@ class _HomePageState extends State<HomePage> {
                 backgroundColor: Constants.BG_BASE,
                 onTap: (index) {
                   setState(() {
+                    if (snapshot.data!["warningCounter"] >= 3) {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("User is suspended"),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: const <Widget>[
+                                    Text('You have been reported. Breached Maximum Warnings'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Ok'),
+                                  onPressed: () async {
+                                    await FirebaseAuth.instance.signOut();
+                                    Navigator.of(context, rootNavigator: true).pop();
+                                    WidgetsBinding.instance!
+                                        .addPostFrameCallback((_) => Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage())));
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                      );
+                    }
                     selectedPage = index;
                   });
                 },
