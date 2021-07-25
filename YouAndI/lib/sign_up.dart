@@ -75,8 +75,10 @@ class _SignUpPage extends State<SignUpPage> {
                                 validator: (value) {
                                   if ((value == null) || (value.isEmpty)) {
                                     return "Email can't be empty";
-                                  } else if (!(value.contains('@u.nus.edu'))) {
-                                    return "NUS Email required";
+                                  //} else if (!(value.contains('@u.nus.edu'))) {
+                                    //return "NUS Email required";
+                                  //} else if (!checkEmail(value)) {
+                                    //return "exxxxxxx@u.nus.edu required";
                                   } else {
                                     return null;
                                   }
@@ -85,7 +87,7 @@ class _SignUpPage extends State<SignUpPage> {
                                   border: UnderlineInputBorder(),
                                   labelText: 'Email',
                                   labelStyle: TextStyle(fontSize: Constants.LABEL_SIZE),
-                                  hintText: 'NUS Email Only (@u.nus.edu)',
+                                  hintText: 'NUS Email Only (exxxxxxx@u.nus.edu)',
                                   contentPadding: EdgeInsets.all(20.0),
                                 ),
                               ),
@@ -239,5 +241,17 @@ class _SignUpPage extends State<SignUpPage> {
 
   }
 
+  bool checkEmail(String email) {
+    List numberInString = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    if (email.substring(0, 1) != "e") {
+      return false;
+    }
+    for (int i = 1; i <= 7; i++) {
+      if (numberInString.contains(email.substring(i, i+1)) == false) {
+        return false;
+      }
+    }
+    return true;
+  }
 
 }

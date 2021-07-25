@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
+import 'package:test/questionsmain.dart';
+import 'package:test/registration.dart';
 import 'package:test/sign_up.dart';
 import 'package:test/test.dart';
 import 'package:test/welcomepage.dart';
@@ -115,6 +118,39 @@ class _SignInPage extends State<SignInPage> {
                       if (user!= null && !user.emailVerified) {
                         await user.sendEmailVerification();
                         loginSuccess = false;
+                      }
+
+                      if (user != null && user.emailVerified) {
+                        FirebaseFirestore.instance
+                            .collection('Users')
+                            .doc(user.uid)
+                            .get()
+                            .then((DocumentSnapshot documentSnapshot) {
+                          if (documentSnapshot.exists) {
+                            bool error = false;
+                            try {
+                              dynamic nested = documentSnapshot.get(FieldPath(['DisplayName']));
+                            } on StateError catch(e) {
+                              error = true;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Registration(reEnter: false)),
+                              );
+                            }
+
+                            try {
+                              dynamic nested = documentSnapshot.get(FieldPath(['Q3']));
+                            } on StateError catch(e) {
+                              if (error == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => QuestionsMain()),
+                                );
+                              }
+                            }
+                          }
+                        });
                       }
 
                     } on FirebaseAuthException catch (e) {
