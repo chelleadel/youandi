@@ -254,6 +254,75 @@ class _ProfilePage extends State<ProfilePage> {
                       ),
                       SizedBox(height: 20,),
                       ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Delete Account?"),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: const <Widget>[
+                                        Text('Are you sure you would like to delete your account?'),
+                                        Text('This action is irreversible!'),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text('No'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text('Yes'),
+                                      onPressed: () {
+                                        String uid = FirebaseAuth.instance.currentUser!.uid;
+                                        FirebaseFirestore.instance.collection('Users').doc(uid).delete();
+                                        FirebaseAuth.instance.currentUser!.delete();
+
+                                        String chatUid = "";
+                                        FirebaseFirestore.instance
+                                            .collection('Chat')
+                                            .get()
+                                            .then((QuerySnapshot querySnapshot) {
+                                          querySnapshot.docs.forEach((doc) {
+                                            if(doc["Users"].contains(uid)) {
+                                              chatUid = doc["Users"][0] + doc["Users"][1];
+                                            }
+                                          });
+                                          if (chatUid != "") {
+                                            FirebaseFirestore.instance.collection('Chat').doc(chatUid).delete();
+                                          }
+                                        });
+                                        Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }
+                          );
+                        },
+                        child: Text('Delete account',
+                          style: TextStyle(
+                              fontSize: Constants.BUTTON_FONT_SIZE,
+                              color: Colors.black,
+                              fontFamily: Constants.BUTTON_FONT
+                          ),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Constants.BG_BASE),
+                            fixedSize: MaterialStateProperty.all<Size>(Size(Constants.BORDER_WIDTH, Constants.BORDER_HEIGHT)),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(Constants.BORDER_RADIUS),
+                                    side: BorderSide(color: Colors.black)
+                                )
+                            )
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      ElevatedButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
                           Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => WelcomePage()));
