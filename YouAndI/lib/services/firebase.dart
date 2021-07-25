@@ -91,5 +91,12 @@ class Firebase {
         .get();
   }
 
+  static Future<dynamic> DECREMENT_MATCH_NUMBER(String userId) {
+    return users
+        .doc(userId)
+        .update({"NumberOfMatch": FieldValue.increment(-1)})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
 
 }
