@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:test/models/chatusers.dart';
 import 'package:test/chatdetail.dart';
 import 'package:test/constants.dart';
+import 'package:test/services/firebase.dart';
 import 'package:test/services/firebasechat.dart';
 import 'package:test/services/query.dart';
 import 'package:test/services/storage.dart';
@@ -121,6 +122,7 @@ class _ChatPage extends State<ChatPage> {
                                                 child: const Text('Ok'),
                                                 onPressed: () async {
                                                   FirebaseChat.UPDATE_ALERT_ARRAY(item, uid);
+                                                  Firebase.DECREMENT_MATCH_NUMBER(uid);
                                                   Navigator.of(context).pop();
                                                 },
                                               ),
@@ -192,6 +194,7 @@ class _ConversationListState extends State<ConversationList> {
   CollectionReference chats = FirebaseFirestore.instance.collection('Chat');
   String chatId;
   bool alert;
+  dynamic uid;
   dynamic _partnerId;
   final bool isMessageRead = false;
   final String imageUrl = "assets/Demo_Pic.jpg";
@@ -208,6 +211,7 @@ class _ConversationListState extends State<ConversationList> {
     User? thisUser = FirebaseAuth.instance.currentUser;
     if (thisUser != null) {
       _partnerId = qs.fetchPartnerId(chatId, thisUser.uid);
+      uid = thisUser.uid;
     }
 
   }
@@ -249,6 +253,7 @@ class _ConversationListState extends State<ConversationList> {
                                 child: const Text('Ok'),
                                 onPressed: () async {
                                   setState(() {
+                                    Firebase.DECREMENT_MATCH_NUMBER(uid);
                                     FirebaseChat.DELETE_CHAT(chatId);
                                   });
                                   Navigator.of(context).pop();
