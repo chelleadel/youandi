@@ -17,6 +17,16 @@ class FirebaseChat {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
+  static Future<void> UPDATE_USER_ARRAY(String userId, String key, List item) {
+    return chat
+        .doc(userId)
+        .update({
+      key: item,
+    })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
+
   static Future<void> ADD_MESSAGE_COLLECTION(String userId) {
     return chat
         .doc(userId)
