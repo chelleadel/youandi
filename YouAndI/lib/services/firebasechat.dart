@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseChat {
 
-  static CollectionReference chat = FirebaseFirestore.instance.collection('Chat');
+  static CollectionReference chat = FirebaseFirestore.instance.collection(
+      'Chat');
 
   static Future<void> ADD_USER_ARRAY(String userId, String key, List item) {
     return chat
@@ -36,11 +37,10 @@ class FirebaseChat {
     })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
-    }
-  
+  }
+
   // checks the index of the uid
   static Future<void> UPDATE_ALERT_ARRAY(String chatId, String uid) async {
-
     int index = 2;
     // find the index of the userId the array
     try {
@@ -52,14 +52,13 @@ class FirebaseChat {
               .get("Users")
               .forEach((element) {
             if (element == uid) {
-              index = index*2;
+              index = index * 2;
             } else {
               index++;
             }
           })
 
       );
-
     } catch (e) {
       print(e);
     }
@@ -78,8 +77,7 @@ class FirebaseChat {
           .then((value) =>
       isAlert = value.get("isAlerted")
       );
-
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
 
@@ -90,7 +88,6 @@ class FirebaseChat {
         .update({"isAlerted": isAlert})
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
-
   }
 
   // delete the chat
@@ -115,14 +112,13 @@ class FirebaseChat {
               .get("Users")
               .forEach((element) {
             if (element == uid) {
-              index = index*2;
+              index = index * 2;
             } else {
               index++;
             }
           })
 
       );
-
     } catch (e) {
       print(e);
     }
@@ -141,8 +137,7 @@ class FirebaseChat {
           .then((value) =>
       isAlert = value.get("isAlerted")
       );
-
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
 
@@ -151,11 +146,9 @@ class FirebaseChat {
     } else {
       return true;
     }
-
   }
 
-  static CHECK_ALERT_DIALOG (String chatId, String uid) async {
-
+  static CHECK_ALERT_DIALOG(String chatId, String uid) async {
     int index = 2;
     int index1 = 4;
     // find the index of the userId the array
@@ -168,14 +161,13 @@ class FirebaseChat {
               .get("Users")
               .forEach((element) {
             if (element == uid) {
-              index = index*2;
+              index = index * 2;
             } else {
               index++;
             }
           })
 
       );
-
     } catch (e) {
       print(e);
     }
@@ -196,8 +188,7 @@ class FirebaseChat {
           .then((value) =>
       isAlert = value.get("isAlerted")
       );
-
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
 
@@ -208,5 +199,5 @@ class FirebaseChat {
     } else {
       return false;
     }
-
+  }
 }
