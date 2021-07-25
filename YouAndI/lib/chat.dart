@@ -9,6 +9,7 @@ import 'package:test/chatdetail.dart';
 import 'package:test/constants.dart';
 import 'package:test/services/query.dart';
 import 'package:test/services/storage.dart';
+import 'package:test/services/firebasechat.dart';
 
 class Chat extends StatelessWidget {
 
@@ -34,6 +35,9 @@ class _ChatPage extends State<ChatPage> {
 
   QueryService qs = new QueryService();
   dynamic _chatIds;
+  dynamic uid; // User's uid
+  bool show = false;
+
 
   @override
   void initState() {
@@ -42,7 +46,7 @@ class _ChatPage extends State<ChatPage> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       _chatIds = qs.getChatId(user.uid);
-      print(user.uid);
+      uid = user.uid;
     }
   }
 
@@ -86,23 +90,78 @@ class _ChatPage extends State<ChatPage> {
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final item = snapshot.data[index];
-                        return Dismissible(
-                          key: Key(item),
-                          child: ConversationList(
-                            chatId: snapshot.data[index],
-                          ),
-                          onDismissed: (direction) {},
-                          background: Container(
-                            alignment: AlignmentDirectional.centerEnd,
-                            color: Colors.red,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
-                              child: Icon(Icons.delete,
-                                color: Colors.white,
+                        return FutureBuilder(
+                            future: FirebaseChat.CHECK_SHOW(snapshot.data[index], uid),
+                            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (snapshot.data == false) {
+                                return Dismissible(
+                                  key: Key(item),
+                                  child: ConversationList(
+                                    chatId: item,
+                                    alert: false,
+                                  ),
+                                  onDismissed: (direction) {
+                                    // insert chat deletion code
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: Text("Chat has been deleted"),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: const <Widget>[
+                                                  Text('All chat history will be deleted for both parties. Press OK to continue deletion'),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: const Text('Ok'),
+                                                onPressed: () async {
+                                                  FirebaseChat.UPDATE_ALERT_ARRAY(item, uid);
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                    );
+                                  },
+                                  background: Container(
+                                    alignment: AlignmentDirectional.centerEnd,
+                                    color: Colors.red,
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+                                      child: Icon(Icons.delete,
+                                        color: Colors.white,
 
-                              ),
-                            ),
-                          ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return FutureBuilder(
+                                    future: FirebaseChat.CHECK_ALERT_DIALOG(item, uid),
+                                    builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      } else if (snapshot.data == true) {
+                                        return ConversationList(
+                                          chatId: item,
+                                          alert: true,
+                                        );
+                                      } else {
+                                        return Container();
+                                      }
+                                    });
+                              }
+                            }
                         );
                       },
                     ),
@@ -121,10 +180,11 @@ class _ChatPage extends State<ChatPage> {
 class ConversationList extends StatefulWidget{
 
   final String chatId;
+  final bool alert;
 
-  ConversationList({required this.chatId});
+  ConversationList({required this.chatId, required this.alert});
   @override
-  _ConversationListState createState() => _ConversationListState(chatId: chatId);
+  _ConversationListState createState() => _ConversationListState(chatId: chatId, alert: alert);
 }
 
 class _ConversationListState extends State<ConversationList> {
@@ -133,13 +193,14 @@ class _ConversationListState extends State<ConversationList> {
   CollectionReference users = FirebaseFirestore.instance.collection('Users');
   CollectionReference chats = FirebaseFirestore.instance.collection('Chat');
   String chatId;
+  bool alert;
   dynamic _partnerId;
   final bool isMessageRead = false;
   final String imageUrl = "assets/Demo_Pic.jpg";
   final ChatUsers user = ChatUsers("Brandon", "HAHAHAHA", "assets/Demo_Pic.jpg", "Now");
 
 
-  _ConversationListState({required this.chatId});
+  _ConversationListState({required this.chatId, required this.alert});
 
   @override
   void initState() {

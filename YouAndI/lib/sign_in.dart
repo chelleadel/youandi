@@ -5,6 +5,7 @@ import 'package:test/constants.dart';
 import 'package:test/homepage.dart';
 import 'package:test/questionsmain.dart';
 import 'package:test/registration.dart';
+import 'package:test/services/firebase.dart';
 import 'package:test/sign_up.dart';
 import 'package:test/test.dart';
 import 'package:test/welcomepage.dart';
@@ -103,6 +104,7 @@ class _SignInPage extends State<SignInPage> {
               ElevatedButton(
                 onPressed: () async {
                   bool loginSuccess = false;
+                  bool warnedUserOver = false; // true if the warningCounter is 3 or more
                   String error = "None";
                   if (_formEmailKey.currentState!.validate()) {
 
@@ -115,6 +117,14 @@ class _SignInPage extends State<SignInPage> {
                       User? user = FirebaseAuth.instance.currentUser;
                       print(!user!.emailVerified);
                       print(user != null);
+
+                      DocumentSnapshot ds = await Firebase.GET_USER(user.uid);
+                      int warningCounter = ds.get("warningCounter");
+                      if (warningCounter >= 3) {
+                        await FirebaseAuth.instance.signOut();
+                        warnedUserOver = true;
+                      }
+
                       if (user!= null && !user.emailVerified) {
                         await user.sendEmailVerification();
                         loginSuccess = false;
@@ -163,10 +173,37 @@ class _SignInPage extends State<SignInPage> {
                       }
                     }
                   }
-                  if (loginSuccess) {
+                  if (loginSuccess && !warnedUserOver) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  } else if (warnedUserOver) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("User is suspended"),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: const <Widget>[
+                                  Text('You have been reported. Breached Maximum Warnings'),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Ok'),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => WelcomePage()),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        }
                     );
                   } else if (error == "User not found") {
                     showDialog(
