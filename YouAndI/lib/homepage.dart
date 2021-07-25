@@ -5,6 +5,7 @@ import 'package:test/chat.dart';
 import 'package:test/matching.dart';
 import 'package:test/profile.dart';
 import 'package:test/constants.dart';
+import 'package:test/services/firebase.dart';
 import 'package:test/welcomepage.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,7 +50,6 @@ class _HomePageState extends State<HomePage> {
                 snapshot.data!['LowerAgePreference'], snapshot.data!['UpperAgePreference'],
                 snapshot.data!['Q1'].toString(), snapshot.data!['Q2'].toString(), snapshot.data!['Q3'].toString(), snapshot.data!['DOB']);
           }
-
 
           // Matching ends
 

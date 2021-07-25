@@ -65,6 +65,8 @@ class Matching {
               // to add Chat data
               FirebaseChat.ADD_USER_ARRAY(currentUser!.uid + doc.id,"Users", userArray);
               FirebaseChat.ADD_MESSAGE_COLLECTION(currentUser!.uid + doc.id);
+              // to add first Chat message
+              FirebaseChat.ADD_FIRST_MESSAGE(currentUser!.uid + doc.id);
               List isAlertArray = [false, false];
               FirebaseChat.ADD_USER_ARRAY(currentUser!.uid + doc.id, "isAlerted", isAlertArray);
               // change alert to false

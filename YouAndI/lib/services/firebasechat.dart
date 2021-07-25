@@ -24,6 +24,20 @@ class FirebaseChat {
         .add({});
   }
 
+
+  static Future<void> ADD_FIRST_MESSAGE(String userId) {
+    return chat
+        .doc(userId)
+        .collection('Messages')
+        .add({
+      "message": "Hello! Say hi to your new partner!!!",
+      "sentBy": userId,
+      "sentAt": DateTime.now(),
+    })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+    }
+  
   // checks the index of the uid
   static Future<void> UPDATE_ALERT_ARRAY(String chatId, String uid) async {
 
@@ -194,7 +208,5 @@ class FirebaseChat {
     } else {
       return false;
     }
-
-  }
 
 }
