@@ -24,4 +24,17 @@ class FirebaseChat {
         .add({});
   }
 
+  static Future<void> ADD_FIRST_MESSAGE(String userId) {
+    return chat
+        .doc(userId)
+        .collection('Messages')
+        .add({
+      "message": "Hello! Say hi to your new partner!!!",
+      "sentBy": userId,
+      "sentAt": DateTime.now(),
+    })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
+
 }
