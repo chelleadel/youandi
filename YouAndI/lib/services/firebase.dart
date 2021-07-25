@@ -85,4 +85,11 @@ class Firebase {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
+  static Future<dynamic> GET_USER(String userId) {
+    return users
+        .doc(userId)
+        .get();
+  }
+
+
 }
