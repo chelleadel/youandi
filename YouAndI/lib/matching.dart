@@ -65,6 +65,8 @@ class Matching {
               // to add Chat data
               FirebaseChat.ADD_USER_ARRAY(currentUser!.uid + doc.id,"Users", userArray);
               FirebaseChat.ADD_MESSAGE_COLLECTION(currentUser!.uid + doc.id);
+              List isAlertArray = [false, false];
+              FirebaseChat.ADD_USER_ARRAY(currentUser!.uid + doc.id, "isAlerted", isAlertArray);
               // change alert to false
               Firebase.UPDATE_USER_BOOL(currentUser!.uid, "IsUserAlerted", false);
               Firebase.UPDATE_USER_BOOL(doc.id, "IsUserAlerted", false);

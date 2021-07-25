@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test/models/users.dart';
 
 class Firebase {
 
@@ -84,5 +85,12 @@ class Firebase {
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
+
+  static Future<dynamic> GET_USER(String userId) {
+    return users
+        .doc(userId)
+        .get();
+  }
+
 
 }
