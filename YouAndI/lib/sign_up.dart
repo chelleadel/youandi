@@ -75,10 +75,10 @@ class _SignUpPage extends State<SignUpPage> {
                                 validator: (value) {
                                   if ((value == null) || (value.isEmpty)) {
                                     return "Email can't be empty";
-                                  //} else if (!(value.contains('@u.nus.edu'))) {
-                                    //return "NUS Email required";
-                                  //} else if (!checkEmail(value)) {
-                                    //return "exxxxxxx@u.nus.edu required";
+                                  } else if (!(value.contains('@u.nus.edu'))) {
+                                    return "NUS Email required";
+                                  } else if (!checkEmail(value)) {
+                                    return "exxxxxxx@u.nus.edu required";
                                   } else {
                                     return null;
                                   }
