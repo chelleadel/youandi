@@ -20,7 +20,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Constants.BG_BASE,
+        scaffoldBackgroundColor: Colors.grey.shade100,
       ),
       home: ProfilePage(),
     );
@@ -78,116 +78,251 @@ class _ProfilePage extends State<ProfilePage> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 30,),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 50.0),
-                        child: imageProfile(),
+                        color: Constants.BG_BASE,
+                        child: Column(
+                          children: [
+                            SizedBox(height: 30,),
+                            Container(
+                            margin: EdgeInsets.fromLTRB(40.0, 0.0, 50.0, 0.0),
+                            child: imageProfile(),
+                            ),
+                            SizedBox(height: 40,),
+                            Divider(
+                              color: Colors.grey.shade500,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(40.0, 0.0, 50.0, 0.0),
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "${snapshot.data!['DisplayName']}",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: Constants.BUTTON_FONT_SIZE,
+                                          color: Colors.black
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey.shade500,
+                            ),
+                            SizedBox(height: 20,),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 40,),
                       Container(
                         margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "${snapshot.data!['DisplayName']}",
-                                overflow: TextOverflow.ellipsis,
+                        child:
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "EMAIL",
                                 style: TextStyle(
-                                    fontSize: Constants.LABEL_SIZE,
-                                    color: Colors.black
+                                    color: Colors.grey.shade700
                                 ),
                               ),
-                            ),
-                          ],
+                            ]
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 10,),
                       Container(
-                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "${snapshot.data!['SelfDescription']}",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: Constants.LABEL_SIZE,
-                                    color: Colors.black
+                          color: Constants.BG_BASE,
+                          child: Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB(40.0, 0.0, 50.0, 0.0),
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Divider(
+                                        color: Colors.grey.shade500,
+                                      ),
+                                      SizedBox(height: 40,),
+                                      Expanded(
+                                        child: Text(
+                                          "${snapshot.data!['Email']}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: Constants.BUTTON_FONT_SIZE,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 20,),
+                                      Divider(
+                                        color: Colors.grey.shade500,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                        padding: const EdgeInsets.all(10.0),
-                        /*decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54)
-                        ),*/
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "${snapshot.data!['Email']}",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: Constants.LABEL_SIZE,
-                                    color: Colors.black
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "${snapshot.data!['Gender']}",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: Constants.LABEL_SIZE,
-                                    color: Colors.black
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                //"${snapshot.data!['DOB'].toDate()}",
-                                "${DateFormat.yMMMd().format(snapshot.data!['DOB'].toDate())}",
-                                //overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: Constants.LABEL_SIZE,
-                                    color: Colors.black
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                              ]
+                          )
                       ),
                       SizedBox(height: 30,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        child:
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                            "ABOUT",
+                            style: TextStyle(
+                            color: Colors.grey.shade700
+                            ),
+                          ),
+                          ]
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                        color: Constants.BG_BASE,
+                        child: Column(
+                            children: [
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(40.0, 0.0, 50.0, 0.0),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Divider(
+                                  color: Colors.grey.shade500,
+                                ),
+                                SizedBox(height: 40,),
+                                Expanded(
+                                  child: Text(
+                                    "${snapshot.data!['SelfDescription']}",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: Constants.BUTTON_FONT_SIZE,
+                                        color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20,),
+                                Divider(
+                                  color: Colors.grey.shade500,
+                                ),
+                              ],
+                            ),
+                          ),
+                          ]
+                        )
+                      ),
+                      SizedBox(height: 30,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        child:
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "GENDER",
+                                style: TextStyle(
+                                    color: Colors.grey.shade700
+                                ),
+                              ),
+                            ]
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                          color: Constants.BG_BASE,
+                          child: Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB(40.0, 0.0, 50.0, 0.0),
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Divider(
+                                        color: Colors.grey.shade500,
+                                      ),
+                                      SizedBox(height: 40,),
+                                      Expanded(
+                                        child: Text(
+                                          "${snapshot.data!['Gender']}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: Constants.BUTTON_FONT_SIZE,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 20,),
+                                      Divider(
+                                        color: Colors.grey.shade500,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ]
+                          )
+                      ),
+                      SizedBox(height: 30,),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
+                        child:
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "DATE OF BIRTH",
+                                style: TextStyle(
+                                    color: Colors.grey.shade700
+                                ),
+                              ),
+                            ]
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                          color: Constants.BG_BASE,
+                          child: Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB(40.0, 0.0, 50.0, 0.0),
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Divider(
+                                        color: Colors.grey.shade500,
+                                      ),
+                                      SizedBox(height: 40,),
+                                      Expanded(
+                                        child: Text(
+                                          //"${snapshot.data!['DOB'].toDate()}",
+                                          "${DateFormat.yMMMd().format(snapshot.data!['DOB'].toDate())}",
+                                          //overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontSize: Constants.BUTTON_FONT_SIZE,
+                                              color: Colors.black
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 20,),
+                                      Divider(
+                                        color: Colors.grey.shade500,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ]
+                          )
+                      ),
+                      SizedBox(height: 40,),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => ChangePasswordPage()));
@@ -424,12 +559,12 @@ class _ProfilePage extends State<ProfilePage> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return CircleAvatar(
-              radius: 80.0,
+              radius: 50.0,
             );
           } else {
             print(snapshot.data.toString());
             return CircleAvatar(
-              radius: 80.0,
+              radius: 50.0,
               backgroundImage: NetworkImage('${snapshot.data.toString()}'),
             );
           }
